@@ -27,34 +27,22 @@ public class AuthController {
         this.userService = userService;
     }
 
+    // Endpoint per la registrazione degli user accessibile solo agli ADMIN. Ogni user creato sarà di default un
+    // CUSTOMER
     @PostMapping("/register")
     @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserRegisterResponseDTO createAccount(@Valid @RequestBody UserRegisterDTO body,
-                                                 BindingResult validatedResult) {
-        if (validatedResult.hasErrors()) {
-            List<String> errorsList = validatedResult.getFieldErrors()
-                    .stream()
-                    .map(fieldError -> fieldError.getDefaultMessage())
-                    .toList();
-            throw new ValidationException(errorsList);
-        }
+    public UserRegisterResponseDTO createAccount(@Valid @RequestBody UserRegisterDTO body) {
 
         User user = this.userService.createAccount(body);
 
         return new UserRegisterResponseDTO(user.getId(), LocalDateTime.now());
     }
 
+    // endpoint di Login dello USER
     @PostMapping("/login")
     public UserLoginResponseDTO loginUser(@Valid @RequestBody UserLoginRequestDTO body,
                                           @AuthenticationPrincipal User currentUser, BindingResult validatedResult) {
-        if (validatedResult.hasErrors()) {
-            List<String> errorsList = validatedResult.getFieldErrors()
-                    .stream()
-                    .map(fieldError -> fieldError.getDefaultMessage())
-                    .toList();
-            throw new ValidationException(errorsList);
-        }
 
         return new UserLoginResponseDTO(this.userService.checkEmailPassUser(body), LocalDateTime.now());
     }

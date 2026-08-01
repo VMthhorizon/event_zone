@@ -54,11 +54,12 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext()
                 .setAuthentication(auth);
 
-          
+        filterChain.doFilter(request, response);
     }
 
+    // Specifico le path che non dovranno essere filtrate ad ogni richiesta
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return new AntPathMatcher().match("/auth/**", request.getServletPath());
+        return new AntPathMatcher().match("/auth/login", request.getServletPath());
     }
 }

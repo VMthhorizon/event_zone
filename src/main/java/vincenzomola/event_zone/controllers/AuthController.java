@@ -42,7 +42,7 @@ public class AuthController {
     // endpoint di Login dello USER
     @PostMapping("/login")
     public UserLoginResponseDTO loginUser(@Valid @RequestBody UserLoginRequestDTO body,
-                                          @AuthenticationPrincipal User currentUser, BindingResult validatedResult) {
+                                          @AuthenticationPrincipal User currentUser) {
 
         return new UserLoginResponseDTO(this.userService.checkEmailPassUser(body), LocalDateTime.now());
     }

@@ -8,12 +8,8 @@ function AuthPage() {
         <source src="video-bg.mp4" type="video/mp4"></source>
       </video>
       <div className="d-flex justify-content-center align-items-center gap-3 vh-100">
-        <Button variant="info" className="btn fs-5 bg-gradient">
-          ACCEDI
-        </Button>
-        <Button variant="primary" className="btn fs-5">
-          REGISTRATI
-        </Button>
+        <Button className="btn-gradient">Accedi</Button>
+        <Button className="btn-gradient">Registrati</Button>
       </div>
     </>
   );

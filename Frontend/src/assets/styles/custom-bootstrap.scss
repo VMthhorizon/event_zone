@@ -1,11 +1,10 @@
-// Personalizzazione colori di bootstrap tramite sass
-
 // Personalizzazione dimensioni e grandezza font base bootstrap
-$font-family-base: "Poppins", sans-serif;
+$font-family-base: "Inter", sans-serif;
 $font-size-base: 1rem;
+$body-letter-spacing: 0.05em; // modifica sulla spaziatura tra le lettere dei testi
 $headings-font-weight: 600; // weight base per gli headers
-$btn-font-weight: 500; // weight base per i buttons
 $font-weight-base: 400; // weight base per i testi
+$btn-border-radius: 12px;
 
 // Personalizzazione colori bootstrap
 $primary: #2563eb;
@@ -16,16 +15,22 @@ $info: #ea580c; // colore utilizzato come accent per eventuali gradienti o conto
 
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
-// Forzo la sovrascrittua del mio custom font per tutta l'applicazione e per tutti i tag
+// Classe custom per buttons con gradient globale
+.btn-gradient {
+  letter-spacing: 0.03em;
+  font-weight: 400;
+  font-size: x-large;
+  background: linear-gradient(20deg, $info 25%, $primary 100%);
+  border: none;
+  border-bottom: 4px solid $secondary;
+  border-right: 4px solid $secondary;
 
-body,
-p,
-span,
-button,
-input,
-select,
-textarea,
-.btn,
-.form-control {
-  font-family: $font-family-base !important;
+  // Animazione fluid del button e della shadow all'hover
+  &:hover {
+    transition:
+      transform 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
+    transform: translateY(-4px);
+    box-shadow: 0 5px 10px black;
+  }
 }

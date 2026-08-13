@@ -25,12 +25,24 @@ $info: #ea580c; // colore utilizzato come accent per eventuali gradienti o conto
   border-bottom: 4px solid $secondary;
   border-right: 4px solid $secondary;
 
-  // Animazione fluid del button e della shadow all'hover
+  // Animazione fluide del button e della shadow all'hover
   &:hover {
     transition:
       transform 0.2s ease-in-out,
       box-shadow 0.2s ease-in-out;
     transform: translateY(-4px);
     box-shadow: 0 5px 10px black;
+  }
+
+  // Animazione alla pressione del button verso il basso
+  &:active {
+    transition: transform 0.1s ease;
+    transform: translateY(3px);
+
+    // Animazione delle icons nella pagina auth
+    .login-register-icons-animation {
+      transition: transform 0.2s ease;
+      transform: translateX(3px);
+    }
   }
 }

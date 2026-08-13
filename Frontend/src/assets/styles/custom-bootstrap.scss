@@ -19,7 +19,7 @@ $info: #ea580c; // colore utilizzato come accent per eventuali gradienti o conto
 .btn-gradient {
   letter-spacing: 0.03em;
   font-weight: 400;
-  font-size: x-large;
+  font-size: large;
   background: linear-gradient(20deg, $info 25%, $primary 100%);
   border: none;
   border-bottom: 4px solid $secondary;
@@ -30,7 +30,7 @@ $info: #ea580c; // colore utilizzato come accent per eventuali gradienti o conto
     transition:
       transform 0.2s ease-in-out,
       box-shadow 0.2s ease-in-out;
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow: 0 5px 10px black;
   }
 
@@ -41,8 +41,18 @@ $info: #ea580c; // colore utilizzato come accent per eventuali gradienti o conto
 
     // Animazione delle icons nella pagina auth
     .login-register-icons-animation {
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease-in-out;
       transform: translateX(3px);
     }
   }
+}
+
+// Configurazione auth card form
+.card-form {
+  background: linear-gradient(
+    200deg,
+    rgba($info, 0.6) 0%,
+    rgba($primary, 0.6) 100%
+  );
+  border: none;
 }

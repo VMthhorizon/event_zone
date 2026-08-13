@@ -1,7 +1,8 @@
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import "./AuthPage.css";
 import { CiLogin } from "react-icons/ci";
 import { MdAppRegistration } from "react-icons/md";
+import AuthForm from "./AuthForm";
 
 function AuthPage() {
   return (
@@ -9,7 +10,8 @@ function AuthPage() {
       <video className="bg-video" autoPlay muted playsInline loop>
         <source src="video-bg.mp4" type="video/mp4"></source>
       </video>
-      <div className="d-flex justify-content-center align-items-center gap-3 vh-100">
+      <Container className="flex-column d-flex justify-content-center align-items-center vh-100">
+        <AuthForm />
         <Button className="btn-gradient">
           <div className="d-flex align-items-center gap-2">
             Accedi <CiLogin className="login-register-icons-animation" />
@@ -17,11 +19,11 @@ function AuthPage() {
         </Button>
         <Button className="btn-gradient">
           <div className="d-flex align-items-center gap-2">
-            Registrati{" "}
+            Registrati
             <MdAppRegistration className="login-register-icons-animation" />
           </div>
         </Button>
-      </div>
+      </Container>
     </>
   );
 }

@@ -13,15 +13,12 @@ function AuthPage() {
       <Container className="flex-column d-flex justify-content-center align-items-center vh-100">
         <AuthForm />
         <Button className="btn-gradient">
-          <div className="d-flex align-items-center gap-2">
-            Accedi <CiLogin className="login-register-icons-animation" />
-          </div>
+          <h6>Accedi</h6>
+          <CiLogin className="login-register-icons-animation" />
         </Button>
         <Button className="btn-gradient">
-          <div className="d-flex align-items-center gap-2">
-            Registrati
-            <MdAppRegistration className="login-register-icons-animation" />
-          </div>
+          <h6>Registrati</h6>
+          <MdAppRegistration className="login-register-icons-animation" />
         </Button>
       </Container>
     </>

@@ -6,21 +6,27 @@ import "./AuthForm.css";
 
 function AuthForm() {
   return (
-    <Card className="p-3 w-50 d-flex mb-3 card-auth card-form">
+    <Card className="p-3 w-100 d-flex mb-3 card-auth card-form">
       <Form>
         <Form.Group className="mb-3" controlId="Email">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
+          <Form.Label>
+            <h5>Email</h5>
+          </Form.Label>
+          <Form.Control type="email" placeholder="Inserisci la tua email" />
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="Password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Label>
+            <h5>Password</h5>
+          </Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Inserisci la tua password"
+          />
         </Form.Group>
-        <Button className="btn-gradient w-100">
-          Conferma <IoSend className="login-register-icons-animation" />
+        <Button className="btn-gradient ">
+          <h6> Conferma</h6>
+          <IoSend className="login-register-icons-animation" />
         </Button>
       </Form>
     </Card>

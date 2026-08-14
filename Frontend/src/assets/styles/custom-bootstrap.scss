@@ -1,17 +1,22 @@
 // Personalizzazione dimensioni e grandezza font base bootstrap
 $font-family-base: "Inter", sans-serif;
 $font-size-base: 1rem;
-$body-letter-spacing: 0.05em; // modifica sulla spaziatura tra le lettere dei testi
 $headings-font-weight: 600; // weight base per gli headers
 $font-weight-base: 400; // weight base per i testi
 $btn-border-radius: 12px;
+$headings-margin-bottom: 0;
 
 // Personalizzazione colori bootstrap
-$primary: #2563eb;
-$secondary: #1e3a8a;
+$primary: #ff01fb;
+$secondary: #faff00;
 $body-bg: #ff7f22;
 $body-color: #ffffff;
-$info: #ea580c; // colore utilizzato come accent per eventuali gradienti o contorni
+$info: #02a9ea; // colore utilizzato come accent per eventuali gradienti o contorni
+
+// Sovrascrizione from bootstrap
+$input-bg: rgba($info, 0);
+$input-border-radius: 25px;
+$input-focus-box-shadow: 0 0 0 0.25rem rgba($secondary, 0.25);
 
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
@@ -20,39 +25,114 @@ $info: #ea580c; // colore utilizzato come accent per eventuali gradienti o conto
   letter-spacing: 0.03em;
   font-weight: 400;
   font-size: large;
-  background: linear-gradient(20deg, $info 25%, $primary 100%);
+  background: linear-gradient(20deg, $info 10%, $primary 100%);
   border: none;
-  border-bottom: 4px solid $secondary;
-  border-right: 4px solid $secondary;
+  box-shadow: 0 4px 15px rgb(6, 6, 6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: #ffffff;
+  width: 100%;
 
   // Animazione fluide del button e della shadow all'hover
   &:hover {
     transition:
       transform 0.2s ease-in-out,
-      box-shadow 0.05s ease;
+      border-bottom 0.1s ease-in-out,
+      border-right 0.1s ease-in-out;
     transform: translateY(-3px);
-    box-shadow: 0 5px 10px black;
+    box-shadow: none;
+    color: #ffffff;
+    box-shadow: 0 4px 15px $secondary;
   }
 
   // Animazione alla pressione del button verso il basso
   &:active {
     transition: transform 0.1s ease;
     transform: translateY(3px);
+    color: #ffffff !important;
+    border-bottom: 3px solid $secondary !important;
+    border-right: 3px solid $secondary !important;
+    box-shadow: none;
 
     // Animazione delle icons nella pagina auth
     .login-register-icons-animation {
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.4s ease-in-out;
       transform: translateX(3px);
     }
   }
 }
 
-// Configurazione auth card form
+// Configurazione card form login/registrazione
 .card-form {
+  position: relative;
+  border-radius: 16px;
+  border: none;
+
   background: linear-gradient(
     200deg,
     rgba($info, 0.6) 0%,
     rgba($primary, 0.6) 100%
   );
-  border: none;
+  backdrop-filter: blur(10px);
+
+  // Glow delle ombre nella card
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0; // Copre il perimetro della card
+    border-radius: 20px; // Segue la curvatura
+    z-index: -1;
+
+    // Animazione del movimento dell'ombra luminosa
+    animation: movingGlow 3s linear infinite;
+    pointer-events: none;
+  }
+}
+
+// Rotazione/Movimento delle ombre luminose attorno alla card
+@keyframes movingGlow {
+  0% {
+    box-shadow:
+      0 -15px 30px -5px rgba($info, 0.9),
+      // Ombra ALTA ($info)
+      15px 0 30px -5px rgba($primary, 0.3),
+      // Ombra DESTRA
+      0 15px 30px -5px rgba($info, 0.2),
+      // Ombra BASSA
+      -15px 0 30px -5px rgba($primary, 0.5); // Ombra SINISTRA ($primary)
+  }
+  25% {
+    box-shadow:
+      15px 0 30px -5px rgba($info, 0.9),
+      // L'alone alto si sposta a DESTRA
+      0 15px 30px -5px rgba($primary, 0.5),
+      -15px 0 30px -5px rgba($info, 0.3),
+      0 -15px 30px -5px rgba($primary, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 15px 30px -5px rgba($info, 0.9),
+      // L'alone scende in BASSO
+      -15px 0 30px -5px rgba($primary, 0.5),
+      0 -15px 30px -5px rgba($info, 0.3),
+      15px 0 30px -5px rgba($primary, 0.2);
+  }
+  75% {
+    box-shadow:
+      -15px 0 30px -5px rgba($info, 0.9),
+      // L'alone va a SINISTRA
+      0 -15px 30px -5px rgba($primary, 0.5),
+      15px 0 30px -5px rgba($info, 0.3),
+      0 15px 30px -5px rgba($primary, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 -15px 30px -5px rgba($info, 0.9),
+      // Torna in ALTO (Loop)
+      15px 0 30px -5px rgba($primary, 0.3),
+      0 15px 30px -5px rgba($info, 0.2),
+      -15px 0 30px -5px rgba($primary, 0.5);
+  }
 }

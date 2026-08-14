@@ -29,7 +29,7 @@ $info: #ea580c; // colore utilizzato come accent per eventuali gradienti o conto
   &:hover {
     transition:
       transform 0.2s ease-in-out,
-      box-shadow 0.2s ease-in-out;
+      box-shadow 0.05s ease;
     transform: translateY(-3px);
     box-shadow: 0 5px 10px black;
   }

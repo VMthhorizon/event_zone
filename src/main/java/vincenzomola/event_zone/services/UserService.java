@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public User createAccount(UserRegisterDTO body) {
-        return userRepository.save(new User(body.username(), body.name(), body.surname(), body.email(),
+        return userRepository.save(new User(body.username(), body.nome(), body.cognome(), body.email(),
                 this.bcrypt.encode(body.password())));
     }
 

@@ -18,6 +18,7 @@ function AuthPage() {
         <Row className="w-100 justify-content-center align-items-center">
           <Col xs={12} md={9} lg={6}>
             <AuthForm authMode={authMode} setAuthMode={setAuthMode} />
+
             <Col className="d-flex gap-1">
               <AnimatePresence>
                 {authMode !== "login" && (

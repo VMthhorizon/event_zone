@@ -11,12 +11,12 @@ public record UserRegisterDTO(
         @Size(min = 4, max = 20, message = "Il nome non può avere meno di 4 e piu di 20 caratteri")
         @Pattern(regexp = "^[a-zA-ZàèéìòùÁÉÍÓÚàèéìòù \\\\'-]+$", message = "Il nome non può contenere caratteri " +
                 "speciali o numeri")
-        String name,
+        String nome,
         @NotBlank(message = "Il cognome non può essere vuoto")
         @Size(min = 4, max = 20, message = "Il cognome non può avere meno di 4 e piu di 20 caratteri")
         @Pattern(regexp = "^[a-zA-ZàèéìòùÁÉÍÓÚàèéìòù \\\\'-]+$", message = "Il cognome non può contenere caratteri " +
                 "speciali o numeri")
-        String surname,
+        String cognome,
         @NotBlank(message = "Il campo email non può essere vuoto")
         @Email
         String email,

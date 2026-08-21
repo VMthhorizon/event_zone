@@ -27,10 +27,10 @@ public class AuthController {
         this.userService = userService;
     }
 
-    // Endpoint per la registrazione degli user accessibile solo agli ADMIN. Ogni user creato sarà di default un
-    // CUSTOMER
+    // Endpoint per la registrazione degli user. Ogni user creato sarà di default un
+    // CUSTOMER  
     @PostMapping("/register")
-    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public UserRegisterResponseDTO createAccount(@Valid @RequestBody UserRegisterDTO body) {
 

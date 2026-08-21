@@ -4,13 +4,48 @@ import Form from "react-bootstrap/Form";
 import { IoSend } from "react-icons/io5";
 import "./AuthForm.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { registerUser } from "../services/authService";
 
 function AuthForm({ authMode, setAuthMode }) {
+  const [formData, setFormData] = useState({
+    username: "",
+    nome: "",
+    cognome: "",
+    email: "",
+    password: "",
+  });
+
+  // Gestisco l'input field
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Submit del form di registrazione
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (authMode === "register") {
+        const data = await registerUser(formData); // Richiamo il service axios per la registrazione dell'utente
+
+        alert(`Registrazione avvenuta con successo! ID: ${data}`);
+
+        setAuthMode("login");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       {authMode !== "" && (
         <Card className="p-3 d-flex mb-4 w-100 card-auth card-form ">
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <AnimatePresence initial={false}>
               {authMode === "register" && (
                 <motion.div
@@ -28,6 +63,10 @@ function AuthForm({ authMode, setAuthMode }) {
                     <Form.Control
                       type="text"
                       placeholder="Inserisci un username"
+                      name="username"
+                      value={formData.username}
+                      onChange={handleChange}
+                      required
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
@@ -37,6 +76,10 @@ function AuthForm({ authMode, setAuthMode }) {
                     <Form.Control
                       type="text"
                       placeholder="Inserisci il tuo nome"
+                      name="nome"
+                      value={formData.nome}
+                      onChange={handleChange}
+                      required
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
@@ -44,8 +87,12 @@ function AuthForm({ authMode, setAuthMode }) {
                       <h5>Cognome</h5>
                     </Form.Label>
                     <Form.Control
-                      type="email"
+                      type="text"
                       placeholder="Inserisci il tuo cognome"
+                      name="cognome"
+                      value={formData.cognome}
+                      onChange={handleChange}
+                      required
                     />
                   </Form.Group>
                 </motion.div>
@@ -63,6 +110,10 @@ function AuthForm({ authMode, setAuthMode }) {
                   <Form.Control
                     type="email"
                     placeholder="Inserisci la tua email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-5">
@@ -72,6 +123,10 @@ function AuthForm({ authMode, setAuthMode }) {
                   <Form.Control
                     type="password"
                     placeholder="Inserisci la tua password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
                   />
                 </Form.Group>
               </>
@@ -110,7 +165,7 @@ function AuthForm({ authMode, setAuthMode }) {
             </AnimatePresence>
 
             <div className="d-flex align-items-center ">
-              <Button className="btn-gradient">
+              <Button type="submit" className="btn-gradient">
                 <h6>Conferma</h6>
                 <IoSend className="login-register-icons-animation" />
               </Button>

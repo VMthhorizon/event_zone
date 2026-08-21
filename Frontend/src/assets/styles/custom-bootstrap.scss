@@ -1,10 +1,12 @@
 // Personalizzazione dimensioni e grandezza font base bootstrap
 $font-family-base: "Inter", sans-serif;
-$font-size-base: 1rem;
+$font-size-base: 1.1rem;
 $headings-font-weight: 600; // weight base per gli headers
-$font-weight-base: 400; // weight base per i testi
+$font-weight-base: 500; // weight base per i testi
 $btn-border-radius: 12px;
 $headings-margin-bottom: 0;
+$headings-letter-spacing: 0.05em;
+$headings-font-family: "Syne", sans-serif;
 
 // Personalizzazione colori bootstrap
 $primary: #ff01fb;
@@ -13,12 +15,22 @@ $body-bg: #ff7f22;
 $body-color: #ffffff;
 $info: #02a9ea; // colore utilizzato come accent per eventuali gradienti o contorni
 
-// Sovrascrizione from bootstrap
+// Sovrascrivo form bootstrap
 $input-bg: rgba($info, 0);
 $input-border-radius: 25px;
 $input-focus-box-shadow: 0 0 0 0.25rem rgba($secondary, 0.25);
 
 @import "../../../node_modules/bootstrap/scss/bootstrap";
+
+// Sovrascrittura del colore delle anchor
+a {
+  color: $body-color;
+  text-decoration: none;
+  &:hover {
+    color: $primary;
+    cursor: pointer;
+  }
+}
 
 // Classe custom per buttons con gradient globale
 .btn-gradient {
@@ -62,6 +74,11 @@ $input-focus-box-shadow: 0 0 0 0.25rem rgba($secondary, 0.25);
       transform: translateX(3px);
     }
   }
+}
+
+// Classe SOLO per i button di Login e Registrazione
+.btn-auth {
+  font-size: xx-large;
 }
 
 // Configurazione card form login/registrazione

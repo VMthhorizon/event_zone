@@ -6,6 +6,7 @@ import "./assets/styles/custom-bootstrap.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthPage from "./Auth/AuthPage";
 import NotFound from "./NotFound/NotFound";
+import Homepage from "./Homepage/Homepage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/homepage" element={<Homepage />} />
       </Routes>
     </BrowserRouter>
   );

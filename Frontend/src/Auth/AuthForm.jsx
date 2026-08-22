@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Alert, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { IoSend } from "react-icons/io5";
@@ -18,6 +18,7 @@ function AuthForm({ authMode, setAuthMode }) {
     email: "",
     password: "",
   });
+  const [errorMessage, setErroreMessage] = useState("");
 
   // Gestisco l'input field
   const handleChange = (e) => {
@@ -30,6 +31,7 @@ function AuthForm({ authMode, setAuthMode }) {
   // Submit del form di registrazione
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErroreMessage("");
 
     try {
       // Gestione delle chiamate API tramite switch case basato sullo stato di AuthMode (register/login/password)
@@ -66,7 +68,7 @@ function AuthForm({ authMode, setAuthMode }) {
           break;
       }
     } catch (error) {
-      console.log(error.message);
+      setErroreMessage(error.message);
     }
   };
 
@@ -94,6 +96,15 @@ function AuthForm({ authMode, setAuthMode }) {
           <Form onSubmit={handleSubmit}>
             <AnimatePresence initial={false}>
               <h1 className="text-center mb-4">{handleFormTitle()}</h1>
+              {errorMessage && (
+                <Alert
+                  variant="danger"
+                  onClose={() => setErroreMessage("")}
+                  dismissible
+                >
+                  {errorMessage}
+                </Alert>
+              )}
               {authMode === "register" && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}

@@ -5,9 +5,13 @@ export const registerUser = async (userData) => {
     const response = await api.post("/auth/register", userData);
 
     return response.data;
-  } catch {
-    const errorMessage = "ERRORE nella registrazione";
-    throw new Error(errorMessage);
+  } catch (error) {
+    const message =
+      error.response?.data?.message ||
+      error.response?.data ||
+      error.message ||
+      "Si è verificato un errore durante la registrazione.";
+    throw new Error(message);
   }
 };
 
@@ -16,9 +20,12 @@ export const loginUser = async (userData) => {
     const response = await api.post("/auth/login", userData);
 
     return response.data;
-  } catch {
-    const errorMessage = "ERRORE nel login";
-    alert(errorMessage);
-    throw new Error(errorMessage);
+  } catch (error) {
+    const message =
+      error.response?.data?.message ||
+      error.response?.data ||
+      error.message ||
+      "Si è verificato un errore durante il login.";
+    throw new Error(message);
   }
 };

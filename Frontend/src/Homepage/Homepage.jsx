@@ -9,7 +9,7 @@ function Homepage() {
       fluid
       className="flex-column justify-content-center align-items-center"
     >
-      <Button onClick={() => navigate("/auth")} className="btn-gradient mt-3">
+      <Button onClick={() => navigate("/")} className="btn-gradient mt-3">
         TORNA AL LOGIN
       </Button>
       <Button

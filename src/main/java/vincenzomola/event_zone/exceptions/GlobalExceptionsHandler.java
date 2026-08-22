@@ -53,7 +53,8 @@ public class GlobalExceptionsHandler {
                 .stream()
                 .map(error -> error.getDefaultMessage())
                 .toList();
-        return new ErrorsDTO("Errore di validazione", errorsList, LocalDateTime.now());
+        String errorMessage = errorsList.get(0);
+        return new ErrorsDTO(errorMessage, errorsList, LocalDateTime.now());
     }
 
     // Gestione errori 500 Internal Server Error, in modo che il FE venga notificato di un problema lato server,

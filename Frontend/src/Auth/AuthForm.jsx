@@ -97,16 +97,24 @@ function AuthForm({ authMode, setAuthMode }) {
             <AnimatePresence initial={false}>
               <h1 className="text-center mb-4">{handleFormTitle()}</h1>
               {errorMessage && (
-                <Alert
-                  variant="danger"
-                  onClose={() => setErroreMessage("")}
-                  dismissible
+                <motion.div
+                  key="error-alert"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
                 >
-                  {errorMessage}
-                </Alert>
+                  <Alert
+                    variant="danger"
+                    onClose={() => setErroreMessage("")}
+                    dismissible
+                  >
+                    {errorMessage}
+                  </Alert>
+                </motion.div>
               )}
               {authMode === "register" && (
                 <motion.div
+                  key="register-fields"
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
@@ -156,34 +164,54 @@ function AuthForm({ authMode, setAuthMode }) {
               )}
             </AnimatePresence>
 
-            <Form.Group className="mb-3">
-              <Form.Label>
-                <h5>Email</h5>
-              </Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Inserisci la tua email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
+            <AnimatePresence>
+              <motion.div
+                key="reset-password"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                style={{ overflow: "hidden" }}
+              >
+                <Form.Group className="mb-3">
+                  <Form.Label>
+                    <h5>Email</h5>
+                  </Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Inserisci la tua email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+              </motion.div>
+            </AnimatePresence>
 
             {(authMode === "login" || authMode === "register") && (
-              <Form.Group className="mb-5">
-                <Form.Label>
-                  <h5>Password</h5>
-                </Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Inserisci la tua password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
+              <motion.div
+                key="password-field"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                style={{ overflow: "hidden" }}
+              >
+                <Form.Group className="mb-5">
+                  <Form.Label>
+                    <h5>Password</h5>
+                  </Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Inserisci la tua password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                </Form.Group>
+              </motion.div>
             )}
 
             <div className="d-flex align-items-center ">

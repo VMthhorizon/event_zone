@@ -1,17 +1,13 @@
 .navbar-home {
-  /* 1. Sfondo scuro semi-trasparente (usa RGBA o HEX a 8 cifre) */
   background: linear-gradient(
     135deg,
     rgba(2, 169, 234, 0.7) 20%,
     rgba(255, 1, 251, 0.35) 100%
   );
-  /* 2. Sfocatura degli elementi sottostanti (l'effetto vetro reale) */
   backdrop-filter: blur(12px);
 
-  /* 3. Bordo sottile con opacità per simulare il riflesso del vetro */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-  /* 4. Ombra leggera per staccarla dal contenuto sottostante */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 
   position: sticky;

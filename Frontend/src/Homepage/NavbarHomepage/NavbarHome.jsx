@@ -10,6 +10,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { CgProfile } from "react-icons/cg";
 import { ImCart } from "react-icons/im";
 import { VscSearchSparkle } from "react-icons/vsc";
+import { DropdownButton } from "react-bootstrap";
+import { BiFilterAlt } from "react-icons/bi";
 
 function NavbarHome() {
   // Stato per gestire le checkbox relative ai filtri per categorie tramite hook
@@ -86,7 +88,7 @@ function NavbarHome() {
           </div>
         </div>
         <Form
-          className="d-flex justify-content-center w-100"
+          className="d-flex justify-content-center w-100 "
           style={{ maxWidth: "500px" }}
         >
           <Form.Control
@@ -95,9 +97,56 @@ function NavbarHome() {
             className="me-2"
             aria-label="Search"
           />
-          <Button variant="outline-danger">
+          <Button variant="outline-danger" className="me-3">
             <VscSearchSparkle className="fs-5" />
           </Button>
+          <DropdownButton
+            variant="outline-info"
+            title={<BiFilterAlt className="fs-5" />}
+            align={"end"}
+            id="category-filter"
+          >
+            <Form.Check
+              type="checkbox"
+              id="tutti"
+              label="Tutti"
+              checked={categories.tutti}
+              onChange={() => handleCategoriesChange("tutti")}
+              className="ms-2"
+            />
+            <Form.Check
+              type="checkbox"
+              id="concerti"
+              label="Concerti"
+              checked={categories.concerti}
+              onChange={() => handleCategoriesChange("concerti")}
+              className="ms-2"
+            />
+            <Form.Check
+              type="checkbox"
+              id="festival"
+              label="Festival"
+              checked={categories.festival}
+              onChange={() => handleCategoriesChange("festival")}
+              className="ms-2"
+            />
+            <Form.Check
+              type="checkbox"
+              id="teatro"
+              label="Teatro"
+              checked={categories.teatro}
+              onChange={() => handleCategoriesChange("teatro")}
+              className="ms-2"
+            />
+            <Form.Check
+              type="checkbox"
+              id="cinema"
+              label="Cinema"
+              checked={categories.cinema}
+              onChange={() => handleCategoriesChange("cinema")}
+              className="ms-2"
+            />
+          </DropdownButton>
         </Form>
       </Container>
     </Navbar>

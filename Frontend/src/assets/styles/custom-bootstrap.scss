@@ -11,6 +11,7 @@ $headings-font-family: "Syne", sans-serif;
 // Personalizzazione colori bootstrap
 $primary: #ff01fb;
 $secondary: #faff00;
+$tertiary: linear-gradient(135deg, #02a9ea 0%, #ff01fb 100%);
 $body-bg: #ff7f22;
 $body-color: #ffffff;
 $info: #02a9ea; // colore utilizzato come accent per eventuali gradienti o contorni
@@ -152,4 +153,9 @@ a {
       0 15px 30px -5px rgba($info, 0.2),
       -15px 0 30px -5px rgba($primary, 0.5);
   }
+}
+
+.badge-custom {
+  font-family: $headings-font-family;
+  font-size: 1rem;
 }

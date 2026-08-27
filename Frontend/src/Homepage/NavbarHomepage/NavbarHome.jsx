@@ -12,10 +12,12 @@ import { ImCart } from "react-icons/im";
 import { VscSearchSparkle } from "react-icons/vsc";
 import { DropdownButton } from "react-bootstrap";
 import { BiFilterAlt } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 function NavbarHome() {
-  // Stato per gestire le checkbox relative ai filtri per categorie tramite hook
+  const navigate = useNavigate();
 
+  // Stato per gestire le checkbox relative ai filtri per categorie tramite hook
   const [categories, setCategories] = useState({
     tutti: true,
     concerti: false,
@@ -45,7 +47,7 @@ function NavbarHome() {
   };
 
   return (
-    <Navbar className="navbar-home ">
+    <Navbar className="navbar-home">
       <Container fluid className="px-0 flex-column align-items-center w-100">
         <div className="w-100 d-flex justify-content-between align-items-center">
           <Navbar.Brand>
@@ -82,7 +84,15 @@ function NavbarHome() {
                 <NavDropdown.Item href="#action4">
                   Impostazioni
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Esci</NavDropdown.Item>
+                <NavDropdown.Item
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    alert("Logout effettuato con successo");
+                    navigate("/");
+                  }}
+                >
+                  Esci
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </div>

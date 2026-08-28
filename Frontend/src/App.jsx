@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthPage from "./Auth/AuthPage";
 import NotFound from "./NotFound/NotFound";
 import Homepage from "./Homepage/Homepage";
+import Footer from "./Footer/Footer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/homepage" element={<Homepage />} />
       </Routes>
+      <Footer></Footer>
     </BrowserRouter>
   );
 }

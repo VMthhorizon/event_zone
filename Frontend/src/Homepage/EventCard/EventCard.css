@@ -1,0 +1,29 @@
+.event-card {
+  height: 300px;
+  border-radius: 15px;
+  box-shadow: 50 50 50 black;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(2, 169, 234, 0.45),
+    0 0 35px rgba(255, 1, 251, 0.35) !important;
+
+  transition:
+    transform 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out;
+}
+
+.event-card:hover {
+  cursor: pointer;
+  transform: translateY(-7px) scale(1.01);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(2, 169, 234, 0.7),
+    0 0 50px rgba(255, 1, 251, 0.55) !important;
+}
+
+.event-card-img {
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

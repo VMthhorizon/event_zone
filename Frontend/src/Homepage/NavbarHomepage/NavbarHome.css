@@ -1,0 +1,19 @@
+.navbar-home {
+  background: linear-gradient(
+    135deg,
+    rgba(2, 169, 234, 0.7) 20%,
+    rgba(255, 1, 251, 0.35) 100%
+  );
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 15px;
+}

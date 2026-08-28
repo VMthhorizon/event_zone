@@ -1,0 +1,31 @@
+import api from "./axiosConfig";
+
+export const registerUser = async (userData) => {
+  try {
+    const response = await api.post("/auth/register", userData);
+
+    return response.data;
+  } catch (error) {
+    const message =
+      error.response?.data?.message ||
+      error.response?.data ||
+      error.message ||
+      "Si è verificato un errore durante la registrazione.";
+    throw new Error(message);
+  }
+};
+
+export const loginUser = async (userData) => {
+  try {
+    const response = await api.post("/auth/login", userData);
+
+    return response.data;
+  } catch (error) {
+    const message =
+      error.response?.data?.message ||
+      error.response?.data ||
+      error.message ||
+      "Si è verificato un errore durante il login.";
+    throw new Error(message);
+  }
+};

@@ -21,10 +21,10 @@ function EventCard() {
   };
 
   return (
-    <Container>
+    <Container fluid>
       <Row className="mt-4">
         {EVENTS.map((singleEvent) => (
-          <Col xs={12} md={6} lg={4} key={singleEvent.id_event}>
+          <Col xs={12} sm={6} lg={4} xxl={3} key={singleEvent.id_event}>
             <Card className="event-card border-0 text-white shadow-lg mb-4">
               <Card.Img
                 src={singleEvent.img}

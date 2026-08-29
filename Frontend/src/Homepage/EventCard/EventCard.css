@@ -1,5 +1,7 @@
 .event-card {
   height: 300px;
+  border: none;
+  margin-bottom: 1rem;
   border-radius: 15px;
   box-shadow: 50 50 50 black;
   box-shadow:
@@ -26,4 +28,22 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+.event-card-info {
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0;
+}
+
+.event-card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.event-card-text {
+  color: white;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }

@@ -21,11 +21,11 @@ function EventCard() {
   };
 
   return (
-    <Container fluid>
+    <Container className="px-0">
       <Row className="mt-4">
         {EVENTS.map((singleEvent) => (
           <Col xs={12} sm={6} lg={4} xxl={3} key={singleEvent.id_event}>
-            <Card className="event-card border-0 text-white shadow-lg mb-4">
+            <Card className="event-card ">
               <Card.Img
                 src={singleEvent.img}
                 alt={singleEvent.title}
@@ -38,25 +38,25 @@ function EventCard() {
                 <div>
                   <Badge
                     bg={badgeColor(singleEvent.event_type)}
-                    className="px-1 py-1 badge-custom"
+                    className="badge-custom"
                   >
                     {singleEvent.event_type}
                   </Badge>
                 </div>
 
                 <div>
-                  <small className="text-white fw-bold d-block mb-1">
+                  <small className="event-card-text">
                     {" "}
                     {singleEvent.event_date}
                   </small>
-                  <Card.Title className="fw-bold fs-5 mb-1 ">
+                  <Card.Title className="event-card-title">
                     {singleEvent.title}
                   </Card.Title>
                   <div className="d-flex justify-content-between">
-                    <Card.Text className="small text-white-50 mb-0">
+                    <Card.Text className="event-card-info">
                       {singleEvent.price}€
                     </Card.Text>
-                    <Card.Text className="small text-white-50 mb-0">
+                    <Card.Text className="event-card-info">
                       {singleEvent.place}
                     </Card.Text>
                   </div>

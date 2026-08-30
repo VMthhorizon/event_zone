@@ -1,9 +1,24 @@
 import "./EventCard.css";
-import { Card, Badge, Container, Row, Col } from "react-bootstrap";
+import { Card, Badge, Container, Row, Col, Button } from "react-bootstrap";
 import "../../data/event";
 import { EVENTS } from "../../data/event";
+import { PiHeartBold, PiHeartFill } from "react-icons/pi";
+import { useState } from "react";
 
 function EventCard() {
+  // Gestione dei preferiti tramite array in uno stato
+  const [favourites, setFavourites] = useState([]);
+
+  // Funzione per aggiornare lo stato ed aggiungere o togliere elementi dall'array dei preferiti al click sul bottone
+  const toggleFavourites = (eventId) => {
+    setFavourites(
+      (prev) =>
+        prev.includes(eventId) // Controllo se l'id dell'evento è già nell'array
+          ? prev.filter((id) => id !== eventId) // Se è incluso, lo rimuovo
+          : [...prev, eventId], // Altrimenti lo aggiugno
+    );
+  };
+
   // Gestione del badge sulle card in base al tipo di evento di evento
   const badgeColor = (eventType) => {
     switch (eventType) {
@@ -35,13 +50,25 @@ function EventCard() {
               <div className="event-card-overlay"></div>
 
               <Card.ImgOverlay className="d-flex flex-column justify-content-between p-3">
-                <div>
+                <div className="d-flex justify-content-between align-items-center">
                   <Badge
                     bg={badgeColor(singleEvent.event_type)}
                     className="badge-custom"
                   >
                     {singleEvent.event_type}
                   </Badge>
+                  <Button
+                    variant="light"
+                    className="rounded-circle p-0 d-inline-flex align-items-center justify-content-center"
+                    style={{ width: "35px", height: "35px" }}
+                    onClick={() => toggleFavourites(singleEvent.id_event)} // Applico la funzione dei preferiti al click
+                  >
+                    {favourites.includes(singleEvent.id_event) ? (
+                      <PiHeartFill /> // Se la funzione torna negativa l'icon del cuore sarà vuoto
+                    ) : (
+                      <PiHeartBold /> // Se la funzione torna positiva l'icon del cuore sarà piena
+                    )}
+                  </Button>
                 </div>
 
                 <div>

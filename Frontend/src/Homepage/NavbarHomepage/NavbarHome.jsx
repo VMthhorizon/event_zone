@@ -9,8 +9,8 @@ import { CgProfile } from "react-icons/cg";
 import { ImCart } from "react-icons/im";
 import { VscSearchSparkle } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
-import { BiFilterAlt } from "react-icons/bi";
 import { useState } from "react";
+import { PiSliders } from "react-icons/pi";
 
 function NavbarHome() {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ function NavbarHome() {
             />
             <DropdownButton
               variant="outline-info"
-              title={<BiFilterAlt className="fs-6" />}
+              title={<PiSliders className="fs-5" />}
               align={"end"}
               id="category-filter"
               size="sm"

@@ -123,7 +123,7 @@ function NavbarHome() {
               title={<CgProfile className="fs-4" />}
               id="profile-dropdown"
             >
-              <NavDropdown.Item href="#action4">
+              <NavDropdown.Item onClick={() => navigate("/dashboard")}>
                 Profilo Personale
               </NavDropdown.Item>
               <NavDropdown.Item href="#action4">

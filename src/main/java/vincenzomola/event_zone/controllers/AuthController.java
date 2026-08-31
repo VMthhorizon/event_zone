@@ -30,7 +30,6 @@ public class AuthController {
     // Endpoint per la registrazione degli user. Ogni user creato sarà di default un
     // CUSTOMER  
     @PostMapping("/register")
-//    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public UserRegisterResponseDTO createAccount(@Valid @RequestBody UserRegisterDTO body) {
 

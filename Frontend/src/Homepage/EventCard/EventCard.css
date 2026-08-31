@@ -49,5 +49,11 @@
 }
 
 .preferiti-icon {
-  font-size: 30px;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

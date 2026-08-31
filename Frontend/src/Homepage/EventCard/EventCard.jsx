@@ -59,8 +59,7 @@ function EventCard() {
                   </Badge>
                   <Button
                     variant="light"
-                    className="rounded-circle p-0 d-inline-flex align-items-center justify-content-center"
-                    style={{ width: "35px", height: "35px" }}
+                    className="preferiti-icon"
                     onClick={() => toggleFavourites(singleEvent.id_event)} // Applico la funzione dei preferiti al click
                   >
                     {favourites.includes(singleEvent.id_event) ? (

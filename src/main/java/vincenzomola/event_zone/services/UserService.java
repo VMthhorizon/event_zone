@@ -6,6 +6,7 @@ import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.exceptions.NotFoundException;
 import vincenzomola.event_zone.exceptions.UnauthorizedException;
 import vincenzomola.event_zone.payloads.UserLoginRequestDTO;
+import vincenzomola.event_zone.payloads.UserProfileDTO;
 import vincenzomola.event_zone.payloads.UserRegisterDTO;
 import vincenzomola.event_zone.repositories.UserRepository;
 import vincenzomola.event_zone.security.JWTTools;
@@ -46,5 +47,12 @@ public class UserService {
 
         }
         return token;
+    }
+
+    public List<UserProfileDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> new UserProfileDTO(user.getId(), user.getUsername(), user.getEmail(), user.getUserRole()))
+                .toList();
     }
 }

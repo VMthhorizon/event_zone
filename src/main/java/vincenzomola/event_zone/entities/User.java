@@ -1,6 +1,7 @@
 package vincenzomola.event_zone.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,7 +27,7 @@ public class User implements UserDetails {
     private String surname;
     @Column(unique = true)
     private String email;
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Column(name = "creation_timestamp")
     private LocalDateTime creationTimestamp;
@@ -64,6 +65,10 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority(userRole.name()));
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
     @Override
     public @Nullable String getPassword() {
         return this.password;
@@ -71,7 +76,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.username;
     }
 
     @Override

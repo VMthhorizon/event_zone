@@ -1,8 +1,10 @@
 package vincenzomola.event_zone.services;
 
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vincenzomola.event_zone.entities.User;
+import vincenzomola.event_zone.enums.UserRole;
 import vincenzomola.event_zone.exceptions.NotFoundException;
 import vincenzomola.event_zone.exceptions.UnauthorizedException;
 import vincenzomola.event_zone.payloads.UserLoginRequestDTO;
@@ -12,6 +14,7 @@ import vincenzomola.event_zone.repositories.UserRepository;
 import vincenzomola.event_zone.security.JWTTools;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -52,7 +55,31 @@ public class UserService {
     public List<UserProfileDTO> getAllUsers() {
         return userRepository.findAll()
                 .stream()
-                .map(user -> new UserProfileDTO(user.getId(), user.getUsername(), user.getEmail(), user.getUserRole()))
+                .map(user -> new UserProfileDTO(user.getId(), user.getUsername(), user.getName(), user.getSurname(),
+                        user.getEmail(), user.getUserRole()))
                 .toList();
+    }
+
+    public User findUserById(UUID userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Utente con id : " + userId + " non trovato"));
+    }
+
+    @Transactional
+    public UserProfileDTO changeUserRole(UUID userId, UserRole role) {
+        // Cerco lo user tramite lo UUID nel database
+        User userDb = findUserById(userId);
+
+        // Cambio il ruolo dello user corrispondente all'UUID
+        userDb.setUserRole(role);
+
+        // Salvo l'utente con il ruolo modificato nel Database
+        User updatedUser = userRepository.save(userDb);
+
+        // Ritorno il DTO relativo allo User in modo da poterlo inviare come response al frontend
+        return new UserProfileDTO(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getName(),
+                updatedUser.getSurname(),
+                updatedUser.getEmail(), updatedUser.getUserRole());
+
     }
 }

@@ -1,9 +1,12 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Container, Form, Row, Table } from "react-bootstrap";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../services/userService";
-import { getUsersList } from "../services/adminService";
+import { changeUserRole, getUsersList } from "../services/adminService";
+
+// Array dei ruoli
+const ALL_ROLES = ["ADMIN", "ORGANIZER", "CUSTOMER"];
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -33,28 +36,85 @@ function Dashboard() {
     }
   };
 
+  // Funzione per gestire il cambio del ruolo in maniera asincrona
+  const handleChangeRole = async (userId, newRole) => {
+    try {
+      const updatedUser = await changeUserRole(userId, newRole);
+
+      setListUsers((prevUsers) =>
+        prevUsers.map((u) =>
+          u.id === userId ? { ...u, role: updatedUser.role } : u,
+        ),
+      );
+    } catch (error) {
+      alert("Impossibile modificare il ruolo: " + error.message);
+    }
+  };
+
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProfile();
     fetchListUsers();
   }, []);
 
   return (
     <Container fluid>
-      <h1>BENVENUTO {user?.username}</h1>
-      <h3 className="text-white-50">{user?.role}</h3>
       <Row>
-        <h3>LISTA UTENTI</h3>
-        {listUsers?.map((singleUser) => (
-          <Col
-            xs={12}
-            className="d-flex justify-content-between align-items-center"
-            key={singleUser.id}
-          >
-            <h6>{singleUser.username}</h6>
-            <h6>{singleUser.email}</h6>
-            <h6>{singleUser.role}</h6>
-          </Col>
-        ))}
+        <h1>BENVENUTO {user?.username}</h1>
+        <h3 className="text-white-50">{user?.role}</h3>
+        <h3 className="mb-3 text-center">LISTA UTENTI</h3>
+        <Table
+          striped
+          bordered
+          hover
+          responsive
+          variant="dark"
+          className="align-middle"
+        >
+          <thead>
+            <tr className="text-center">
+              <th>NOME</th>
+              <th>COGNOME</th>
+              <th>EMAIL</th>
+              <th>RUOLO ATTUALE</th>
+              <th>CAMBIA RUOLO</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listUsers?.map((singleUser) => (
+              <tr key={singleUser.id} className="text-start">
+                <td>{singleUser.nome || singleUser.name}</td>
+                <td>{singleUser.cognome || singleUser.surname}</td>
+                <td>{singleUser.email}</td>
+
+                <td className="fw-bold">{singleUser.role}</td>
+
+                <td>
+                  <Form.Select
+                    size="sm"
+                    value={singleUser.role}
+                    onChange={(e) =>
+                      handleChangeRole(singleUser.id, e.target.value)
+                    }
+                    className="bg-dark text-white border-secondary"
+                  >
+                    <option value={singleUser.role} disabled>
+                      Seleziona un nuovo ruolo
+                    </option>
+
+                    {ALL_ROLES.filter((r) => r !== singleUser.role).map(
+                      (roleOption) => (
+                        <option key={roleOption} value={roleOption}>
+                          {roleOption}
+                        </option>
+                      ),
+                    )}
+                  </Form.Select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </Row>
       <Button
         className="btn-gradient mt-5"

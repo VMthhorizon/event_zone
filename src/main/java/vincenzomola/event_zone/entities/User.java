@@ -79,6 +79,14 @@ public class User implements UserDetails {
         return this.username;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
     @Override
     public String toString() {
         return "User{" +

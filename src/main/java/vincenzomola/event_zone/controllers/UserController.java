@@ -25,7 +25,10 @@ public class UserController {
     // Endpoint per accedere alle informazioni base dell'utente loggato
     @GetMapping("/me")
     public UserProfileDTO getUserProfile(@AuthenticationPrincipal User loggedUser) {
-        return new UserProfileDTO(loggedUser.getId(), loggedUser.getUsername(), loggedUser.getEmail(),
+        return new UserProfileDTO(loggedUser.getId(), loggedUser.getUsername(), loggedUser.getName(),
+                loggedUser.getSurname(), loggedUser.getEmail(),
                 loggedUser.getUserRole());
     }
+
+
 }

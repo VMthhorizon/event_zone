@@ -1,5 +1,6 @@
 package vincenzomola.event_zone.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import vincenzomola.event_zone.payloads.UserProfileDTO;
@@ -29,6 +30,7 @@ public class AdminController {
     // Endpoint accessibile SOLO all'Admin per poter modificare i ruoli il ruolo degli User
     @PatchMapping("/{userId}/role")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
     public UserProfileDTO changeUserRole(@PathVariable UUID userId, @RequestBody UserRoleDTO role) {
         return userService.changeUserRole(userId, role.role());
     }

@@ -1,12 +1,12 @@
 package vincenzomola.event_zone.controllers;
 
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vincenzomola.event_zone.entities.User;
+import vincenzomola.event_zone.payloads.UserChangePassDTO;
 import vincenzomola.event_zone.payloads.UserProfileDTO;
 import vincenzomola.event_zone.services.UserService;
 
@@ -28,6 +28,14 @@ public class UserController {
         return new UserProfileDTO(loggedUser.getId(), loggedUser.getUsername(), loggedUser.getName(),
                 loggedUser.getSurname(), loggedUser.getEmail(),
                 loggedUser.getUserRole());
+    }
+
+    // Endpoint per modificare la password dell'account dello User
+    @PatchMapping("/me/change-password")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void changeUserPassword(@AuthenticationPrincipal User loggedUser,
+                                   @Valid @RequestBody UserChangePassDTO body) {
+        userService.changeUserPass(loggedUser, body);
     }
 
 

@@ -5,3 +5,19 @@ export const getUserProfile = async () => {
 
   return response.data;
 };
+
+export const changeUserPass = async (oldPassword, newPassword) => {
+  try {
+    const response = await api.patch("/user/me/change-password", {
+      oldPass: oldPassword,
+      newPass: newPassword,
+    });
+
+    return response.data;
+  } catch (error) {
+    const message =
+      error.response?.data?.message || "Impossibile aggiornare la password";
+
+    throw new Error(message);
+  }
+};

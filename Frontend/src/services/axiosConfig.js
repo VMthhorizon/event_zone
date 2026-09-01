@@ -22,7 +22,7 @@ api.interceptors.request.use(
       const token = localStorage.getItem("token"); // Prelevo il token dal localstorage
 
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`; // Initetto il token nell'header
+        config.headers.Authorization = `Bearer ${token}`; // Inietto il token nell'header
       }
     }
 

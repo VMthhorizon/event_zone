@@ -40,6 +40,7 @@ public class AuthController {
 
     // endpoint di Login dello USER
     @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
     public UserLoginResponseDTO loginUser(@Valid @RequestBody UserLoginRequestDTO body,
                                           @AuthenticationPrincipal User currentUser) {
 

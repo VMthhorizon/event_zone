@@ -5,8 +5,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.enums.UserRole;
+import vincenzomola.event_zone.exceptions.BadRequesteException;
 import vincenzomola.event_zone.exceptions.NotFoundException;
 import vincenzomola.event_zone.exceptions.UnauthorizedException;
+import vincenzomola.event_zone.payloads.UserChangePassDTO;
 import vincenzomola.event_zone.payloads.UserLoginRequestDTO;
 import vincenzomola.event_zone.payloads.UserProfileDTO;
 import vincenzomola.event_zone.payloads.UserRegisterDTO;
@@ -80,6 +82,24 @@ public class UserService {
         return new UserProfileDTO(updatedUser.getId(), updatedUser.getUsername(), updatedUser.getName(),
                 updatedUser.getSurname(),
                 updatedUser.getEmail(), updatedUser.getUserRole());
+
+    }
+
+    public void changeUserPass(User loggedUser, UserChangePassDTO body) {
+
+        // Controllo se l'utente inserisce correttamente la password attuale per poterla cambiare
+        if (!bcrypt.matches(body.oldPass(), loggedUser.getPassword())) {
+            throw new BadRequesteException("La password attuale non è corretta");
+        }
+
+        // Cripto la nuova password
+        String newPass = bcrypt.encode(body.newPass());
+
+        // Imposto la nuova password all'utente
+        loggedUser.setPassword(newPass);
+
+        // Salvo l'utente con la nuova password nel db
+        userRepository.save(loggedUser);
 
     }
 }

@@ -1,17 +1,17 @@
-import { Button, Container, Form, Row, Table } from "react-bootstrap";
+import { Button, Container, Form, Row, Spinner, Table } from "react-bootstrap";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getUserProfile } from "../services/userService";
 import { changeUserRole, getUsersList } from "../services/adminService";
+import { useSelector } from "react-redux";
 
 // Array dei ruoli
 const ALL_ROLES = ["ADMIN", "ORGANIZER", "CUSTOMER"];
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { profile, loading } = useSelector((state) => state.user); // Prendo le informazioni dallo slice dello user
 
-  const [user, setUser] = useState(); // Salvo le informazioni del profilo loggato in uno stato
   const [listUsers, setListUsers] = useState(); // Stato per la lista degli utenti
 
   // Fetch per la lista degli utenti
@@ -20,17 +20,6 @@ function Dashboard() {
       const listResponse = await getUsersList();
 
       setListUsers(listResponse);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
-  // Fetch per il profilo loggato
-  const fetchProfile = async () => {
-    try {
-      const userProfile = await getUserProfile();
-
-      setUser(userProfile);
     } catch (error) {
       console.error(error.message);
     }
@@ -53,68 +42,73 @@ function Dashboard() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchProfile();
     fetchListUsers();
   }, []);
 
   return (
     <Container fluid>
       <Row>
-        <h1>BENVENUTO {user?.username}</h1>
-        <h3 className="text-white-50">{user?.role}</h3>
+        <h1>BENVENUTO {profile?.username}</h1>
+        <h3 className="text-white-50">{profile?.role}</h3>
         <h3 className="mb-3 text-center">LISTA UTENTI</h3>
-        <Table
-          striped
-          bordered
-          hover
-          responsive
-          variant="dark"
-          className="align-middle"
-        >
-          <thead>
-            <tr className="text-center">
-              <th>NOME</th>
-              <th>COGNOME</th>
-              <th>EMAIL</th>
-              <th>RUOLO ATTUALE</th>
-              <th>CAMBIA RUOLO</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listUsers?.map((singleUser) => (
-              <tr key={singleUser.id} className="text-start">
-                <td>{singleUser.nome || singleUser.name}</td>
-                <td>{singleUser.cognome || singleUser.surname}</td>
-                <td>{singleUser.email}</td>
-
-                <td className="fw-bold">{singleUser.role}</td>
-
-                <td>
-                  <Form.Select
-                    size="sm"
-                    value={singleUser.role}
-                    onChange={(e) =>
-                      handleChangeRole(singleUser.id, e.target.value)
-                    }
-                    className="bg-dark text-white border-secondary"
-                  >
-                    <option value={singleUser.role} disabled>
-                      Seleziona un nuovo ruolo
-                    </option>
-
-                    {ALL_ROLES.filter((r) => r !== singleUser.role).map(
-                      (roleOption) => (
-                        <option key={roleOption} value={roleOption}>
-                          {roleOption}
-                        </option>
-                      ),
-                    )}
-                  </Form.Select>
-                </td>
+        {loading ? (
+          <div className="text-center text-white my-4">
+            <Spinner animation="border" size="sm" /> Caricamento utenti...
+          </div>
+        ) : (
+          <Table
+            striped
+            bordered
+            hover
+            responsive
+            variant="dark"
+            className="align-middle"
+          >
+            <thead>
+              <tr className="text-center">
+                <th>NOME</th>
+                <th>COGNOME</th>
+                <th>EMAIL</th>
+                <th>RUOLO ATTUALE</th>
+                <th>CAMBIA RUOLO</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {listUsers?.map((singleUser) => (
+                <tr key={singleUser.id} className="text-start">
+                  <td>{singleUser.nome || singleUser.name}</td>
+                  <td>{singleUser.cognome || singleUser.surname}</td>
+                  <td>{singleUser.email}</td>
+
+                  <td className="fw-bold">{singleUser.role}</td>
+
+                  <td>
+                    <Form.Select
+                      size="sm"
+                      value={singleUser.role}
+                      onChange={(e) =>
+                        handleChangeRole(singleUser.id, e.target.value)
+                      }
+                      className="bg-dark text-white border-secondary"
+                    >
+                      <option value={singleUser.role} disabled>
+                        Seleziona un nuovo ruolo
+                      </option>
+
+                      {ALL_ROLES.filter((r) => r !== singleUser.role).map(
+                        (roleOption) => (
+                          <option key={roleOption} value={roleOption}>
+                            {roleOption}
+                          </option>
+                        ),
+                      )}
+                    </Form.Select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </Row>
       <Button
         className="btn-gradient mt-5"

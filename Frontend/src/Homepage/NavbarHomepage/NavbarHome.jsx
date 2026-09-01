@@ -11,9 +11,12 @@ import { VscSearchSparkle } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { PiSliders } from "react-icons/pi";
+import { useDispatch } from "react-redux";
+import { logout } from "../../Redux/Slices/userSlice";
 
 function NavbarHome() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Stato per gestire le checkbox relative ai filtri per categorie tramite hook
   const [categories, setCategories] = useState({
@@ -129,10 +132,12 @@ function NavbarHome() {
               <NavDropdown.Item href="#action4">
                 Cronologia Acquisti
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Impostazioni</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate("/settings")}>
+                Impostazioni
+              </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
-                  localStorage.removeItem("token");
+                  dispatch(logout());
                   alert("Logout effettuato con successo");
                   navigate("/");
                 }}

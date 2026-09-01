@@ -9,8 +9,30 @@ import NotFound from "./NotFound/NotFound";
 import Homepage from "./Homepage/Homepage";
 import Footer from "./Footer/Footer";
 import Dashboard from "./Dashboard/Dashboard";
+import Settings from "./Settings/Settings";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchUserProfile } from "./Redux/Slices/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.user);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchUserProfile());
+    }
+  }, [dispatch, token]);
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center w-100">
+        <h3>Caricamento profilo in corso.....</h3>
+      </div>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -18,6 +40,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/homepage" element={<Homepage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
       <Footer></Footer>
     </BrowserRouter>

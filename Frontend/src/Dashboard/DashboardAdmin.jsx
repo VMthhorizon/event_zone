@@ -1,6 +1,5 @@
-import { Button, Container, Form, Row, Spinner, Table } from "react-bootstrap";
-import "./Dashboard.css";
-import { useNavigate } from "react-router-dom";
+import { Container, Form, Row, Spinner, Table } from "react-bootstrap";
+import "./DashboardAdmin.css";
 import { useEffect, useState } from "react";
 import { changeUserRole, getUsersList } from "../services/adminService";
 import { useSelector } from "react-redux";
@@ -8,9 +7,8 @@ import { useSelector } from "react-redux";
 // Array dei ruoli
 const ALL_ROLES = ["ADMIN", "ORGANIZER", "CUSTOMER"];
 
-function Dashboard() {
-  const navigate = useNavigate();
-  const { profile, loading } = useSelector((state) => state.user); // Prendo le informazioni dallo slice dello user
+function DashboardAdmin() {
+  const { loading } = useSelector((state) => state.user); // Prendo le informazioni dallo slice dello user
 
   const [listUsers, setListUsers] = useState(); // Stato per la lista degli utenti
 
@@ -48,8 +46,6 @@ function Dashboard() {
   return (
     <Container fluid>
       <Row>
-        <h1>BENVENUTO {profile?.username}</h1>
-        <h3 className="text-white-50">{profile?.role}</h3>
         <h3 className="mb-3 text-center">LISTA UTENTI</h3>
         {loading ? (
           <div className="text-center text-white my-4">
@@ -110,14 +106,8 @@ function Dashboard() {
           </Table>
         )}
       </Row>
-      <Button
-        className="btn-gradient mt-5"
-        onClick={() => navigate("/homepage")}
-      >
-        HOME
-      </Button>
     </Container>
   );
 }
 
-export default Dashboard;
+export default DashboardAdmin;

@@ -8,11 +8,11 @@ import AuthPage from "./Auth/AuthPage";
 import NotFound from "./NotFound/NotFound";
 import Homepage from "./Homepage/Homepage";
 import Footer from "./Footer/Footer";
-import Dashboard from "./Dashboard/Dashboard";
 import Settings from "./Settings/Settings";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserProfile } from "./Redux/Slices/userSlice";
+import DashboardPage from "./Dashboard/DashboardPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ function App() {
         <Route path="/" element={<AuthPage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/homepage" element={<Homepage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
       <Footer></Footer>

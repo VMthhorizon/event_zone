@@ -2,10 +2,10 @@ import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import "./Settings.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { changeUserPass, deleteAccount } from "../services/userService";
 import ChangePasswordModal from "./ChangePasswordModal";
-import { fetchUserProfile, logout } from "../Redux/Slices/userSlice";
+import { logout } from "../Redux/Slices/userSlice";
 import Swal from "sweetalert2";
 
 function Settings() {
@@ -28,12 +28,6 @@ function Settings() {
   const changePass = async (oldPass, newPass) => {
     await changeUserPass(oldPass, newPass);
   };
-
-  useEffect(() => {
-    if (!profile) {
-      dispatch(fetchUserProfile());
-    }
-  }, [dispatch, profile]);
 
   if (loading) {
     return (

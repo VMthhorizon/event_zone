@@ -1,13 +1,16 @@
 import "./DashboardPage.css";
 import { Button, Container, Row, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DashboardAdmin from "./DashboardAdmin";
 import DashboardOrganizer from "./DashboardOrganizer";
 import DashboardCustomer from "./DashboardCustomer";
+import { useEffect } from "react";
+import { fetchUserProfile } from "../Redux/Slices/userSlice";
 
 function DashboardPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { profile, loading } = useSelector((state) => state.user); // Prendo le informazioni dallo slice dello user
 
   const handleDashboard = () => {
@@ -31,6 +34,12 @@ function DashboardPage() {
         return <h1>OPS.....Qualcosa è andato storto</h1>;
     }
   };
+
+  useEffect(() => {
+    if (!profile) {
+      dispatch(fetchUserProfile());
+    }
+  }, [dispatch, profile]);
 
   return (
     <Container fluid>

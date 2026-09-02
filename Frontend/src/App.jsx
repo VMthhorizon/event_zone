@@ -16,14 +16,14 @@ import DashboardPage from "./Dashboard/DashboardPage";
 
 function App() {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
+  const { profile, loading } = useSelector((state) => state.user);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (token) {
+    if (token && !profile) {
       dispatch(fetchUserProfile());
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, profile]);
 
   if (loading) {
     return (

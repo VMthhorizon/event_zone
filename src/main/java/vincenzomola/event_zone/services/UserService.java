@@ -3,9 +3,10 @@ package vincenzomola.event_zone.services;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import vincenzomola.event_zone.entities.Event;
 import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.enums.UserRole;
-import vincenzomola.event_zone.exceptions.BadRequesteException;
+import vincenzomola.event_zone.exceptions.BadRequestException;
 import vincenzomola.event_zone.exceptions.NotFoundException;
 import vincenzomola.event_zone.exceptions.UnauthorizedException;
 import vincenzomola.event_zone.payloads.UserChangePassDTO;
@@ -31,6 +32,7 @@ public class UserService {
         this.bcrypt = bcrypt;
     }
 
+    @Transactional
     public User createAccount(UserRegisterDTO body) {
         return userRepository.save(new User(body.username(), body.nome(), body.cognome(), body.email(),
                 this.bcrypt.encode(body.password())));
@@ -90,7 +92,7 @@ public class UserService {
 
         // Controllo se l'utente inserisce correttamente la password attuale per poterla cambiare
         if (!bcrypt.matches(body.oldPass(), loggedUser.getPassword())) {
-            throw new BadRequesteException("La password attuale non è corretta");
+            throw new BadRequestException("La password attuale non è corretta");
         }
 
         // Cripto la nuova password
@@ -104,7 +106,7 @@ public class UserService {
 
     }
 
-    // Hard delete dell'
+    // Hard delete dell'account
     @Transactional
     public void hardDeleteUserAccount(User currentUser) {
         userRepository.delete(currentUser);

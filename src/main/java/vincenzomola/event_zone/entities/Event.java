@@ -53,6 +53,18 @@ public class Event {
         this.price = price;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
     @Override
     public String toString() {
         return "Event{" +
@@ -68,7 +80,6 @@ public class Event {
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", img='" + img + '\'' +
-                ", organizer=" + organizer +
                 '}';
     }
 }

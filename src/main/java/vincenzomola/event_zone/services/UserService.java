@@ -85,6 +85,7 @@ public class UserService {
 
     }
 
+    @Transactional
     public void changeUserPass(User loggedUser, UserChangePassDTO body) {
 
         // Controllo se l'utente inserisce correttamente la password attuale per poterla cambiare
@@ -101,5 +102,11 @@ public class UserService {
         // Salvo l'utente con la nuova password nel db
         userRepository.save(loggedUser);
 
+    }
+
+    // Hard delete dell'
+    @Transactional
+    public void hardDeleteUserAccount(User currentUser) {
+        userRepository.delete(currentUser);
     }
 }

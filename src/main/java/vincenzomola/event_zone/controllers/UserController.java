@@ -38,5 +38,10 @@ public class UserController {
         userService.changeUserPass(loggedUser, body);
     }
 
-
+    // Endpoint per l'hard delete dell'account dello user
+    @DeleteMapping("/me")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAccount(@AuthenticationPrincipal User loggedUser) {
+        userService.hardDeleteUserAccount(loggedUser);
+    }
 }

@@ -21,3 +21,15 @@ export const changeUserPass = async (oldPassword, newPassword) => {
     throw new Error(message);
   }
 };
+
+export const deleteAccount = async () => {
+  try {
+    await api.delete("/user/me");
+  } catch (error) {
+    const message =
+      error.response?.data?.message ||
+      "Non è stato possibile cancellare l'account";
+
+    throw new Error(message);
+  }
+};

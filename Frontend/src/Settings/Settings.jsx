@@ -3,11 +3,21 @@ import "./Settings.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { changeUserPass } from "../services/userService";
+import { changeUserPass, deleteAccount } from "../services/userService";
 import ChangePasswordModal from "./ChangePasswordModal";
-import { fetchUserProfile } from "../Redux/Slices/userSlice";
+import { fetchUserProfile, logout } from "../Redux/Slices/userSlice";
+import Swal from "sweetalert2";
 
 function Settings() {
+  // Integrazione sweetAlert2
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success mx-2",
+      cancelButton: "btn btn-danger ",
+    },
+    buttonsStyling: false,
+  });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -69,11 +79,50 @@ function Settings() {
               <Button
                 onClick={() => setShowModal(true)}
                 className="rounded-5 my-3"
-                variant="outline-danger"
+                variant="outline-info"
               >
                 Modifica
               </Button>
             </div>
+            <Button
+              onClick={() => {
+                swalWithBootstrapButtons
+                  .fire({
+                    title: "Sicuro di voler cancellare l'account?",
+                    text: "Avrai un massimo di 30 giorni per recuperarlo",
+                    icon: "error",
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Conferma",
+                    cancelButtonText: "Annulla operazione",
+                    reverseButtons: true,
+                  })
+                  .then(async (result) => {
+                    if (result.isConfirmed) {
+                      try {
+                        await deleteAccount();
+                        await swalWithBootstrapButtons.fire({
+                          title: "Eliminato",
+                          text: "Il tuo account è stato cancellato",
+                          icon: "success",
+                        });
+
+                        dispatch(logout());
+                        navigate("/");
+                      } catch (error) {
+                        swalWithBootstrapButtons.fire({
+                          title: "Annullata",
+                          text: error.message,
+                          icon: "error",
+                        });
+                      }
+                    }
+                  });
+              }}
+              variant="outline-danger"
+            >
+              ELIMINA ACCOUNT
+            </Button>
           </div>
 
           <ChangePasswordModal

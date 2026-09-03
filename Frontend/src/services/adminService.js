@@ -8,10 +8,8 @@ export const getUsersList = async () => {
   } catch (error) {
     const message =
       error.response?.data?.message ||
-      error.response?.data ||
-      error.message ||
       "Si è verificato un errore durante il recupero della lista dei profili";
-    throw new Error(message);
+    throw new Error(message, { cause: error });
   }
 };
 
@@ -25,9 +23,7 @@ export const changeUserRole = async (userId, newRole) => {
   } catch (error) {
     const message =
       error.response?.data?.message ||
-      error.response?.data ||
-      error.message ||
       "Si è verificato un errore durante il cambio del ruolo dello user";
-    throw new Error(message);
+    throw new Error(message, { cause: error });
   }
 };

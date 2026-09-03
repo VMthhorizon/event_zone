@@ -9,7 +9,7 @@ public record EventDTO(
         @NotNull(message = "Il campo delle categorie non può essere vuoto")
         EventType eventType,
         @NotBlank(message = "Il titolo non può essere vuoto")
-        @Size(min = 4, max = 30, message = "Il titolo non può avere meno di 4 e piu di 30 caratteri")
+        @Size(min = 4, max = 80, message = "Il titolo non può avere meno di 4 e piu di 80 caratteri")
         String title,
         @NotBlank(message = "La descrizione non può essere vuota")
         @Size(min = 4, max = 600, message = "La descrizione non può avere meno di 4 e piu di 600 caratteri")

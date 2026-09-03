@@ -8,10 +8,8 @@ export const registerUser = async (userData) => {
   } catch (error) {
     const message =
       error.response?.data?.message ||
-      error.response?.data ||
-      error.message ||
       "Si è verificato un errore durante la registrazione.";
-    throw new Error(message);
+    throw new Error(message, { cause: error });
   }
 };
 
@@ -23,9 +21,7 @@ export const loginUser = async (userData) => {
   } catch (error) {
     const message =
       error.response?.data?.message ||
-      error.response?.data ||
-      error.message ||
       "Si è verificato un errore durante il login.";
-    throw new Error(message);
+    throw new Error(message, { cause: error });
   }
 };

@@ -92,7 +92,7 @@ function AuthForm({ authMode, setAuthMode }) {
   return (
     <>
       {authMode !== "" && (
-        <Card className="p-3 d-flex mb-4 w-100 card-auth card-form ">
+        <Card className="card-auth card-form ">
           <Form onSubmit={handleSubmit}>
             <AnimatePresence initial={false}>
               <h1 className="text-center mb-4">{handleFormTitle()}</h1>

@@ -18,7 +18,7 @@ export const changeUserPass = async (oldPassword, newPassword) => {
     const message =
       error.response?.data?.message || "Impossibile aggiornare la password";
 
-    throw new Error(message);
+    throw new Error(message, { cause: error });
   }
 };
 
@@ -30,6 +30,6 @@ export const deleteAccount = async () => {
       error.response?.data?.message ||
       "Non è stato possibile cancellare l'account";
 
-    throw new Error(message);
+    throw new Error(message, { cause: error });
   }
 };

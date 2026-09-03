@@ -11,6 +11,11 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
+    // Se il body della richiesta è un FormData, rimuoviamo Content-Type
+    // in modo che il browser possa generare "multipart/form-data"
+    if (config.data instanceof FormData) {
+      delete config.headers["Content-Type"];
+    }
     // Lista degli endpoint PUBBLICI da ignorare per non inviare il token quando non necessario
     const publicEndpoints = ["/auth/login", "/auth/register"];
 

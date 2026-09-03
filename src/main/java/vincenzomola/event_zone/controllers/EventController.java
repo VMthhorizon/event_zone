@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import vincenzomola.event_zone.entities.Event;
 import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.payloads.EventDTO;
+import vincenzomola.event_zone.payloads.EventImgDTO;
 import vincenzomola.event_zone.payloads.EventResponseDTO;
 import vincenzomola.event_zone.services.EventService;
 
@@ -32,6 +34,14 @@ public class EventController {
         Event event = eventService.createEvent(body, loggedOrganizer);
 
         return new EventResponseDTO(event.getId(), LocalDateTime.now());
+    }
+
+    // Endpoint per l'upload dell'immagine dell'evento
+    @PostMapping("/img")
+    @PreAuthorize("hasAuthority('ORGANIZER')")
+    @ResponseStatus(HttpStatus.OK)
+    public EventImgDTO uploadImg(@RequestParam("img") MultipartFile file) {
+        return new EventImgDTO(eventService.uploadEventImage(file));
     }
 
 }

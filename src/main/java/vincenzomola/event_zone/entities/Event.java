@@ -12,7 +12,6 @@ public class Event {
 
     @Id
     @GeneratedValue
-    @Column(name = "id_event")
     private UUID id;
     @Enumerated(EnumType.STRING)
     private EventType eventType;

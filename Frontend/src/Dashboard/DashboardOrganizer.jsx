@@ -72,7 +72,7 @@ function DashboardOrganizer() {
         price: parseFloat(eventForm.price),
         latitude: parseFloat(eventForm.latitude),
         longitude: parseFloat(eventForm.longitude),
-        img: imgResponse.url,
+        img: imgResponse.imgUrl,
       };
 
       await createEvent(eventPayload);

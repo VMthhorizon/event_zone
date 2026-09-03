@@ -10,6 +10,7 @@ import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.exceptions.BadRequestException;
 import vincenzomola.event_zone.exceptions.NotFoundException;
 import vincenzomola.event_zone.payloads.EventDTO;
+import vincenzomola.event_zone.payloads.EventListDTO;
 import vincenzomola.event_zone.repositories.EventRepository;
 
 import java.io.IOException;
@@ -72,8 +73,13 @@ public class EventService {
     }
 
     // Find per TUTTI gli eventi nel DB
-    public List<Event> findAllEvents() {
-        return eventRepository.findAll();
+    public List<EventListDTO> findAllEvents() {
+        return eventRepository.findAll()
+                .stream()
+                .map(event -> new EventListDTO(event.getId(), event.getEventType(), event.getTitle(),
+                        event.getDescription(), event.getPlace(), event.getEventDate(), event.getTotalSeats(),
+                        event.getPrice(), event.getLongitude(), event.getLatitude(), event.getImg()))
+                .toList();
     }
 
     // Trova gli Eventi creati in base all'id fornito associato all'ORGANIZER

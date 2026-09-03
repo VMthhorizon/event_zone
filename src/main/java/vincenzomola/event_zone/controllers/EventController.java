@@ -10,10 +10,12 @@ import vincenzomola.event_zone.entities.Event;
 import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.payloads.EventDTO;
 import vincenzomola.event_zone.payloads.EventImgDTO;
+import vincenzomola.event_zone.payloads.EventListDTO;
 import vincenzomola.event_zone.payloads.EventResponseDTO;
 import vincenzomola.event_zone.services.EventService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/event")
@@ -42,6 +44,13 @@ public class EventController {
     @ResponseStatus(HttpStatus.OK)
     public EventImgDTO uploadImg(@RequestParam("img") MultipartFile file) {
         return new EventImgDTO(eventService.uploadEventImage(file));
+    }
+
+    // Endpoint per ottenere la lista di TUTTI gli eventi
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<EventListDTO> allEventsList() {
+        return eventService.findAllEvents();
     }
 
 }

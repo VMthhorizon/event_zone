@@ -64,6 +64,46 @@ public class Event {
         return img;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public int getTotalSeats() {
+        return totalSeats;
+    }
+
+    public LocalDateTime getEventDate() {
+        return eventDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public User getOrganizer() {
+        return organizer;
+    }
+
     @Override
     public String toString() {
         return "Event{" +

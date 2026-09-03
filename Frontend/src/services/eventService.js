@@ -30,3 +30,17 @@ export const createEvent = async (eventData) => {
     throw new Error(message, { cause: error });
   }
 };
+
+export const getAllEvents = async () => {
+  try {
+    const response = await api.get("/event");
+
+    return response.data;
+  } catch (error) {
+    const message =
+      error.response?.data?.message ||
+      "Errore durante il caricamento degli eventi";
+
+    throw new Error(message, { cause: error });
+  }
+};

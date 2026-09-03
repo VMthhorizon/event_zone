@@ -5,7 +5,7 @@ import NavbarFilter from "./NavbarFilter/NavbarFilter";
 
 function Homepage() {
   return (
-    <div className="flex-column">
+    <div className="d-flex flex-column h-100">
       <NavbarHome />
       <Container fluid>
         <Row>

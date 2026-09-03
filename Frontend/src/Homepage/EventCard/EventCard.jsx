@@ -58,15 +58,15 @@ function EventCard() {
   const badgeColor = (eventType) => {
     switch (eventType) {
       case "CONCERTO":
-        return "danger";
+        return "badge-color-concerto";
       case "CINEMA":
-        return "info";
+        return "badge-color-cinema";
       case "FESTIVAL":
-        return "primary";
+        return "badge-color-festival";
       case "TEATRO":
-        return "secondary";
+        return "badge-color-teatro";
       default:
-        return "black";
+        return "bg-black";
     }
   };
 
@@ -80,7 +80,14 @@ function EventCard() {
       {errorMessage && <Alert>{errorMessage}</Alert>}
       <Row className="mt-4">
         {eventsList.map((singleEvent) => (
-          <Col xs={12} sm={6} lg={4} xxl={3} key={singleEvent.eventId}>
+          <Col
+            xs={12}
+            sm={6}
+            lg={4}
+            xxl={3}
+            key={singleEvent.eventId}
+            className="gx-3 gy-3"
+          >
             <Card className="event-card ">
               <Card.Img
                 src={singleEvent.img}
@@ -93,8 +100,7 @@ function EventCard() {
               <Card.ImgOverlay className="d-flex flex-column justify-content-between p-3">
                 <div className="d-flex justify-content-between align-items-center">
                   <Badge
-                    bg={badgeColor(singleEvent.eventType)}
-                    className="badge-custom"
+                    className={`badge-custom ${badgeColor(singleEvent.eventType)}`}
                   >
                     {singleEvent.eventType}
                   </Badge>

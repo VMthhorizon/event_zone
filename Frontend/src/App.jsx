@@ -35,14 +35,19 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AuthPage />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/homepage" element={<Homepage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
-      <Footer></Footer>
+      <div className="d-flex flex-column min-vh-100">
+        <main className="flex-grow-1 d-flex flex-column h-100">
+          <Routes>
+            <Route path="/" element={<AuthPage />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/homepage" element={<Homepage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }

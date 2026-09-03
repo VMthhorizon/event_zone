@@ -3,11 +3,10 @@
   border: none;
   margin-bottom: 1rem;
   border-radius: 15px;
-  box-shadow: 50 50 50 black;
+  overflow: hidden;
   box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.4),
-    0 0 20px rgba(2, 169, 234, 0.45),
-    0 0 35px rgba(255, 1, 251, 0.35) !important;
+    0 10px 25px rgba(19, 41, 61, 0.5),
+    0 0 15px rgba(242, 100, 25, 0.3) !important; /* Glow arancione coordinato */
 
   transition:
     transform 0.25s ease-in-out,
@@ -17,10 +16,11 @@
 .event-card:hover {
   cursor: pointer;
   transform: translateY(-7px) scale(1.01);
+
   box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.6),
-    0 0 30px rgba(2, 169, 234, 0.7),
-    0 0 50px rgba(255, 1, 251, 0.55) !important;
+    0 18px 35px rgba(19, 41, 61, 0.7),
+    0 0 30px rgba(242, 100, 25, 0.65),
+    0 0 50px rgba(242, 100, 25, 0.25) !important; /* Alone diffuso */
 }
 
 .event-card-img {
@@ -40,6 +40,7 @@
   font-weight: 700;
   font-size: 1.25rem;
   margin-bottom: 0.25rem;
+  color: white;
 }
 
 .event-card-text {
@@ -56,4 +57,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.badge-color-concerto {
+  background-color: #f64f1b !important;
+}
+.badge-color-cinema {
+  background-color: #021f94 !important;
+}
+.badge-color-festival {
+  background-color: #9a0002 !important;
+}
+.badge-color-teatro {
+  background-color: #469110 !important;
 }

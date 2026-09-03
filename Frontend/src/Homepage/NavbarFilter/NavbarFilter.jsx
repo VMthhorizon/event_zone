@@ -13,7 +13,7 @@ function NavbarFilter() {
   const [priceRange, setPriceRange] = useState([0, 300]);
 
   return (
-    <Navbar className="navbar-filter align-items-start">
+    <Navbar className="navbar-filter align-items-start min-vh-100 ">
       <Container fluid>
         <Form className="w-100 flex-column d-flex gap-4">
           <div className="text-start w-100 mb-4">
@@ -58,9 +58,9 @@ function NavbarFilter() {
             </h6>
             <Form.Control type="date"></Form.Control>
           </div>
-          <Button variant="outline-danger">RESET</Button>
-          <Button className="btn-gradient mt-4" variant="outline-danger">
-            Applica
+          <Button className="btn-gradient">RESET</Button>
+          <Button className="btn-gradient">
+            APPLICA
             <TbFilters />
           </Button>
         </Form>

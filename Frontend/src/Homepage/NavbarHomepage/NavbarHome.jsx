@@ -52,7 +52,7 @@ function NavbarHome() {
       <Container fluid className="flex-column align-items-center w-100">
         <div className="w-100 d-flex justify-content-between align-items-center">
           <Navbar.Brand className="py-0">
-            <h1 className="home-title">EventZone</h1>
+            <img className="navbar-logo-img" src="/logo.png"></img>
           </Navbar.Brand>
           <Form className=" d-flex justify-content-center align-items-center w-100 gap-1">
             <Form.Control

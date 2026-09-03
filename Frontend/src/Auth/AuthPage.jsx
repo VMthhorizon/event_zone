@@ -16,9 +16,16 @@ function AuthPage() {
       </video>
       <Container className="flex-column d-flex justify-content-center align-items-center vh-100">
         <Row className="w-100 justify-content-center align-items-center">
+          <Col xs={12} md={5} lg={5} className="text-center d-none d-md-block">
+            <img
+              src="/logo.png"
+              alt="logo"
+              className="img-fluid auth-illustration"
+            />
+          </Col>
+
           <Col xs={12} md={9} lg={6}>
             <AuthForm authMode={authMode} setAuthMode={setAuthMode} />
-
             <Col className="d-flex gap-1">
               <AnimatePresence>
                 {authMode !== "login" && (

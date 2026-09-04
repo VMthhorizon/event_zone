@@ -23,9 +23,9 @@ public class GlobalExceptionsHandler {
     }
 
     // Gestione errore 400 BadRequest
-    @ExceptionHandler(BadRequesteException.class)
+    @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorsDTO handleBadRequest(BadRequesteException ex) {
+    public ErrorsDTO handleBadRequest(BadRequestException ex) {
         return new ErrorsDTO(ex.getMessage(), LocalDateTime.now());
     }
 

@@ -9,12 +9,12 @@ $headings-letter-spacing: 0.05em;
 $headings-font-family: "Syne", sans-serif;
 
 // Personalizzazione colori bootstrap
-$primary: #ff01fb;
-$secondary: #faff00;
-$tertiary: linear-gradient(135deg, #02a9ea 0%, #ff01fb 100%);
-$body-bg: #ff7f22;
-$body-color: #ffffff;
-$info: #02a9ea; // colore utilizzato come accent per eventuali gradienti o contorni
+$primary: #1e223d;
+$secondary: #f54f1b;
+$tertiary: linear-gradient(135deg, #1e223d 0%, #f54f1b 100%);
+$body-bg: #1e223d;
+$body-color: #f54f1b;
+$info: #ff8a66; // colore utilizzato come accent per eventuali gradienti o contorni
 
 // Sovrascrivo form bootstrap
 $input-bg: rgba($info, 0);
@@ -38,14 +38,15 @@ a {
   letter-spacing: 0.03em;
   font-weight: 400;
   font-size: large;
-  background: linear-gradient(20deg, $info 10%, $primary 100%);
+  // background: linear-gradient(20deg, $info 30%, $primary 100%);
+  background: $secondary;
   border: none;
   box-shadow: 0 4px 15px rgb(6, 6, 6);
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  color: #ffffff;
+  color: $primary;
   width: 100%;
 
   // Animazione fluide del button e della shadow all'hover
@@ -56,7 +57,7 @@ a {
       border-right 0.1s ease-in-out;
     transform: translateY(-3px);
     box-shadow: none;
-    color: #ffffff;
+    color: $secondary;
     box-shadow: 0 4px 15px $secondary;
   }
 
@@ -87,6 +88,10 @@ a {
   position: relative;
   border-radius: 16px;
   border: none;
+  display: flex;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding: 1rem;
 
   background: linear-gradient(
     200deg,
@@ -157,5 +162,9 @@ a {
 
 .badge-custom {
   font-family: $headings-font-family;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
 }

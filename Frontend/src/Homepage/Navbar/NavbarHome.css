@@ -1,0 +1,63 @@
+.navbar-home {
+  /* Effetto traslucido  */
+  background: rgba(45, 62, 90, 0.8) !important;
+
+  /* Sfocatura vetro (Glassmorphism) */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0px 5px 5px rgb(34, 48, 72);
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding-bottom: 5px;
+}
+
+.navbar-home,
+.navbar-home .nav-link,
+.navbar-home .navbar-brand,
+.navbar-home .dropdown-toggle,
+.navbar-home svg {
+  color: #f26419 !important;
+}
+
+.navbar-home .nav-link:hover,
+.navbar-home .dropdown-toggle:hover {
+  color: #ff7b39 !important;
+}
+
+.navbar-home .form-control {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid #f26419;
+  color: #ffffff;
+}
+
+.navbar-home .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.navbar-home .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: #ff7b39;
+  box-shadow: 0 0 8px rgba(242, 100, 25, 0.5);
+  color: #ffffff;
+}
+
+.navbar-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.navbar-logo-img:hover {
+  transform: scale(1.05);
+}
+
+.dropdown-item:hover {
+  background-color: #1e223d;
+  border: 1px solid #f26419;
+  border-radius: 10px;
+}

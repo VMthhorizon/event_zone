@@ -1,0 +1,83 @@
+.wallet-container {
+  background-color: transparent;
+}
+
+.ez-card {
+  background: linear-gradient(135deg, #2d0b5a 0%, #170433 100%);
+  border-radius: 20px;
+  padding: 1.5rem;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(23, 4, 51, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ez-card-brand {
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-size: 1rem;
+}
+
+.ez-card-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #a291b9;
+  margin-bottom: 0.2rem;
+}
+
+.ez-card-balance {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ez-card-number {
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: #d1c4e9;
+}
+
+.mastercard-logo {
+  display: flex;
+  align-items: center;
+}
+
+.mc-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.mc-circle-red {
+  background-color: #d98880;
+  opacity: 0.85;
+}
+
+.mc-circle-yellow {
+  background-color: #c5b3e6;
+  opacity: 0.7;
+  margin-left: -10px;
+}
+
+.topup-input {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+}
+
+.topup-btn {
+  background-color: #6f42c1;
+  border-color: #6f42c1;
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.topup-btn:hover {
+  background-color: #59319d;
+  border-color: #59319d;
+  color: #ffffff;
+}

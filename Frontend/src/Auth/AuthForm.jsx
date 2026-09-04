@@ -41,7 +41,7 @@ function AuthForm({ authMode, setAuthMode }) {
         case "register": {
           const data = await registerUser(formData); // Richiamo il service axios per la REGISTRAZIONE dell'utente
 
-          alert(`Registrazione avvenuta con successo! ID: ${data}`);
+          alert(`Registrazione avvenuta con successo!`);
 
           console.log(data);
 
@@ -92,7 +92,7 @@ function AuthForm({ authMode, setAuthMode }) {
   return (
     <>
       {authMode !== "" && (
-        <Card className="p-3 d-flex mb-4 w-100 card-auth card-form ">
+        <Card className="card-auth card-form ">
           <Form onSubmit={handleSubmit}>
             <AnimatePresence initial={false}>
               <h1 className="text-center mb-4">{handleFormTitle()}</h1>
@@ -226,9 +226,7 @@ function AuthForm({ authMode, setAuthMode }) {
                     setAuthMode("password");
                   }}
                   className="text-end w-100"
-                >
-                  Password dimenticata
-                </a>
+                ></a>
               )}
             </div>
           </Form>

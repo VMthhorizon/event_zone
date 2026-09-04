@@ -1,4 +1,4 @@
-import { Button, DropdownButton, Form, Badge, Image } from "react-bootstrap";
+import { Button, Dropdown, Form, Badge, Image } from "react-bootstrap";
 import "./NavbarHome.css";
 
 import Container from "react-bootstrap/Container";
@@ -10,11 +10,14 @@ import { ImCart } from "react-icons/im";
 import { FaTrash } from "react-icons/fa";
 import { VscSearchSparkle } from "react-icons/vsc";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
 import { PiSliders } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../Redux/Slices/userSlice";
 import { removeFromCart } from "../../Redux/Slices/cartSlice";
+import {
+  setSearchTerm,
+  setSelectedCategory,
+} from "../../Redux/Slices/eventSlice";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoIosHome } from "react-icons/io";
 
@@ -24,6 +27,7 @@ function NavbarHome() {
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const { searchTerm, selectedCategory } = useSelector((state) => state.events);
 
   const totalItemsCount = cartItems.reduce(
     (acc, item) => acc + item.quantity,
@@ -35,30 +39,12 @@ function NavbarHome() {
     0,
   );
 
-  const [categories, setCategories] = useState({
-    tutti: true,
-    concerti: false,
-    festival: false,
-    cinema: false,
-    teatro: false,
-  });
+  const handleSearchChange = (e) => {
+    dispatch(setSearchTerm(e.target.value));
+  };
 
-  const handleCategoriesChange = (category) => {
-    if (category === "tutti") {
-      setCategories({
-        tutti: true,
-        concerti: false,
-        festival: false,
-        cinema: false,
-        teatro: false,
-      });
-    } else {
-      setCategories((prev) => ({
-        ...prev,
-        tutti: false,
-        [category]: !prev[category],
-      }));
-    }
+  const handleCategoryChange = (category) => {
+    dispatch(setSelectedCategory(category));
   };
 
   if (location.pathname === "/") {
@@ -79,7 +65,7 @@ function NavbarHome() {
             <img className="navbar-logo-img" src="/logo.png" alt="Logo" />
           </Navbar.Brand>
 
-          <div className="d-flex justify-content-center align-items-center flex-grow-1 mx-3 overflow-hidden">
+          <div className="d-flex justify-content-center align-items-center flex-grow-1 mx-3">
             <AnimatePresence mode="wait">
               {isHomepage ? (
                 <motion.div
@@ -94,61 +80,84 @@ function NavbarHome() {
                     width: "100%",
                   }}
                 >
-                  <Form className="d-flex justify-content-center align-items-center w-100 gap-1">
-                    <Form.Control
-                      type="search"
-                      placeholder="Cerca artisti, eventi, luoghi e molto altro"
-                      aria-label="Search"
-                      title={<VscSearchSparkle className="fs-5" />}
-                    />
-                    <DropdownButton
-                      variant="outline-info"
-                      title={<PiSliders className="fs-5" />}
-                      align={"end"}
-                      id="category-filter"
-                      size="sm"
-                    >
-                      <Form.Check
-                        type="checkbox"
-                        id="tutti"
-                        label="Tutti"
-                        checked={categories.tutti}
-                        onChange={() => handleCategoriesChange("tutti")}
-                        className="ms-2"
+                  <Form
+                    className="d-flex justify-content-center align-items-center w-100 gap-2"
+                    onSubmit={(e) => e.preventDefault()}
+                  >
+                    <div className="position-relative w-100 d-flex align-items-center">
+                      <Form.Control
+                        type="text"
+                        placeholder="Cerca artisti, eventi, luoghi..."
+                        aria-label="Search"
+                        value={searchTerm || ""}
+                        onChange={handleSearchChange}
+                        className="pe-4"
                       />
-                      <Form.Check
-                        type="checkbox"
-                        id="concerti"
-                        label="Concerti"
-                        checked={categories.concerti}
-                        onChange={() => handleCategoriesChange("concerti")}
-                        className="ms-2"
+                      <VscSearchSparkle
+                        className="position-absolute end-0 me-3 text-muted fs-5"
+                        style={{ pointerEvents: "none" }}
                       />
-                      <Form.Check
-                        type="checkbox"
-                        id="festival"
-                        label="Festival"
-                        checked={categories.festival}
-                        onChange={() => handleCategoriesChange("festival")}
-                        className="ms-2"
-                      />
-                      <Form.Check
-                        type="checkbox"
-                        id="teatro"
-                        label="Teatro"
-                        checked={categories.teatro}
-                        onChange={() => handleCategoriesChange("teatro")}
-                        className="ms-2"
-                      />
-                      <Form.Check
-                        type="checkbox"
-                        id="cinema"
-                        label="Cinema"
-                        checked={categories.cinema}
-                        onChange={() => handleCategoriesChange("cinema")}
-                        className="ms-2"
-                      />
-                    </DropdownButton>
+                    </div>
+
+                    <Dropdown align="end">
+                      <Dropdown.Toggle
+                        variant="outline-info"
+                        id="dropdown-category-filter"
+                        className="d-flex align-items-center justify-content-center"
+                      >
+                        <PiSliders className="fs-5" />
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu
+                        className="p-3 shadow-lg"
+                        style={{ minWidth: "160px" }}
+                      >
+                        <Form.Check
+                          type="radio"
+                          name="category-group"
+                          id="cat-tutti"
+                          label="Tutti"
+                          checked={selectedCategory === "tutti"}
+                          onChange={() => handleCategoryChange("tutti")}
+                          className="mb-2"
+                        />
+                        <Form.Check
+                          type="radio"
+                          name="category-group"
+                          id="cat-concerti"
+                          label="Concerto"
+                          checked={selectedCategory === "concerto"}
+                          onChange={() => handleCategoryChange("concerto")}
+                          className="mb-2"
+                        />
+                        <Form.Check
+                          type="radio"
+                          name="category-group"
+                          id="cat-festival"
+                          label="Festival"
+                          checked={selectedCategory === "festival"}
+                          onChange={() => handleCategoryChange("festival")}
+                          className="mb-2"
+                        />
+                        <Form.Check
+                          type="radio"
+                          name="category-group"
+                          id="cat-teatro"
+                          label="Teatro"
+                          checked={selectedCategory === "teatro"}
+                          onChange={() => handleCategoryChange("teatro")}
+                          className="mb-2"
+                        />
+                        <Form.Check
+                          type="radio"
+                          name="category-group"
+                          id="cat-cinema"
+                          label="Cinema"
+                          checked={selectedCategory === "cinema"}
+                          onChange={() => handleCategoryChange("cinema")}
+                        />
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </Form>
                 </motion.div>
               ) : (
@@ -171,7 +180,7 @@ function NavbarHome() {
                     onClick={() => navigate("/homepage")}
                   >
                     <IoIosHome className="fs-5" />
-                    <h5>Torna alla Homepage</h5>
+                    <h5 className="m-0">Torna alla Homepage</h5>
                   </Button>
                 </motion.div>
               )}
@@ -206,10 +215,7 @@ function NavbarHome() {
                 }}
               >
                 {cartItems.length === 0 ? (
-                  <NavDropdown.Item
-                    text
-                    className="text-center text-muted py-3"
-                  >
+                  <NavDropdown.Item className="text-center text-muted py-3">
                     Il carrello è vuoto
                   </NavDropdown.Item>
                 ) : (
@@ -262,7 +268,7 @@ function NavbarHome() {
               </div>
 
               {cartItems.length > 0 && (
-                <div className="p-2 border-top ">
+                <div className="p-2 border-top">
                   <div className="d-flex justify-content-between fw-bold mb-2 px-1">
                     <span>Totale:</span>
                     <span>€{totalPrice.toFixed(2)}</span>
@@ -282,14 +288,11 @@ function NavbarHome() {
               title={<CgProfile className="fs-4" />}
               id="profile-dropdown"
             >
-              <NavDropdown.Item onClick={() => navigate("/dashboard")}>
+              <NavDropdown.Item onClick={() => navigate("/profilo")}>
                 Profilo Personale
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Cronologia Acquisti
-              </NavDropdown.Item>
               <NavDropdown.Item onClick={() => navigate("/settings")}>
-                Impostazioni
+                Privacy
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {

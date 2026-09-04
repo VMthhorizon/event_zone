@@ -96,13 +96,13 @@ function DashboardOrganizer() {
 
   return (
     <Container fluid>
-      <h3 className="mb-3 text-center">CREAZIONE EVENTO</h3>
-      <Row className="justify-content-center align-items-center">
-        <Col xs={12} md={10} lg={8}>
+      <Row className="justify-content-center align-items-center mt-3">
+        <Col xs={12} md={9}>
           <Form
             onSubmit={submitEventForm}
             className="card-form card-auth organizer-form"
           >
+            <h3 className="text-start text-primary">CREA UN EVENTO</h3>
             {errorMessage && (
               <Alert
                 variant="danger"
@@ -115,7 +115,7 @@ function DashboardOrganizer() {
             <FormGroup className="flex-column w-100" controlId="eventType">
               <FormLabel className="fs-4">
                 {" "}
-                <h2>CATEGORIA EVENTO</h2>
+                <h5>CATEGORIA EVENTO</h5>
               </FormLabel>
               <FormSelect
                 name="eventType"
@@ -132,7 +132,7 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="title">
               <FormLabel className="fs-4">
-                <h2>TITOLO</h2>
+                <h5>TITOLO</h5>
               </FormLabel>
               <Form.Control
                 placeholder="Inserisci il titolo dell'evento"
@@ -144,11 +144,11 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="description">
               <FormLabel className="fs-4">
-                <h2>DESCRIZIONE EVENTO</h2>
+                <h5>DESCRIZIONE EVENTO</h5>
               </FormLabel>
               <Form.Control
                 as="textarea"
-                rows={3}
+                rows={2}
                 placeholder="Descrivi l'evento"
                 name="description"
                 value={eventForm.description}
@@ -158,7 +158,7 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="place">
               <FormLabel className="fs-4">
-                <h2>LUOGO</h2>
+                <h5>LUOGO</h5>
               </FormLabel>
               <Form.Control
                 placeholder="Inserisci la città dell'evento"
@@ -170,7 +170,7 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="eventDate">
               <FormLabel className="fs-4">
-                <h2>DATA e ORA EVENTO</h2>
+                <h5>DATA e ORA EVENTO</h5>
               </FormLabel>
               <Form.Control
                 type="datetime-local"
@@ -183,7 +183,7 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="totalSeats">
               <FormLabel className="fs-4">
-                <h2>CAPIENZA EVENTO</h2>
+                <h5>CAPIENZA EVENTO</h5>
               </FormLabel>
               <Form.Control
                 type="number"
@@ -197,7 +197,7 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="price">
               <FormLabel className="fs-4">
-                <h2>PREZZO</h2>
+                <h5>PREZZO</h5>
               </FormLabel>
               <Form.Control
                 type="number"
@@ -212,7 +212,7 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="longitude">
               <FormLabel className="fs-4">
-                <h2>LONGITUDINE</h2>
+                <h5>LONGITUDINE</h5>
               </FormLabel>
               <Form.Control
                 type="number"
@@ -226,7 +226,7 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="latitude">
               <FormLabel className="fs-4">
-                <h2>LATITUDINE</h2>
+                <h5>LATITUDINE</h5>
               </FormLabel>
               <Form.Control
                 placeholder="Es. 12.4963655"
@@ -238,7 +238,7 @@ function DashboardOrganizer() {
             </FormGroup>
             <FormGroup className="flex-column w-100" controlId="img">
               <FormLabel className="fs-4">
-                <h2>IMMAGINE</h2>
+                <h5>IMMAGINE</h5>
               </FormLabel>
               <Form.Control
                 ref={fileInputRef}

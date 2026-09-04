@@ -3,10 +3,9 @@ import { getAllEvents } from "../../services/eventService";
 
 export const fetchAllEvents = createAsyncThunk(
   "event/fetchAllEvents",
-  async (_, { rejectWithValue }) => {
+  async (filters = {}, { rejectWithValue }) => {
     try {
-      const response = await getAllEvents();
-
+      const response = await getAllEvents(filters);
       return response;
     } catch (error) {
       const message =
@@ -22,8 +21,29 @@ const eventsSlice = createSlice({
     eventsList: [],
     loading: false,
     error: null,
+    searchTerm: "",
+    selectedCategory: "tutti",
+    maxPrice: 300,
+    selectedDate: "",
   },
-
+  reducers: {
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+    },
+    setMaxPrice: (state, action) => {
+      state.maxPrice = action.payload;
+    },
+    setSelectedDate: (state, action) => {
+      state.selectedDate = action.payload;
+    },
+    resetSideFilters: (state) => {
+      state.maxPrice = 300;
+      state.selectedDate = "";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllEvents.pending, (state) => {
@@ -42,5 +62,13 @@ const eventsSlice = createSlice({
       });
   },
 });
+
+export const {
+  setSearchTerm,
+  setSelectedCategory,
+  setMaxPrice,
+  setSelectedDate,
+  resetSideFilters,
+} = eventsSlice.actions;
 
 export const eventsReducer = eventsSlice.reducer;

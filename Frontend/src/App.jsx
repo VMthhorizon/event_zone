@@ -12,9 +12,10 @@ import Settings from "./Settings/Settings";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserProfile } from "./Redux/Slices/userSlice";
-import DashboardPage from "./Dashboard/DashboardPage";
 import EventDetailsPage from "./EventDetails/EventDetailsPage";
 import NavbarHome from "./Homepage/Navbar/NavbarHome";
+import CheckoutPage from "./CheckoutPage/CheckoutPage";
+import ProfiloUser from "./ProfiloUser/ProfiloUser.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,9 +36,10 @@ function App() {
             <Route path="/" element={<AuthPage />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/homepage" element={<Homepage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/profilo" element={<ProfiloUser />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/eventDetails/:id" element={<EventDetailsPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </main>
 

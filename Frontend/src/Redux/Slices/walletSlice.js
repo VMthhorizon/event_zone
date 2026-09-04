@@ -22,7 +22,9 @@ export const fetchChargeWallet = createAsyncThunk(
   "wallet/fetchChargeWallet",
   async (amount, { rejectWithValue }) => {
     try {
-      const response = await api.get("/wallet/me/charge", { balance: amount });
+      const response = await api.patch("/wallet/me/charge", {
+        balance: amount,
+      });
 
       return response.data;
     } catch (error) {

@@ -11,6 +11,6 @@ export const store = configureStore({
     events: eventsReducer,
     cart: cartReducer,
     wallet: walletReducer,
-    order: orderReducer,
+    orders: orderReducer,
   },
 });

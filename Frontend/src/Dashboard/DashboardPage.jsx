@@ -1,15 +1,12 @@
 import "./DashboardPage.css";
-import { Button, Container, Row, Spinner } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardAdmin from "./DashboardAdmin";
 import DashboardOrganizer from "./DashboardOrganizer";
-import DashboardCustomer from "./DashboardCustomer";
 import { useEffect } from "react";
 import { fetchUserProfile } from "../Redux/Slices/userSlice";
 
 function DashboardPage() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { profile, loading } = useSelector((state) => state.user); // Prendo le informazioni dallo slice dello user
@@ -30,7 +27,7 @@ function DashboardPage() {
       case "ORGANIZER":
         return <DashboardOrganizer />;
       case "CUSTOMER":
-        return <DashboardCustomer />;
+        return <></>;
       default:
         return <h1>OPS.....Qualcosa è andato storto</h1>;
     }
@@ -44,17 +41,7 @@ function DashboardPage() {
 
   return (
     <Container fluid>
-      <Row>
-        <h1>BENVENUTO {profile?.username}</h1>
-        <h3 className="text-white-50">{profile?.role}</h3>
-        {handleDashboard()}
-      </Row>
-      <Button
-        className="btn-gradient mt-5"
-        onClick={() => navigate("/homepage")}
-      >
-        HOME
-      </Button>
+      <Row>{handleDashboard()}</Row>
     </Container>
   );
 }

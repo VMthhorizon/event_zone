@@ -31,9 +31,19 @@ export const createEvent = async (eventData) => {
   }
 };
 
-export const getAllEvents = async () => {
+export const getAllEvents = async (filters = {}) => {
   try {
-    const response = await api.get("/event");
+    const params = {};
+
+    if (filters.search) {
+      params.search = filters.search;
+    }
+
+    if (filters.category && filters.category !== "tutti") {
+      params.category = filters.category;
+    }
+
+    const response = await api.get("/event", { params });
 
     return response.data;
   } catch (error) {

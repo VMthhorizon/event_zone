@@ -41,7 +41,7 @@ function AuthForm({ authMode, setAuthMode }) {
         case "register": {
           const data = await registerUser(formData); // Richiamo il service axios per la REGISTRAZIONE dell'utente
 
-          alert(`Registrazione avvenuta con successo! ID: ${data}`);
+          alert(`Registrazione avvenuta con successo!`);
 
           console.log(data);
 
@@ -226,9 +226,7 @@ function AuthForm({ authMode, setAuthMode }) {
                     setAuthMode("password");
                   }}
                   className="text-end w-100"
-                >
-                  Password dimenticata
-                </a>
+                ></a>
               )}
             </div>
           </Form>

@@ -9,31 +9,51 @@ import {
   Alert,
 } from "react-bootstrap";
 import { PiHeartBold, PiHeartFill } from "react-icons/pi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LoadingCard from "../../LoadingCard/LoadingCard";
 import { badgeColor } from "../../helpers/eventUtils";
+import { fetchAllEvents } from "../../Redux/Slices/eventSlice";
 
 function EventCard() {
   const navigate = useNavigate();
-  // Gestione dei preferiti tramite array in uno stato
-  const [favourites, setFavourites] = useState([]);
+  const dispatch = useDispatch();
 
-  const { eventsList, loading, error } = useSelector((state) => state.events);
+  const [favourites, setFavourites] = useState(() => {
+    const saved = localStorage.getItem("user_favourites");
+    return saved ? JSON.parse(saved) : [];
+  });
 
-  // Funzione per aggiornare lo stato ed aggiungere o togliere elementi dall'array dei preferiti al click sul bottone
+  // Lettura dello stato globale di Redux inclusi i filtri laterali
+  const {
+    eventsList,
+    loading,
+    error,
+    searchTerm,
+    selectedCategory,
+    maxPrice,
+    selectedDate,
+  } = useSelector((state) => state.events);
+
+  // Scarica tutti gli eventi dal backend una sola volta all'avvio
+  useEffect(() => {
+    dispatch(fetchAllEvents());
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem("user_favourites", JSON.stringify(favourites));
+  }, [favourites]);
+
   const toggleFavourites = (e, eventId) => {
     e.stopPropagation();
-    setFavourites(
-      (prev) =>
-        prev.includes(eventId) // Controllo se l'id dell'evento è già nell'array
-          ? prev.filter((id) => id !== eventId) // Se è incluso, lo rimuovo
-          : [...prev, eventId], // Altrimenti lo aggiugno
+    setFavourites((prev) =>
+      prev.includes(eventId)
+        ? prev.filter((id) => id !== eventId)
+        : [...prev, eventId],
     );
   };
 
-  // Funzione helper per formattare la data senza 'T' e senza secondi
   const formatDate = (dateString) => {
     if (!dateString) return "";
 
@@ -47,9 +67,35 @@ function EventCard() {
     }).format(date);
   };
 
+  // Filtraggio dinamico lato client
+  const filteredEvents = eventsList.filter((singleEvent) => {
+    // 1. Controllo ricerca testuale (su titolo o luogo)
+    const matchesSearch =
+      !searchTerm ||
+      singleEvent.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      singleEvent.place?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    // 2. Controllo categoria
+    const eventCategory = singleEvent.eventType || singleEvent.category || "";
+    const matchesCategory =
+      selectedCategory === "tutti" ||
+      eventCategory.toLowerCase() === selectedCategory.toLowerCase();
+
+    // 3. Controllo budget massimo (se 300 include tutti gli eventi)
+    const matchesPrice =
+      maxPrice === 300 || Number(singleEvent.price) <= Number(maxPrice);
+
+    // 4. Controllo data (confronta la stringa YYYY-MM-DD dell'input con la data dell'evento)
+    const matchesDate =
+      !selectedDate ||
+      (singleEvent.eventDate && singleEvent.eventDate.startsWith(selectedDate));
+
+    return matchesSearch && matchesCategory && matchesPrice && matchesDate;
+  });
+
   return (
     <Container className="px-0">
-      {error && <Alert>{error}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
       <Row>
         {loading &&
           Array.from({ length: 8 }).map((_, index) => (
@@ -65,8 +111,14 @@ function EventCard() {
             </Col>
           ))}
 
+        {!loading && filteredEvents.length === 0 && (
+          <Col xs={12} className="text-center py-5">
+            <h5>Nessun evento trovato per i filtri selezionati.</h5>
+          </Col>
+        )}
+
         {!loading &&
-          eventsList.map((singleEvent) => (
+          filteredEvents.map((singleEvent) => (
             <Col
               xs={12}
               sm={6}
@@ -77,7 +129,7 @@ function EventCard() {
             >
               <Card
                 onClick={() => navigate(`/eventDetails/${singleEvent.eventId}`)}
-                className="event-card "
+                className="event-card"
               >
                 <Card.Img
                   src={singleEvent.img}
@@ -90,27 +142,28 @@ function EventCard() {
                 <Card.ImgOverlay className="d-flex flex-column justify-content-between p-3">
                   <div className="d-flex justify-content-between align-items-center">
                     <Badge
-                      className={`badge-custom ${badgeColor(singleEvent.eventType)}`}
+                      className={`badge-custom ${badgeColor(
+                        singleEvent.eventType,
+                      )}`}
                     >
                       {singleEvent.eventType}
                     </Badge>
                     <Button
                       variant="light"
                       className="preferiti-icon"
-                      onClick={(e) => toggleFavourites(e, singleEvent.eventId)} // Applico la funzione dei preferiti al click
+                      onClick={(e) => toggleFavourites(e, singleEvent.eventId)}
                     >
                       {favourites.includes(singleEvent.eventId) ? (
-                        <PiHeartFill className="favourites-heart-icons" /> // Se la funzione torna negativa l'icon del cuore sarà vuoto
+                        <PiHeartFill className="favourites-heart-icons" />
                       ) : (
-                        <PiHeartBold className="favourites-heart-icons" /> // Se la funzione torna positiva l'icon del cuore sarà piena
+                        <PiHeartBold className="favourites-heart-icons" />
                       )}
                     </Button>
                   </div>
 
                   <div>
                     <small className="event-card-text">
-                      {" "}
-                      {formatDate(singleEvent.eventDate)}{" "}
+                      {formatDate(singleEvent.eventDate)}
                     </small>
                     <Card.Title className="event-card-title">
                       {singleEvent.title}
@@ -132,4 +185,5 @@ function EventCard() {
     </Container>
   );
 }
+
 export default EventCard;

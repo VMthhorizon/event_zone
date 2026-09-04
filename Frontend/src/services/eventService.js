@@ -44,3 +44,14 @@ export const getAllEvents = async () => {
     throw new Error(message, { cause: error });
   }
 };
+
+export const getEventById = async (eventId) => {
+  try {
+    const response = await api.get(`/event/${eventId}`);
+
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.message || "Evento non trovato";
+    throw new Error(message, { cause: error });
+  }
+};

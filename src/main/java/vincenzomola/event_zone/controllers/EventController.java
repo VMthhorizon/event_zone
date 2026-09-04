@@ -16,6 +16,7 @@ import vincenzomola.event_zone.services.EventService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/event")
@@ -51,6 +52,13 @@ public class EventController {
     @ResponseStatus(HttpStatus.OK)
     public List<EventListDTO> allEventsList() {
         return eventService.findAllEvents();
+    }
+
+    //Endpoint per ottenere l'evento specifico tramite il uso id
+    @GetMapping("/{eventId}")
+    @ResponseStatus(HttpStatus.OK)
+    public EventListDTO getEventById(@PathVariable UUID eventId) {
+        return eventService.findEventById(eventId);
     }
 
 }

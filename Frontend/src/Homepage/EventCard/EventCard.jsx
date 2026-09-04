@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoadingCard from "../../LoadingCard/LoadingCard";
+import { badgeColor } from "../../helpers/eventUtils";
 
 function EventCard() {
   const navigate = useNavigate();
@@ -46,24 +47,8 @@ function EventCard() {
     }).format(date);
   };
 
-  // Gestione del badge sulle card in base al tipo di evento di evento
-  const badgeColor = (eventType) => {
-    switch (eventType) {
-      case "CONCERTO":
-        return "badge-color-concerto";
-      case "CINEMA":
-        return "badge-color-cinema";
-      case "FESTIVAL":
-        return "badge-color-festival";
-      case "TEATRO":
-        return "badge-color-teatro";
-      default:
-        return "bg-black";
-    }
-  };
-
   return (
-    <Container className="px-0">
+    <Container className="px-0 mt-4">
       {error && <Alert>{error}</Alert>}
       <Row className="mt-4">
         {loading &&
@@ -91,7 +76,7 @@ function EventCard() {
               className="gx-3 gy-3"
             >
               <Card
-                onClick={() => navigate("/eventDetails")}
+                onClick={() => navigate(`/eventDetails/${singleEvent.eventId}`)}
                 className="event-card "
               >
                 <Card.Img
@@ -112,12 +97,12 @@ function EventCard() {
                     <Button
                       variant="light"
                       className="preferiti-icon"
-                      onClick={() => toggleFavourites(singleEvent.eventId)} // Applico la funzione dei preferiti al click
+                      onClick={(e) => toggleFavourites(e, singleEvent.eventId)} // Applico la funzione dei preferiti al click
                     >
                       {favourites.includes(singleEvent.eventId) ? (
-                        <PiHeartFill /> // Se la funzione torna negativa l'icon del cuore sarà vuoto
+                        <PiHeartFill className="favourites-heart-icons" /> // Se la funzione torna negativa l'icon del cuore sarà vuoto
                       ) : (
-                        <PiHeartBold /> // Se la funzione torna positiva l'icon del cuore sarà piena
+                        <PiHeartBold className="favourites-heart-icons" /> // Se la funzione torna positiva l'icon del cuore sarà piena
                       )}
                     </Button>
                   </div>

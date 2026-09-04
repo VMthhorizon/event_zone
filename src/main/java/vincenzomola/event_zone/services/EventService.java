@@ -40,7 +40,18 @@ public class EventService {
     }
 
     // Find Event tramite il suo id
-    public Event findEventById(UUID eventId) {
+    public EventListDTO findEventById(UUID eventId) {
+        Event eventFromDb = eventRepository.findById(eventId)
+                .orElseThrow(() -> new NotFoundException("Evento con id: " + eventId + " non trovato"));
+
+        return new EventListDTO(eventFromDb.getId(), eventFromDb.getEventType(), eventFromDb.getTitle(),
+                eventFromDb.getDescription(), eventFromDb.getPlace(), eventFromDb.getEventDate(),
+                eventFromDb.getTotalSeats(),
+                eventFromDb.getPrice(), eventFromDb.getLongitude(), eventFromDb.getLatitude(), eventFromDb.getImg());
+    }
+
+    // FindeventById che restituise l'event stesso non un DTO
+    public Event findEventEntityById(UUID eventId) {
         return eventRepository.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Evento con id: " + eventId + " non trovato"));
     }
@@ -62,14 +73,31 @@ public class EventService {
         }
     }
 
-    // Modifica dell'img per l'evento
+    // Update per modificare l'img di un evento
     @Transactional
-    public Event updateEventImg(UUID eventId, MultipartFile file) {
-        Event eventFromDb = findEventById(eventId);
-        String urlImg = uploadEventImage(file);
+    public EventListDTO updateEventImg(UUID eventId, MultipartFile file) {
+        // Recupero l'entity
+        Event eventFromDb = findEventEntityById(eventId);
 
+        // Carico l'immagine e aggiorna l'entity
+        String urlImg = uploadEventImage(file);
         eventFromDb.setImg(urlImg);
-        return eventRepository.save(eventFromDb);
+
+        // Salvo l'entity
+        Event savedEvent = eventRepository.save(eventFromDb);
+
+        // Restituisco il DTO aggiornato al frontend
+        return convertToDTO(savedEvent);
+    }
+
+    // Funzione Helper per restituire un DTO
+    private EventListDTO convertToDTO(Event event) {
+        return new EventListDTO(
+                event.getId(), event.getEventType(), event.getTitle(),
+                event.getDescription(), event.getPlace(), event.getEventDate(),
+                event.getTotalSeats(), event.getPrice(),
+                event.getLongitude(), event.getLatitude(), event.getImg()
+        );
     }
 
     // Find per TUTTI gli eventi nel DB

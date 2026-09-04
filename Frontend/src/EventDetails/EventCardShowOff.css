@@ -1,0 +1,23 @@
+.card-headers {
+  font-weight: 900;
+  color: azure;
+}
+
+.card-place {
+  color: dodgerblue;
+  font-weight: bolder;
+}
+
+.event-card-showoff {
+  height: 350px;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.event-card-showoff-img {
+  height: 100% !important;
+  width: 100%;
+  object-fit: cover;
+}

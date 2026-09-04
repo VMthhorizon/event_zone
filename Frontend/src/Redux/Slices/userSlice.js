@@ -9,8 +9,7 @@ export const fetchUserProfile = createAsyncThunk(
 
       return response;
     } catch (error) {
-      const message =
-        error.response?.data?.message || "Errore nel caricamento del profilo";
+      const message = error.message || "Errore nel caricamento del profilo";
       return rejectWithValue(message);
     }
   },

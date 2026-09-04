@@ -3,7 +3,7 @@ import "./Footer.css";
 
 function Footer() {
   return (
-    <Container fluid className=" bg-dark py-2 ">
+    <Container fluid className=" bg-dark py-2 mt-3 ">
       <Row className="align-items-start ">
         <Col xs={12} md={6} className="mb-3">
           <h3 className="mb-1 text-secondary">EventZone</h3>

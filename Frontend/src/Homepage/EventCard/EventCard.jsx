@@ -8,30 +8,22 @@ import {
   Button,
   Alert,
 } from "react-bootstrap";
-import "../../data/event";
 import { PiHeartBold, PiHeartFill } from "react-icons/pi";
-import { useEffect, useState } from "react";
-import { getAllEvents } from "../../services/eventService";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import LoadingCard from "../../LoadingCard/LoadingCard";
 
 function EventCard() {
+  const navigate = useNavigate();
   // Gestione dei preferiti tramite array in uno stato
   const [favourites, setFavourites] = useState([]);
-  // Lista degli eventi
-  const [eventsList, setEventsList] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const fetchAllEvents = async () => {
-    try {
-      const allEvents = await getAllEvents();
-
-      setEventsList(allEvents);
-    } catch (error) {
-      setErrorMessage(error.message);
-    }
-  };
+  const { eventsList, loading, error } = useSelector((state) => state.events);
 
   // Funzione per aggiornare lo stato ed aggiungere o togliere elementi dall'array dei preferiti al click sul bottone
-  const toggleFavourites = (eventId) => {
+  const toggleFavourites = (e, eventId) => {
+    e.stopPropagation();
     setFavourites(
       (prev) =>
         prev.includes(eventId) // Controllo se l'id dell'evento è già nell'array
@@ -70,74 +62,87 @@ function EventCard() {
     }
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchAllEvents();
-  }, []);
-
   return (
     <Container className="px-0">
-      {errorMessage && <Alert>{errorMessage}</Alert>}
+      {error && <Alert>{error}</Alert>}
       <Row className="mt-4">
-        {eventsList.map((singleEvent) => (
-          <Col
-            xs={12}
-            sm={6}
-            lg={4}
-            xxl={3}
-            key={singleEvent.eventId}
-            className="gx-3 gy-3"
-          >
-            <Card className="event-card ">
-              <Card.Img
-                src={singleEvent.img}
-                alt={singleEvent.title}
-                className="event-card-img"
-              />
+        {loading &&
+          Array.from({ length: 8 }).map((_, index) => (
+            <Col
+              xs={12}
+              sm={6}
+              lg={4}
+              xxl={3}
+              key={index}
+              className="gx-3 gy-3"
+            >
+              <LoadingCard />
+            </Col>
+          ))}
 
-              <div className="event-card-overlay"></div>
+        {!loading &&
+          eventsList.map((singleEvent) => (
+            <Col
+              xs={12}
+              sm={6}
+              lg={4}
+              xxl={3}
+              key={singleEvent.eventId}
+              className="gx-3 gy-3"
+            >
+              <Card
+                onClick={() => navigate("/eventDetails")}
+                className="event-card "
+              >
+                <Card.Img
+                  src={singleEvent.img}
+                  alt={singleEvent.title}
+                  className="event-card-img"
+                />
 
-              <Card.ImgOverlay className="d-flex flex-column justify-content-between p-3">
-                <div className="d-flex justify-content-between align-items-center">
-                  <Badge
-                    className={`badge-custom ${badgeColor(singleEvent.eventType)}`}
-                  >
-                    {singleEvent.eventType}
-                  </Badge>
-                  <Button
-                    variant="light"
-                    className="preferiti-icon"
-                    onClick={() => toggleFavourites(singleEvent.eventId)} // Applico la funzione dei preferiti al click
-                  >
-                    {favourites.includes(singleEvent.eventId) ? (
-                      <PiHeartFill /> // Se la funzione torna negativa l'icon del cuore sarà vuoto
-                    ) : (
-                      <PiHeartBold /> // Se la funzione torna positiva l'icon del cuore sarà piena
-                    )}
-                  </Button>
-                </div>
+                <div className="event-card-overlay"></div>
 
-                <div>
-                  <small className="event-card-text">
-                    {" "}
-                    {formatDate(singleEvent.eventDate)}{" "}
-                  </small>
-                  <Card.Title className="event-card-title">
-                    {singleEvent.title}
-                  </Card.Title>
-                  <div className="d-flex justify-content-between">
-                    <Card.Text className="event-card-info">
-                      {singleEvent.price}€
-                    </Card.Text>
-                    <Card.Text className="event-card-info">
-                      {singleEvent.place}
-                    </Card.Text>
+                <Card.ImgOverlay className="d-flex flex-column justify-content-between p-3">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <Badge
+                      className={`badge-custom ${badgeColor(singleEvent.eventType)}`}
+                    >
+                      {singleEvent.eventType}
+                    </Badge>
+                    <Button
+                      variant="light"
+                      className="preferiti-icon"
+                      onClick={() => toggleFavourites(singleEvent.eventId)} // Applico la funzione dei preferiti al click
+                    >
+                      {favourites.includes(singleEvent.eventId) ? (
+                        <PiHeartFill /> // Se la funzione torna negativa l'icon del cuore sarà vuoto
+                      ) : (
+                        <PiHeartBold /> // Se la funzione torna positiva l'icon del cuore sarà piena
+                      )}
+                    </Button>
                   </div>
-                </div>
-              </Card.ImgOverlay>
-            </Card>
-          </Col>
-        ))}
+
+                  <div>
+                    <small className="event-card-text">
+                      {" "}
+                      {formatDate(singleEvent.eventDate)}{" "}
+                    </small>
+                    <Card.Title className="event-card-title">
+                      {singleEvent.title}
+                    </Card.Title>
+                    <div className="d-flex justify-content-between">
+                      <Card.Text className="event-card-info">
+                        {singleEvent.price}€
+                      </Card.Text>
+                      <Card.Text className="event-card-info">
+                        {singleEvent.place}
+                      </Card.Text>
+                    </div>
+                  </div>
+                </Card.ImgOverlay>
+              </Card>
+            </Col>
+          ))}
       </Row>
     </Container>
   );

@@ -45,8 +45,8 @@ function NavbarFilter() {
               defaultValue={[0, 300]}
               onChange={(price) => setPriceRange(price)}
               styles={{
-                track: { backgroundColor: "purple" },
-                handle: { borderColor: "purple", backgroundColor: "#fff" },
+                track: { backgroundColor: "#f6825f" },
+                handle: { borderColor: "#f54f1b", backgroundColor: "#fff" },
                 opacity: 1,
                 boxShadow: "0 0 5px rgba(225, 13, 240, 0.8)",
               }}

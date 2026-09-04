@@ -9,14 +9,14 @@ import NotFound from "./NotFound/NotFound";
 import Homepage from "./Homepage/Homepage";
 import Footer from "./Footer/Footer";
 import Settings from "./Settings/Settings";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUserProfile } from "./Redux/Slices/userSlice";
 import DashboardPage from "./Dashboard/DashboardPage";
+import EventDetailsPage from "./EventDetails/EventDetailsPage";
 
 function App() {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -25,24 +25,17 @@ function App() {
     }
   }, [dispatch, token]);
 
-  if (loading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center w-100">
-        <h3>Caricamento profilo in corso.....</h3>
-      </div>
-    );
-  }
-
   return (
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
-        <main className="flex-grow-1 d-flex flex-column h-100">
+        <main className="flex-grow-1 d-flex flex-column  ">
           <Routes>
             <Route path="/" element={<AuthPage />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/homepage" element={<Homepage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/eventDetails/:id" element={<EventDetailsPage />} />
           </Routes>
         </main>
 

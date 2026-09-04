@@ -2,8 +2,17 @@ import NavbarHome from "./NavbarHomepage/NavbarHome";
 import EventCard from "./EventCard/EventCard";
 import { Col, Container, Row } from "react-bootstrap";
 import NavbarFilter from "./NavbarFilter/NavbarFilter";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchAllEvents } from "../Redux/Slices/eventSlice";
 
 function Homepage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllEvents());
+  }, [dispatch]);
+
   return (
     <div className="d-flex flex-column h-100">
       <NavbarHome />

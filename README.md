@@ -36,31 +36,34 @@ Una piattaforma moderna e intuitiva per la gestione, creazione e prenotazione di
 
 ---
 
-## 📁 Struttura della Cartella `src`
+### 📂 Struttura delle cartelle
 
-**Frontend**
+#### **Frontend (`src/`)**
+```text
 src/
-├── components/          # Componenti riutilizzabili (Navbar, LoadingCard, EventCard...)
-├── pages/               # Pagine della rotta (Home, EventDetails, Checkout, Profile...)
-├── redux/               # oppure 'store/'
-│   ├── slices/          # eventSlice.js, cartSlice.js, userSlice.js
-│   └── store.js         # Configurazione principale di Redux (configureStore)
-├── services/            # Client Axios e chiamate backend (eventService.js, api.js)
-├── helpers/             # Funzioni utility pure (formatters, costanti, badgeColor...)
-├── assets/              # Immagini, loghi, stili globali / CSS
-├── App.jsx
-└── main.jsx / index.js
+├── assets/          # Immagini, loghi e stili CSS
+├── components/      # Componenti UI riutilizzabili (Navbar, LoadingCard, EventCard...)
+├── helpers/         # Funzioni utility pure (formatters, costanti, badgeColor...)
+├── pages/           # Pagine principali/rotte (Home, EventDetails, Checkout, Profile...)
+├── redux/           # Gestione dello stato globale
+│   ├── slices/      # eventSlice.js, cartSlice.js, userSlice.js
+│   └── store.js     # Configurazione principale dello Store Redux
+├── services/        # Client Axios e chiamate al backend (eventService.js, api.js)
+├── App.jsx          # Componente principale e gestione delle rotte
+└── main.jsx         # Entry point dell'applicazione React
+```
 
-**Backend**
-src/
-    └── main/
-        ├── 
-        │   ├── config/             # Configurazioni (Spring Security, CORS, Beans)
-        │   ├── controllers/        # Endpoints REST (ricevono le richieste HTTP e ritornano JSON)
-        │   ├── dtos/               # Data Transfer Objects (classi Request e Response)
-        │   ├── exceptions/         # Gestione centralizzata errori (@ControllerAdvice, custom exceptions)
-        │   ├── models/             # Entità JPA / DB (Event, User, Order, Category)
-        │   ├── repositories/       # Interfacce Spring Data JPA per le query SQL
-        │   ├── security/           # Filtri JWT, UserDetailsService, Token Provider
-          └── services/           # Business Logic (servizi e interfacce)
-        
+#### **Backend (`src/main/java/...`)**
+```text
+
+├── configurations/      # Configurazioni generali (App Config, Swagger, CORS)
+├── controllers/         # Endpoints REST (gestione delle richieste HTTP)
+├── entities/            # Entità JPA / Tabelle del Database (Event, User, Ticket, ecc.)
+├── enums/               # Enumerazioni di sistema (es. Role, EventType, Status)
+├── exceptions/          # Gestione centralizzata delle eccezioni custom (@ControllerAdvice)
+├── payloads/            # DTOs, Request e Response Payloads per lo scambio dati
+├── repositories/        # Interfacce Spring Data JPA per l'accesso ai dati
+├── security/            # Autenticazione JWT, filtri di protezione e UserDetailsService
+├── services/            # Business Logic dell'applicazione
+└── EventZoneApplication.java # Entry point dell'applicazione Spring Boot
+```

@@ -55,3 +55,7 @@
 .navbar-logo-img:hover {
   transform: scale(1.05);
 }
+
+.dropdown-item:hover {
+  background-color: #1e223d;
+}

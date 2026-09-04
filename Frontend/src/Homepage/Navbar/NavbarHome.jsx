@@ -262,7 +262,7 @@ function NavbarHome() {
               </div>
 
               {cartItems.length > 0 && (
-                <div className="p-2 border-top bg-light text-dark">
+                <div className="p-2 border-top ">
                   <div className="d-flex justify-content-between fw-bold mb-2 px-1">
                     <span>Totale:</span>
                     <span>€{totalPrice.toFixed(2)}</span>

@@ -25,17 +25,24 @@ public class UserService {
     private final UserRepository userRepository;
     private final JWTTools jwtTools;
     private final PasswordEncoder bcrypt;
+    private final WalletService walletService;
 
-    public UserService(UserRepository userRepository, JWTTools jwtTools, PasswordEncoder bcrypt) {
+    public UserService(UserRepository userRepository, JWTTools jwtTools, PasswordEncoder bcrypt,
+                       WalletService walletService) {
         this.userRepository = userRepository;
         this.jwtTools = jwtTools;
         this.bcrypt = bcrypt;
+        this.walletService = walletService;
     }
 
     @Transactional
     public User createAccount(UserRegisterDTO body) {
-        return userRepository.save(new User(body.username(), body.nome(), body.cognome(), body.email(),
+        User savedUser = userRepository.save(new User(body.username(), body.nome(), body.cognome(), body.email(),
                 this.bcrypt.encode(body.password())));
+
+        this.walletService.createWallet(savedUser);
+
+        return savedUser;
     }
 
     public User findUserbyEmail(String email) {

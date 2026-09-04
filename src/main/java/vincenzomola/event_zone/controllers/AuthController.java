@@ -7,12 +7,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import vincenzomola.event_zone.entities.User;
+import vincenzomola.event_zone.entities.Wallet;
 import vincenzomola.event_zone.exceptions.ValidationException;
 import vincenzomola.event_zone.payloads.UserLoginRequestDTO;
 import vincenzomola.event_zone.payloads.UserLoginResponseDTO;
 import vincenzomola.event_zone.payloads.UserRegisterDTO;
 import vincenzomola.event_zone.payloads.UserRegisterResponseDTO;
 import vincenzomola.event_zone.services.UserService;
+import vincenzomola.event_zone.services.WalletService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,6 +36,8 @@ public class AuthController {
     public UserRegisterResponseDTO createAccount(@Valid @RequestBody UserRegisterDTO body) {
 
         User user = this.userService.createAccount(body);
+
+        Wallet wallet = new Wallet(0.0, user);
 
         return new UserRegisterResponseDTO(user.getId(), LocalDateTime.now());
     }

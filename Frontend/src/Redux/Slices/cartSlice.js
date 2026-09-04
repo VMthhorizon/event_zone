@@ -1,4 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchWallet } from "./walletSlice";
+import api from "../../services/axiosConfig";
+export const checkoutOrder = createAsyncThunk(
+  "cart/checkoutOrder",
+  async (_, { getState, dispatch, rejectWithValue }) => {
+    try {
+      const { cartItems } = getState().cart;
+
+      const payload = {
+        tickets: cartItems.map((item) => ({
+          eventId: item.event.eventId || item.event.id,
+          quantity: item.quantity,
+        })),
+      };
+
+      const response = await api.post("/order/checkout", payload);
+
+      dispatch(fetchWallet());
+
+      return response.data;
+    } catch (err) {
+      const message =
+        err.response?.data?.message ||
+        "Errore durante il completamento dell'ordine.";
+      return rejectWithValue(message);
+    }
+  },
+);
 
 const loadCartFromStorage = () => {
   try {
@@ -22,6 +50,8 @@ const saveCartToStorage = (cartItems) => {
 
 const initialState = {
   cartItems: loadCartFromStorage(),
+  loading: false,
+  error: null,
 };
 
 const cartSlice = createSlice({
@@ -64,6 +94,22 @@ const cartSlice = createSlice({
       state.cartItems = [];
       localStorage.removeItem("cartItems");
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(checkoutOrder.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(checkoutOrder.fulfilled, (state) => {
+        state.loading = false;
+        state.cartItems = [];
+        localStorage.removeItem("cartItems");
+      })
+      .addCase(checkoutOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

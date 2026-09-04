@@ -104,6 +104,14 @@ public class Event {
         return organizer;
     }
 
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
     @Override
     public String toString() {
         return "Event{" +

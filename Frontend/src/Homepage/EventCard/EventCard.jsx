@@ -48,9 +48,9 @@ function EventCard() {
   };
 
   return (
-    <Container className="px-0 mt-4">
+    <Container className="px-0">
       {error && <Alert>{error}</Alert>}
-      <Row className="mt-4">
+      <Row>
         {loading &&
           Array.from({ length: 8 }).map((_, index) => (
             <Col

@@ -70,7 +70,7 @@ function EventDetailsPage() {
           <LoadingCard className="w-100" />
         </div>
       )}
-      <Row className="flex-column flex-grow-1 justify-content-between ">
+      <Row className="flex-column flex-grow-1 justify-content-between gap-3 ">
         <Col xs={12}>
           <EventCardShowOff foundEvent={event} />
         </Col>

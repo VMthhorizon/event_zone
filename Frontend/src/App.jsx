@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { fetchUserProfile } from "./Redux/Slices/userSlice";
 import DashboardPage from "./Dashboard/DashboardPage";
 import EventDetailsPage from "./EventDetails/EventDetailsPage";
+import NavbarHome from "./Homepage/Navbar/NavbarHome";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
+        <NavbarHome />
         <main className="flex-grow-1 d-flex flex-column  ">
           <Routes>
             <Route path="/" element={<AuthPage />} />

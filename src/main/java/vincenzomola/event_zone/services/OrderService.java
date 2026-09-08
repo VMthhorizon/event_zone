@@ -1,6 +1,7 @@
 package vincenzomola.event_zone.services;
 
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import vincenzomola.event_zone.entities.*;
 import vincenzomola.event_zone.enums.OrderState;
@@ -14,6 +15,7 @@ import vincenzomola.event_zone.repositories.TicketRepository;
 import vincenzomola.event_zone.repositories.WalletRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OrderService {
@@ -86,6 +88,6 @@ public class OrderService {
     }
 
     public List<Order> getMyOrders(User user) {
-        return orderRepository.findByUserOrderByCreationDateDesc(user);
+        return orderRepository.findByUserIdOrderByCreationDateDesc(user.getId());
     }
 }

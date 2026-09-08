@@ -46,7 +46,7 @@ function DashboardAdmin() {
   return (
     <Container fluid>
       <Row>
-        <h3 className="mb-3 text-center">LISTA UTENTI</h3>
+        <h3 className="my-2 text-center text-secondary">LISTA UTENTI</h3>
         {loading ? (
           <div className="text-center text-white my-4">
             <Spinner animation="border" size="sm" /> Caricamento utenti...

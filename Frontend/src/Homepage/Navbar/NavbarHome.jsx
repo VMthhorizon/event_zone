@@ -58,14 +58,14 @@ function NavbarHome() {
       <Container fluid className="flex-column align-items-center w-100">
         <div className="w-100 d-flex justify-content-between align-items-center">
           <Navbar.Brand
-            className="py-0"
+            className="py-0 mx-0"
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/homepage")}
           >
             <img className="navbar-logo-img" src="/logo.png" alt="Logo" />
           </Navbar.Brand>
 
-          <div className="d-flex justify-content-center align-items-center flex-grow-1 mx-3">
+          <div className="d-flex justify-content-center align-items-center flex-grow-1">
             <AnimatePresence mode="wait">
               {isHomepage ? (
                 <motion.div
@@ -174,13 +174,13 @@ function NavbarHome() {
                   }}
                 >
                   <Button
-                    variant="outline-light"
+                    variant="outline-primary"
                     size="sm"
                     className="d-flex align-items-center gap-2 rounded-pill px-3 py-1 border-0"
                     onClick={() => navigate("/homepage")}
                   >
-                    <IoIosHome className="fs-5" />
-                    <h5 className="m-0">Torna alla Homepage</h5>
+                    <IoIosHome className="fs-4" />
+                    <h5 className="m-0">Homepage</h5>
                   </Button>
                 </motion.div>
               )}

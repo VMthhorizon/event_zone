@@ -96,7 +96,7 @@ function DashboardOrganizer() {
 
   return (
     <Container fluid>
-      <Row className="justify-content-center align-items-center mt-3">
+      <Row className="justify-content-center align-items-center my-5">
         <Col xs={12} md={9}>
           <Form
             onSubmit={submitEventForm}

@@ -23,13 +23,13 @@ function EventCardShowOff(props) {
         className="rounded-4 event-card-showoff-img"
         alt={props.foundEvent.title}
       />
-      <Card.ImgOverlay className="d-flex justify-content-between align-items-end p-3 ">
+      <Card.ImgOverlay className="flex-column d-sm-flex justify-content-between p-3 ">
         <div className="d-flex flex-column">
           <h2 className="card-headers"> {props.foundEvent.title}</h2>
           <h4 className="card-place"> {props.foundEvent.place}</h4>
         </div>
-        <h2 className="card-headers">
-          {formatDate(props.foundEvent.eventDate).slice(0, 10)};
+        <h2 className="card-headers text-end">
+          {formatDate(props.foundEvent.eventDate).slice(0, 10)}
         </h2>
       </Card.ImgOverlay>
     </Card>

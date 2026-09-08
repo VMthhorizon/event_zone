@@ -55,7 +55,7 @@ public class UserService {
 
         User userFromDb = findUserbyEmail(body.email());
         if (bcrypt.matches(body.password(), userFromDb.getPassword())) {
-            token = jwtTools.GenerateToken(userFromDb.getEmail());
+            token = jwtTools.GenerateToken(userFromDb);
         } else {
             throw new UnauthorizedException("Password o email errata");
 

@@ -35,7 +35,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    protected User() {
+    public User() {
     }
 
     public User(String username, String name, String surname, String email, String password) {
@@ -90,6 +90,15 @@ public class User implements UserDetails {
     public String getSurname() {
         return surname;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
 
     @Override
     public String toString() {

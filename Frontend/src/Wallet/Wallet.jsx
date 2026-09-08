@@ -3,6 +3,7 @@ import "./Wallet.css";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { FaWifi } from "react-icons/fa6";
 import "./Wallet.css";
+import { TbMoneybagPlus } from "react-icons/tb";
 
 function Wallet({
   wallet,
@@ -12,8 +13,8 @@ function Wallet({
   handleTopUp,
 }) {
   return (
-    <div className="wallet-container mb-4">
-      <h5 className="fw-bold mb-3">My Wallet</h5>
+    <div className="wallet-container mb-4 ">
+      <h5 className="fw-bold mb-3 text-secondary">My Wallet</h5>
       <div className="ez-card shadow-lg mb-3">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <span className="ez-card-brand">MASTERCARD</span>
@@ -44,12 +45,9 @@ function Wallet({
         </div>
       </div>
 
-      <Form
-        onSubmit={handleTopUp}
-        className="bg-white p-3 rounded-3 border shadow-sm"
-      >
-        <Form.Label className="small fw-bold text-muted mb-2">
-          Ricarica Rapida
+      <Form onSubmit={handleTopUp} className=" p-3 shadow-sm ez-card">
+        <Form.Label>
+          <h6 className="text-secondary">Ricarica Rapida</h6>
         </Form.Label>
         <div className="d-flex gap-2">
           <Form.Control
@@ -58,10 +56,13 @@ function Wallet({
             value={topUpAmount}
             min="1"
             onChange={(e) => setTopUpAmount(e.target.value)}
-            className="topup-input"
+            className="bg-transparent border-1 border-info"
           />
-          <Button type="submit" className="topup-btn px-3">
-            Ricarica
+          <Button
+            type="submit"
+            className="btn-gradient d-flex align-items-center"
+          >
+            <h6 className="btn-headers">Ricarica</h6> <TbMoneybagPlus />
           </Button>
         </div>
       </Form>

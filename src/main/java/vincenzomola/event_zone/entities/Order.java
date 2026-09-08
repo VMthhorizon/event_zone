@@ -31,6 +31,30 @@ public class Order {
     protected Order() {
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public OrderState getOrderState() {
+        return orderState;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
     public Order(double totalPrice, OrderState orderState, User user) {
         this.totalPrice = totalPrice;
         this.orderState = orderState;
@@ -44,4 +68,6 @@ public class Order {
         this.totalPrice = totalPrice;
         this.orderState = orderState;
     }
+
+
 }

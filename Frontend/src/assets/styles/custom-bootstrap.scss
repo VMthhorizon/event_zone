@@ -59,6 +59,11 @@ a {
     box-shadow: none;
     color: $secondary;
     box-shadow: 0 4px 15px $secondary;
+
+    .btn-headers {
+      color: #f54f1b !important;
+      transition: color 0.15s ease-in-out;
+    }
   }
 
   // Animazione alla pressione del button verso il basso
@@ -76,6 +81,10 @@ a {
       transform: translateX(3px);
     }
   }
+}
+
+.btn-headers {
+  color: #21203c !important;
 }
 
 // Classe SOLO per i button di Login e Registrazione

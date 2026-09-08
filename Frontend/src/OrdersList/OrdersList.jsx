@@ -25,7 +25,7 @@ function OrdersList() {
 
   return (
     <Card className=" border-0 ">
-      <h5 className="fw-bold mb-3">I Miei Ordini</h5>
+      <h5 className="fw-bold mb-3 text-secondary">I Miei Ordini</h5>
 
       {loading && (
         <div className="text-center py-4">
@@ -45,31 +45,30 @@ function OrdersList() {
           <Table hover align="middle" className="mb-0 ">
             <thead>
               <tr>
-                <th className="text-white">ID Ordine</th>
-                <th className="text-white">Data</th>
-                <th className="text-white">Totale</th>
-                <th className="text-white">Stato</th>
+                <th className="text-secondary">ID Ordine</th>
+                <th className="text-secondary">Data</th>
+                <th className="text-secondary">Totale</th>
+                <th className="text-secondary">Stato</th>
               </tr>
             </thead>
             <tbody>
               {ordersList.map((order, index) => (
                 <tr key={order?.id || index}>
                   <td className="fw-bold text-white">
-                    #{order?.id || index + 1}
+                    {console.log(ordersList)}#{order?.id || index + 1}
                   </td>
                   <td className="fw-bold text-white">
                     {formatDate(order?.creationDate)}
                   </td>
                   <td className="fw-semibold text-white">
-                    €
-                    {order?.totalAmount?.toFixed(2) ||
-                      order?.price?.toFixed(2) ||
-                      "0.00"}
+                    €{order?.totalPrice}
                   </td>
                   <td>
                     <Badge
                       bg={
-                        order?.status === "COMPLETED" ? "success" : "secondary"
+                        order?.orderState === "COMPLETED"
+                          ? "success"
+                          : "secondary"
                       }
                     >
                       {order?.status || "CONFERMATO"}

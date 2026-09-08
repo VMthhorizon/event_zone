@@ -89,7 +89,7 @@ function EventDetailsPage() {
             className="btn-gradient w-100"
             onClick={() => dispatch(addToCart(event))}
           >
-            <h6 className="mb-0">
+            <h6 className="mb-0 btn-headers fs-5">
               Aggiungi al Carrello <FaCartPlus className="ms-1" />
             </h6>
           </Button>

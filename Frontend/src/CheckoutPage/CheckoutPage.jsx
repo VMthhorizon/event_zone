@@ -15,6 +15,7 @@ import { removeFromCart, checkoutOrder } from "../Redux/Slices/cartSlice";
 import { fetchWallet, fetchChargeWallet } from "../Redux/Slices/walletSlice";
 import { useEffect, useState } from "react";
 import Wallet from "../Wallet/Wallet";
+import "./CheckoutPage.css";
 
 function CheckoutPage() {
   const dispatch = useDispatch();
@@ -85,7 +86,7 @@ function CheckoutPage() {
 
   return (
     <Container fluid className="my-4">
-      <h2 className="mb-4">RIEPILOGO</h2>
+      <h2 className="mb-4 text-secondary">RIEPILOGO</h2>
 
       {(cartError || localError) && (
         <Alert variant="danger">{cartError || localError}</Alert>
@@ -93,8 +94,10 @@ function CheckoutPage() {
 
       <Row className="g-4">
         <Col lg={8}>
-          <Card className="shadow-sm border-0 p-3">
-            <h5 className="mb-3">Eventi nel Carrello ({cartItems.length})</h5>
+          <Card className="shadow-sm border-0">
+            <h5 className="mb-3 text-secondary">
+              Eventi nel Carrello ({cartItems.length})
+            </h5>
             <Container fluid className="px-0">
               {cartItems.map(({ event, quantity }) => (
                 <Row
@@ -115,14 +118,14 @@ function CheckoutPage() {
                   </Col>
 
                   <Col xs={6} sm={7}>
-                    <div className="fw-bold fs-5 text-truncate">
+                    <div className="fw-bold fs-5 text-truncate cart-event-details">
                       {event.title}
                     </div>
-                    <div className="text-muted">
+                    <div className="cart-event-details opacity-75">
                       Quantità: <strong>{quantity}</strong> &times; €
                       {event.price.toFixed(2)}
                     </div>
-                    <div className="fw-semibold text-primary mt-1">
+                    <div className="fw-semibold text-primary mt-1 cart-event-details">
                       Subtotale: €{(event.price * quantity).toFixed(2)}
                     </div>
                   </Col>

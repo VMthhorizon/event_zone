@@ -45,7 +45,7 @@ function Settings() {
 
   return (
     <Container fluid>
-      <h1 className="text-center">IMPOSTAZIONI GENERALI</h1>
+      <h1 className="text-center mt-2 text-secondary">IMPOSTAZIONI GENERALI</h1>
       <Row className="justify-content-center my-3">
         <Col xs={12} md={9} lg={7}>
           <div className="table-div">

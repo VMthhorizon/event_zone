@@ -1,9 +1,11 @@
 package vincenzomola.event_zone.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.exceptions.UnauthorizedException;
 
 import java.util.Date;
@@ -32,10 +34,14 @@ public class JWTTools {
     }
 
     // Creo il token
-    public String GenerateToken(String email) {
+    public String GenerateToken(User user) {
 
         return Jwts.builder()
-                .subject(email)
+                .subject(user.getId()
+                        .toString())
+                .claim("email", user.getEmail())
+                .claim("role", user.getUserRole()
+                        .name())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
@@ -43,12 +49,11 @@ public class JWTTools {
     }
 
     // Metodo per ottenere il subject (in questo caso la email dell'utente) per autenticare lo user
-    public String getSubjectFromToken(String token) {
+    public Claims getClaimsFromToken(String token) {
         return Jwts.parser()
                 .verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .build()
                 .parseSignedClaims(token)
-                .getPayload()
-                .getSubject();
+                .getPayload();
     }
 }

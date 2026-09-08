@@ -10,7 +10,7 @@ function EventInfo(props) {
   return (
     <Card className="event-info-card bg-gradient">
       <div className="d-flex justify-content-between align-items-center">
-        <h2>DETTAGLI EVENTO</h2>
+        <h2 className="event-info-h2">DETTAGLI EVENTO</h2>
         <Badge
           className={`badge-custom fs-4 ${badgeColor(props.foundEvent.eventType)}`}
         >
@@ -32,7 +32,7 @@ function EventInfo(props) {
         </h4>
       </div>
       <div className="info-wrapper mb-4 flex-column">
-        <h3>DESCRIZIONE</h3>
+        <h2 className=" text-center event-info-h2">DESCRIZIONE</h2>
         <h4>{props.foundEvent.description}</h4>
       </div>
     </Card>

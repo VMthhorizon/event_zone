@@ -3,3 +3,30 @@
   border-radius: 16px !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
+
+.favourites-img {
+  min-width: 130px;
+  max-width: 130px;
+  min-height: 65px;
+  max-height: 65px;
+  object-fit: cover;
+  border-radius: 9px;
+}
+
+.favourites-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.favourites-div {
+  width: 100;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2em;
+  border-bottom: 1px 1px white;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}

@@ -20,10 +20,22 @@ function EventCard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [favourites, setFavourites] = useState(() => {
-    const saved = localStorage.getItem("user_favourites");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { profile } = useSelector((state) => state.user);
+
+  const userKey = profile?.id ? `favourites_${profile?.id}` : null;
+
+  const [favourites, setFavourites] = useState([]);
+
+  // Sincronizza i preferiti da localStorage quando il profilo utente è pronto
+  useEffect(() => {
+    if (userKey) {
+      const saved = localStorage.getItem(userKey);
+      if (saved) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setFavourites(JSON.parse(saved));
+      }
+    }
+  }, [userKey]);
 
   // Lettura dello stato globale di Redux inclusi i filtri laterali
   const {
@@ -42,8 +54,10 @@ function EventCard() {
   }, [dispatch]);
 
   useEffect(() => {
-    localStorage.setItem("user_favourites", JSON.stringify(favourites));
-  }, [favourites]);
+    if (userKey) {
+      localStorage.setItem(userKey, JSON.stringify(favourites));
+    }
+  }, [favourites, userKey]);
 
   const toggleFavourites = (e, eventId) => {
     e.stopPropagation();
@@ -69,23 +83,23 @@ function EventCard() {
 
   // Filtraggio dinamico lato client
   const filteredEvents = eventsList.filter((singleEvent) => {
-    // 1. Controllo ricerca testuale (su titolo o luogo)
+    // Controllo la ricerca
     const matchesSearch =
       !searchTerm ||
       singleEvent.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       singleEvent.place?.toLowerCase().includes(searchTerm.toLowerCase());
 
-    // 2. Controllo categoria
+    //Controllo categoria
     const eventCategory = singleEvent.eventType || singleEvent.category || "";
     const matchesCategory =
       selectedCategory === "tutti" ||
       eventCategory.toLowerCase() === selectedCategory.toLowerCase();
 
-    // 3. Controllo budget massimo (se 300 include tutti gli eventi)
+    // Controllo budget massimo
     const matchesPrice =
       maxPrice === 300 || Number(singleEvent.price) <= Number(maxPrice);
 
-    // 4. Controllo data (confronta la stringa YYYY-MM-DD dell'input con la data dell'evento)
+    // Controllo data
     const matchesDate =
       !selectedDate ||
       (singleEvent.eventDate && singleEvent.eventDate.startsWith(selectedDate));

@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { PiSliders } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../Redux/Slices/userSlice";
-import { removeFromCart } from "../../Redux/Slices/cartSlice";
+import { removeFromCart, clearCart } from "../../Redux/Slices/cartSlice";
 import {
   setSearchTerm,
   setSelectedCategory,
@@ -26,6 +26,7 @@ function NavbarHome() {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const { profile } = useSelector((state) => state.user);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const { searchTerm, selectedCategory } = useSelector((state) => state.events);
 
@@ -45,6 +46,23 @@ function NavbarHome() {
 
   const handleCategoryChange = (category) => {
     dispatch(setSelectedCategory(category));
+  };
+
+  const handleRemoveItem = (e, eventId) => {
+    e.stopPropagation();
+    dispatch(
+      removeFromCart({
+        idToRemove: eventId,
+        userId: profile?.id,
+      }),
+    );
+  };
+
+  const handleLogout = () => {
+    dispatch(clearCart(profile?.id));
+    dispatch(logout());
+    alert("Logout effettuato con successo");
+    navigate("/");
   };
 
   if (location.pathname === "/") {
@@ -255,10 +273,7 @@ function NavbarHome() {
                         variant="outline-danger"
                         size="sm"
                         className="border-0 p-1 ms-1"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          dispatch(removeFromCart(event.eventId));
-                        }}
+                        onClick={(e) => handleRemoveItem(e, event.eventId)}
                       >
                         <FaTrash size={14} />
                       </Button>
@@ -294,15 +309,7 @@ function NavbarHome() {
               <NavDropdown.Item onClick={() => navigate("/settings")}>
                 Privacy
               </NavDropdown.Item>
-              <NavDropdown.Item
-                onClick={() => {
-                  dispatch(logout());
-                  alert("Logout effettuato con successo");
-                  navigate("/");
-                }}
-              >
-                Esci
-              </NavDropdown.Item>
+              <NavDropdown.Item onClick={handleLogout}>Esci</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </div>

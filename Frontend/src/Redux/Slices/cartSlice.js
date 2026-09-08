@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchWallet } from "./walletSlice";
 import api from "../../services/axiosConfig";
+
 export const checkoutOrder = createAsyncThunk(
   "cart/checkoutOrder",
   async (_, { getState, dispatch, rejectWithValue }) => {
@@ -28,18 +29,14 @@ export const checkoutOrder = createAsyncThunk(
   },
 );
 
-const loadCartFromStorage = () => {
-  try {
-    const savedCart = localStorage.getItem("cartItems");
-    return savedCart ? JSON.parse(savedCart) : [];
-  } catch {
-    return [];
-  }
-};
+// Ricavo la chiave specifica dell'utente
+const getCartKey = (userId) => (userId ? `cartItems_${userId}` : null);
 
-const saveCartToStorage = (cartItems) => {
+const saveCartToStorage = (userId, cartItems) => {
+  const key = getCartKey(userId);
+  if (!key) return;
   try {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem(key, JSON.stringify(cartItems));
   } catch (error) {
     console.error(
       "Errore nel salvataggio del carrello in localStorage:",
@@ -49,7 +46,8 @@ const saveCartToStorage = (cartItems) => {
 };
 
 const initialState = {
-  cartItems: loadCartFromStorage(),
+  cartItems: [],
+  currentUserId: null,
   loading: false,
   error: null,
 };
@@ -58,8 +56,27 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    // Carica il carrello specifico per l'utente loggato
+    loadUserCart: (state, action) => {
+      const userId = action.payload;
+      state.currentUserId = userId;
+
+      if (!userId) {
+        state.cartItems = [];
+        return;
+      }
+
+      const key = getCartKey(userId);
+      try {
+        const saved = localStorage.getItem(key);
+        state.cartItems = saved ? JSON.parse(saved) : [];
+      } catch {
+        state.cartItems = [];
+      }
+    },
+
     addToCart: (state, action) => {
-      const eventToAdd = action.payload;
+      const { item: eventToAdd, userId } = action.payload;
       const targetId = eventToAdd.eventId || eventToAdd.id;
 
       const existingIndex = state.cartItems.findIndex(
@@ -78,21 +95,28 @@ const cartSlice = createSlice({
         });
       }
 
-      saveCartToStorage(state.cartItems);
+      saveCartToStorage(userId || state.currentUserId, state.cartItems);
     },
 
     removeFromCart: (state, action) => {
-      const idToRemove = action.payload;
+      const { idToRemove, userId } = action.payload.idToRemove
+        ? action.payload
+        : { idToRemove: action.payload, userId: state.currentUserId };
+
       state.cartItems = state.cartItems.filter(
         (item) => (item.event.eventId || item.event.id) !== idToRemove,
       );
 
-      saveCartToStorage(state.cartItems);
+      saveCartToStorage(userId || state.currentUserId, state.cartItems);
     },
 
-    clearCart: (state) => {
+    clearCart: (state, action) => {
+      const userId = action.payload || state.currentUserId;
       state.cartItems = [];
-      localStorage.removeItem("cartItems");
+      const key = getCartKey(userId);
+      if (key) {
+        localStorage.removeItem(key);
+      }
     },
   },
   extraReducers: (builder) => {
@@ -104,7 +128,10 @@ const cartSlice = createSlice({
       .addCase(checkoutOrder.fulfilled, (state) => {
         state.loading = false;
         state.cartItems = [];
-        localStorage.removeItem("cartItems");
+        const key = getCartKey(state.currentUserId);
+        if (key) {
+          localStorage.removeItem(key);
+        }
       })
       .addCase(checkoutOrder.rejected, (state, action) => {
         state.loading = false;
@@ -113,5 +140,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { loadUserCart, addToCart, removeFromCart, clearCart } =
+  cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

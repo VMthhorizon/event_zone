@@ -25,14 +25,31 @@ function ProfiloUser() {
 
   const { eventsList } = useSelector((state) => state.events);
   const [favouritesId, setFavouritesId] = useState(() => {
-    const saved = localStorage.getItem("user_favourites");
-    return saved ? JSON.parse(saved) : [];
+    if (profile?.id) {
+      const saved = localStorage.getItem(`favourites_${profile.id}`);
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
   });
+
+  useEffect(() => {
+    if (profile?.id) {
+      const saved = localStorage.getItem(`favourites_${profile.id}`);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setFavouritesId(saved ? JSON.parse(saved) : []);
+    }
+  }, [profile?.id]);
 
   const handleRemoveFavourites = (eventdId) => {
     const favouritesUpdated = favouritesId.filter((id) => id !== eventdId);
     setFavouritesId(favouritesUpdated);
-    localStorage.setItem("user_favourites", JSON.stringify(favouritesUpdated));
+
+    if (profile?.id) {
+      localStorage.setItem(
+        `favourites_${profile?.id}`,
+        JSON.stringify(favouritesUpdated),
+      );
+    }
   };
 
   const favouritesList = eventsList.filter((event) =>
@@ -49,7 +66,7 @@ function ProfiloUser() {
       dispatch(fetchAllEvents());
     }
     dispatch(fetchWallet());
-  }, [dispatch, profile, eventsList]);
+  }, [dispatch, profile?.id]);
 
   const handleTopUp = async (e) => {
     e.preventDefault();
@@ -100,7 +117,14 @@ function ProfiloUser() {
                     </div>
                     <div className="d-flex justify-content-between align-items-center mb-2 gap-2 w-100">
                       <Button
-                        onClick={() => dispatch(addToCart(singleFavourite))}
+                        onClick={() =>
+                          dispatch(
+                            addToCart({
+                              item: singleFavourite,
+                              userId: profile?.id,
+                            }),
+                          )
+                        }
                         variant="outline-success"
                         className="w-100"
                       >

@@ -15,6 +15,7 @@ function EventDetailsPage() {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const { profile } = useSelector((state) => state.user);
   const { eventsList } = useSelector((state) => state.events);
   const clickedEvent = eventsList?.find(
     (e) => String(e.id || e.eventId) === String(id),
@@ -25,7 +26,6 @@ function EventDetailsPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Se l'evento era già in Redux, lo imposti e chiudi il loading
     if (clickedEvent) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setEvent(clickedEvent);
@@ -87,7 +87,14 @@ function EventDetailsPage() {
         <Col xs={12}>
           <Button
             className="btn-gradient w-100"
-            onClick={() => dispatch(addToCart(event))}
+            onClick={() =>
+              dispatch(
+                addToCart({
+                  item: event,
+                  userId: profile?.id,
+                }),
+              )
+            }
           >
             <h6 className="mb-0 btn-headers fs-5">
               Aggiungi al Carrello <FaCartPlus className="ms-1" />

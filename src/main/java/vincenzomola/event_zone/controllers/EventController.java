@@ -1,6 +1,7 @@
 package vincenzomola.event_zone.controllers;
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -50,8 +51,13 @@ public class EventController {
     // Endpoint per ottenere la lista di TUTTI gli eventi
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<EventListDTO> allEventsList() {
-        return eventService.findAllEvents();
+    public Page<EventListDTO> allEventsList(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "eventDate") String sortBy,
+            @RequestParam(defaultValue = "ASC") String sortDir
+    ) {
+        return eventService.findAllEvents(page, size, sortBy, sortDir);
     }
 
     //Endpoint per ottenere l'evento specifico tramite il uso id

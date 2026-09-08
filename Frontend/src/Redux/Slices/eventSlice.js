@@ -25,6 +25,7 @@ const eventsSlice = createSlice({
     selectedCategory: "tutti",
     maxPrice: 300,
     selectedDate: "",
+    sortDirection: "asc",
   },
   reducers: {
     setSearchTerm: (state, action) => {
@@ -38,6 +39,9 @@ const eventsSlice = createSlice({
     },
     setSelectedDate: (state, action) => {
       state.selectedDate = action.payload;
+    },
+    setSortDirection: (state, action) => {
+      state.sortDirection = action.payload;
     },
     resetSideFilters: (state) => {
       state.maxPrice = 300;
@@ -58,7 +62,7 @@ const eventsSlice = createSlice({
       .addCase(fetchAllEvents.fulfilled, (state, action) => {
         state.error = null;
         state.loading = false;
-        state.eventsList = action.payload;
+        state.eventsList = action.payload?.content || action.payload;
       });
   },
 });
@@ -68,6 +72,7 @@ export const {
   setSelectedCategory,
   setMaxPrice,
   setSelectedDate,
+  setSortDirection,
   resetSideFilters,
 } = eventsSlice.actions;
 

@@ -14,7 +14,11 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingCard from "../../LoadingCard/LoadingCard";
 import { badgeColor } from "../../helpers/eventUtils";
-import { fetchAllEvents } from "../../Redux/Slices/eventSlice";
+import {
+  fetchAllEvents,
+  setSortDirection,
+} from "../../Redux/Slices/eventSlice";
+import { FcSearch } from "react-icons/fc";
 
 function EventCard() {
   const navigate = useNavigate();
@@ -46,12 +50,18 @@ function EventCard() {
     selectedCategory,
     maxPrice,
     selectedDate,
+    sortDirection,
   } = useSelector((state) => state.events);
 
   // Scarica tutti gli eventi dal backend una sola volta all'avvio
   useEffect(() => {
-    dispatch(fetchAllEvents());
-  }, [dispatch]);
+    dispatch(
+      fetchAllEvents({
+        sortBy: "eventDate",
+        sortDir: sortDirection.toUpperCase(),
+      }),
+    );
+  }, [dispatch, sortDirection]);
 
   useEffect(() => {
     if (userKey) {
@@ -81,8 +91,12 @@ function EventCard() {
     }).format(date);
   };
 
+  const eventsArray = Array.isArray(eventsList)
+    ? eventsList
+    : eventsList?.content;
+
   // Filtraggio dinamico lato client
-  const filteredEvents = eventsList.filter((singleEvent) => {
+  const filteredEvents = eventsArray.filter((singleEvent) => {
     // Controllo la ricerca
     const matchesSearch =
       !searchTerm ||
@@ -111,16 +125,32 @@ function EventCard() {
     <Container className="px-0">
       {error && <Alert variant="danger">{error}</Alert>}
       <Row>
+        <div className="d-flex flex-column bg-transparent flex-xxl-row justify-content-between align-items-center gap-2 w-100 pt-3">
+          <div className="gap-2 d-flex align-items-center justify-content-center mb-2 mb-xxl-0">
+            <FcSearch className="fs-1" />
+            <h3 className="text-center">I Risultati della tua ricerca</h3>
+          </div>
+          <div className=" d-flex flex-column flex-md-row align-items-center justify-content-center gap-2 ">
+            <h5>Ordina per data: </h5>
+            <div className="d-flex align-items-center justify-content-center gap-2 ">
+              <Button
+                onClick={() => dispatch(setSortDirection("asc"))}
+                className="btn-gradient"
+              >
+                Crescente
+              </Button>
+              <Button
+                onClick={() => dispatch(setSortDirection("desc"))}
+                className="btn-gradient"
+              >
+                Decrescente
+              </Button>
+            </div>
+          </div>
+        </div>
         {loading &&
           Array.from({ length: 8 }).map((_, index) => (
-            <Col
-              xs={12}
-              sm={6}
-              lg={4}
-              xxl={3}
-              key={index}
-              className="gx-3 gy-3"
-            >
+            <Col xs={12} sm={6} lg={4} xxl={3} key={index} className="gx-3 ">
               <LoadingCard />
             </Col>
           ))}

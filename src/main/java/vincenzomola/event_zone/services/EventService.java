@@ -3,6 +3,10 @@ package vincenzomola.event_zone.services;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import vincenzomola.event_zone.entities.Event;
@@ -102,14 +106,18 @@ public class EventService {
     }
 
     // Find per TUTTI gli eventi nel DB
-    public List<EventListDTO> findAllEvents() {
-        return eventRepository.findAll()
-                .stream()
-                .map(event -> new EventListDTO(event.getId(), event.getEventType(), event.getTitle(),
-                        event.getDescription(), event.getPlace(), event.getEventDate(), event.getTotalSeats(),
-                        event.getAvailableSeats(),
-                        event.getPrice(), event.getLongitude(), event.getLatitude(), event.getImg()))
-                .toList();
+    public Page<EventListDTO> findAllEvents(int pageNo, int pageSize, String sortBy, String sortDir) {
+
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy)
+                .ascending() : Sort.by(sortBy)
+                .descending();
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<Event> eventPage = eventRepository.findAll(pageable);
+
+        // Stessa soluzione di usare una lambda eventPage.map(event -> convertToDTO(event));
+        return eventPage.map(this::convertToDTO);
     }
 
     // Trova gli Eventi creati in base all'id fornito associato all'ORGANIZER

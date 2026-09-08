@@ -2,7 +2,7 @@ package vincenzomola.event_zone.payloads;
 
 import vincenzomola.event_zone.entities.Event;
 
-public record EventTicketPair(
+public record EventTicketDTO(
         Event event,
         int quantity
 ) {

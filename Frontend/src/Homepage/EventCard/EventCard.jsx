@@ -127,58 +127,77 @@ function EventCard() {
               key={singleEvent.eventId}
               className="gx-3 gy-3"
             >
-              <Card
-                onClick={() => navigate(`/eventDetails/${singleEvent.eventId}`)}
-                className="event-card"
-              >
-                <Card.Img
-                  src={singleEvent.img}
-                  alt={singleEvent.title}
-                  className="event-card-img"
-                />
-
-                <div className="event-card-overlay"></div>
-
-                <Card.ImgOverlay className="d-flex flex-column justify-content-between p-3">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <Badge
-                      className={`badge-custom ${badgeColor(
-                        singleEvent.eventType,
-                      )}`}
-                    >
-                      {singleEvent.eventType}
-                    </Badge>
-                    <Button
-                      variant="light"
-                      className="preferiti-icon"
-                      onClick={(e) => toggleFavourites(e, singleEvent.eventId)}
-                    >
-                      {favourites.includes(singleEvent.eventId) ? (
-                        <PiHeartFill className="favourites-heart-icons" />
-                      ) : (
-                        <PiHeartBold className="favourites-heart-icons" />
-                      )}
-                    </Button>
-                  </div>
-
-                  <div>
-                    <small className="event-card-text">
-                      {formatDate(singleEvent.eventDate)}
-                    </small>
-                    <Card.Title className="event-card-title">
-                      {singleEvent.title}
-                    </Card.Title>
-                    <div className="d-flex justify-content-between">
-                      <Card.Text className="event-card-info">
-                        {singleEvent.price}€
-                      </Card.Text>
-                      <Card.Text className="event-card-info">
-                        {singleEvent.place}
-                      </Card.Text>
+              {singleEvent.availableSeats <= 0 ? (
+                <Card className="event-card-soldout">
+                  <Card.Img
+                    src={singleEvent.img}
+                    alt={singleEvent.img}
+                    className="event-card-wrapper-soldout"
+                  />
+                  <Card.ImgOverlay className="p-0 d-flex justify-content-center align-items-center">
+                    <img
+                      src="/soldout.png"
+                      alt="soldout"
+                      className="event-card-img-soldout"
+                    />
+                  </Card.ImgOverlay>
+                </Card>
+              ) : (
+                <Card
+                  onClick={() =>
+                    navigate(`/eventDetails/${singleEvent.eventId}`)
+                  }
+                  className="event-card"
+                >
+                  <Card.Img
+                    src={singleEvent.img}
+                    alt={singleEvent.title}
+                    className="event-card-img"
+                  />
+                  <Card.ImgOverlay className="d-flex flex-column justify-content-between p-3">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <Badge
+                        className={`badge-custom ${badgeColor(
+                          singleEvent.eventType,
+                        )}`}
+                      >
+                        {singleEvent.eventType}
+                      </Badge>
+                      <Button
+                        variant="light"
+                        className="preferiti-icon"
+                        onClick={(e) =>
+                          toggleFavourites(e, singleEvent.eventId)
+                        }
+                      >
+                        {favourites.includes(singleEvent.eventId) ? (
+                          <PiHeartFill className="favourites-heart-icons" />
+                        ) : (
+                          <PiHeartBold className="favourites-heart-icons" />
+                        )}
+                      </Button>
                     </div>
-                  </div>
-                </Card.ImgOverlay>
-              </Card>
+
+                    <div>
+                      <small className="event-card-text">
+                        {formatDate(singleEvent.eventDate)}
+                      </small>
+                      <Card.Title className="event-card-title">
+                        {singleEvent.title}
+                      </Card.Title>
+                      <div className="d-flex justify-content-between">
+                        <Card.Text className="event-card-info">
+                          {singleEvent.price}€
+                        </Card.Text>
+
+                        <Card.Text className="event-card-info">
+                          {singleEvent.place}
+                        </Card.Text>
+                      </div>
+                    </div>
+                  </Card.ImgOverlay>
+                </Card>
+              )}
             </Col>
           ))}
       </Row>

@@ -83,7 +83,7 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
 
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="oldPassword">
-            <Form.Label className="text-muted small fw-bold">
+            <Form.Label className="text-white small fw-bold">
               Vecchia Password
             </Form.Label>
             <InputGroup>
@@ -95,7 +95,7 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
                 required
               />
               <Button
-                variant="outline-secondary"
+                variant="outline-light"
                 type="button"
                 onClick={() => setShowOldPass(!showOldPass)}
                 tabIndex={-1}
@@ -106,7 +106,7 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="newPassword">
-            <Form.Label className="text-muted small fw-bold">
+            <Form.Label className="text-white small fw-bold">
               Nuova Password
             </Form.Label>
             <InputGroup>
@@ -118,7 +118,7 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
                 required
               />
               <Button
-                variant="outline-secondary"
+                variant="outline-light"
                 type="button"
                 onClick={() => setShowNewPass(!showNewPass)}
                 tabIndex={-1}
@@ -129,7 +129,7 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
           </Form.Group>
 
           <Form.Group className="mb-4" controlId="confirmPassword">
-            <Form.Label className="text-muted small fw-bold">
+            <Form.Label className="text-white small fw-bold">
               Conferma Nuova Password
             </Form.Label>
             <InputGroup>
@@ -141,7 +141,7 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
                 required
               />
               <Button
-                variant="outline-secondary"
+                variant="outline-light"
                 type="button"
                 onClick={() => setShowConfirmPass(!showConfirmPass)}
                 tabIndex={-1}
@@ -153,12 +153,11 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
 
           <div className="d-flex gap-2 pt-2">
             <Button
-              variant="secondary"
               className="btn-gradient"
               onClick={handleClose}
               disabled={loading}
             >
-              Annulla
+              <h6 className="btn-headers">Annulla</h6>
             </Button>
             <Button
               variant="primary"
@@ -166,7 +165,9 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
               className="btn-gradient"
               disabled={loading}
             >
-              {loading ? "Salvataggio..." : "Conferma"}
+              <h6 className="btn-headers">
+                {loading ? "Salvataggio..." : "Conferma"}
+              </h6>
             </Button>
           </div>
         </Form>

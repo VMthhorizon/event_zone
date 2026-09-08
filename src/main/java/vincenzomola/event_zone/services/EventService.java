@@ -47,6 +47,7 @@ public class EventService {
         return new EventListDTO(eventFromDb.getId(), eventFromDb.getEventType(), eventFromDb.getTitle(),
                 eventFromDb.getDescription(), eventFromDb.getPlace(), eventFromDb.getEventDate(),
                 eventFromDb.getTotalSeats(),
+                eventFromDb.getAvailableSeats(),
                 eventFromDb.getPrice(), eventFromDb.getLongitude(), eventFromDb.getLatitude(), eventFromDb.getImg());
     }
 
@@ -95,7 +96,7 @@ public class EventService {
         return new EventListDTO(
                 event.getId(), event.getEventType(), event.getTitle(),
                 event.getDescription(), event.getPlace(), event.getEventDate(),
-                event.getTotalSeats(), event.getPrice(),
+                event.getTotalSeats(), event.getAvailableSeats(), event.getPrice(),
                 event.getLongitude(), event.getLatitude(), event.getImg()
         );
     }
@@ -106,6 +107,7 @@ public class EventService {
                 .stream()
                 .map(event -> new EventListDTO(event.getId(), event.getEventType(), event.getTitle(),
                         event.getDescription(), event.getPlace(), event.getEventDate(), event.getTotalSeats(),
+                        event.getAvailableSeats(),
                         event.getPrice(), event.getLongitude(), event.getLatitude(), event.getImg()))
                 .toList();
     }

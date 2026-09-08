@@ -14,6 +14,7 @@ public record EventListDTO(
         String place,
         LocalDateTime eventDate,
         Integer totalSeats,
+        Integer availableSeats,
         Double price,
         Double longitude,
         Double latitude,

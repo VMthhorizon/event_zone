@@ -41,7 +41,6 @@ function OrdersList() {
 
       {!loading && ordersList && ordersList.length > 0 && (
         <div className="table-responsive">
-          {console.log(ordersList)}
           <Table hover align="middle" className="mb-0 ">
             <thead>
               <tr>
@@ -52,11 +51,9 @@ function OrdersList() {
               </tr>
             </thead>
             <tbody>
-              {ordersList.map((order, index) => (
-                <tr key={order?.id || index}>
-                  <td className="fw-bold text-white">
-                    {console.log(ordersList)}#{order?.id || index + 1}
-                  </td>
+              {ordersList.map((order) => (
+                <tr key={order?.id}>
+                  <td className="fw-bold text-white">#{order?.id}</td>
                   <td className="fw-bold text-white">
                     {formatDate(order?.creationDate)}
                   </td>
@@ -71,7 +68,7 @@ function OrdersList() {
                           : "secondary"
                       }
                     >
-                      {order?.status || "CONFERMATO"}
+                      {order?.status}
                     </Badge>
                   </td>
                 </tr>

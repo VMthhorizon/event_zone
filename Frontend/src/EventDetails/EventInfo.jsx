@@ -5,8 +5,21 @@ import { PiMoney } from "react-icons/pi";
 import { LuEuro } from "react-icons/lu";
 import "../Homepage/EventCard/EventCard.css";
 import { badgeColor } from "../helpers/eventUtils";
+import { MdEventSeat } from "react-icons/md";
 
 function EventInfo(props) {
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("it-IT", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+  };
   return (
     <Card className="event-info-card bg-gradient">
       <div className="d-flex justify-content-between align-items-center">
@@ -19,11 +32,15 @@ function EventInfo(props) {
       </div>
       <div className="info-wrapper">
         <IoCalendarNumberSharp className="fs-4" />
-        <h4>{props.foundEvent.title}</h4>
+        <h4>{formatDate(props.foundEvent.eventDate)}</h4>
       </div>
       <div className="info-wrapper">
         <IoLocationOutline className="fs-4" />
         <h4>{props.foundEvent.place}</h4>
+      </div>
+      <div className="info-wrapper">
+        <MdEventSeat className="fs-4" />
+        <h4>{props.foundEvent.availableSeats} Posti Disponibili</h4>
       </div>
       <div className="info-wrapper mb-4">
         <PiMoney className="fs-4" />

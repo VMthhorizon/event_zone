@@ -25,9 +25,12 @@ public class UserController {
     // Endpoint per accedere alle informazioni base dell'utente loggato
     @GetMapping("/me")
     public UserProfileDTO getUserProfile(@AuthenticationPrincipal User loggedUser) {
-        return new UserProfileDTO(loggedUser.getId(), loggedUser.getUsername(), loggedUser.getName(),
-                loggedUser.getSurname(), loggedUser.getEmail(),
-                loggedUser.getUserRole());
+
+        User user = userService.findUserById(loggedUser.getId());
+
+        return new UserProfileDTO(user.getId(), user.getUsername(), user.getName(),
+                user.getSurname(), user.getEmail(),
+                user.getUserRole());
     }
 
     // Endpoint per modificare la password dell'account dello User

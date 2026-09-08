@@ -56,15 +56,14 @@ function DashboardAdmin() {
             striped
             bordered
             hover
-            responsive
             variant="dark"
-            className="align-middle"
+            className="align-middle orders-table"
           >
             <thead>
               <tr className="text-center">
                 <th>NOME</th>
                 <th>COGNOME</th>
-                <th>EMAIL</th>
+                <th className="d-none d-md-table-cell">EMAIL</th>
                 <th>RUOLO ATTUALE</th>
                 <th>CAMBIA RUOLO</th>
               </tr>
@@ -74,9 +73,10 @@ function DashboardAdmin() {
                 <tr key={singleUser.id} className="text-start">
                   <td>{singleUser.nome || singleUser.name}</td>
                   <td>{singleUser.cognome || singleUser.surname}</td>
-                  <td>{singleUser.email}</td>
 
-                  <td className="fw-bold">{singleUser.role}</td>
+                  <td className="d-none d-md-table-cell">{singleUser.email}</td>
+
+                  <td className=" fw-medium fs-6">{singleUser.role}</td>
 
                   <td>
                     <Form.Select

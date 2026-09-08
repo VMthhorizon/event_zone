@@ -97,8 +97,11 @@ public class UserService {
     @Transactional
     public void changeUserPass(User loggedUser, UserChangePassDTO body) {
 
+        User userFromDb = userRepository.findById(loggedUser.getId())
+                .orElseThrow(() -> new NotFoundException("Utente con id: " + loggedUser.getId() + " non trovato"));
+
         // Controllo se l'utente inserisce correttamente la password attuale per poterla cambiare
-        if (!bcrypt.matches(body.oldPass(), loggedUser.getPassword())) {
+        if (!bcrypt.matches(body.oldPass(), userFromDb.getPassword())) {
             throw new BadRequestException("La password attuale non è corretta");
         }
 
@@ -106,10 +109,10 @@ public class UserService {
         String newPass = bcrypt.encode(body.newPass());
 
         // Imposto la nuova password all'utente
-        loggedUser.setPassword(newPass);
+        userFromDb.setPassword(newPass);
 
         // Salvo l'utente con la nuova password nel db
-        userRepository.save(loggedUser);
+        userRepository.save(userFromDb);
 
     }
 

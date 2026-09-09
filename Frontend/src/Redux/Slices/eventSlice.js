@@ -21,6 +21,12 @@ const eventsSlice = createSlice({
     eventsList: [],
     loading: false,
     error: null,
+
+    // Paginazione
+    page: 0,
+    size: 8,
+    totalPages: 0,
+
     searchTerm: "",
     selectedCategory: "tutti",
     maxPrice: 300,
@@ -28,17 +34,27 @@ const eventsSlice = createSlice({
     sortDirection: "asc",
   },
   reducers: {
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+    setResetPage: (state) => {
+      state.page = 0;
+    },
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
+      state.page = 0;
     },
     setSelectedCategory: (state, action) => {
       state.selectedCategory = action.payload;
+      state.page = 0;
     },
     setMaxPrice: (state, action) => {
       state.maxPrice = action.payload;
+      state.page = 0;
     },
     setSelectedDate: (state, action) => {
       state.selectedDate = action.payload;
+      state.page = 0;
     },
     setSortDirection: (state, action) => {
       state.sortDirection = action.payload;
@@ -46,6 +62,7 @@ const eventsSlice = createSlice({
     resetSideFilters: (state) => {
       state.maxPrice = 300;
       state.selectedDate = "";
+      state.page = 0;
     },
   },
   extraReducers: (builder) => {
@@ -63,11 +80,22 @@ const eventsSlice = createSlice({
         state.error = null;
         state.loading = false;
         state.eventsList = action.payload?.content || action.payload;
+
+        // Estraggo sia "content" che "totalPages" per la paginazione
+        if (action.payload && action.payload.content) {
+          state.eventsList = action.payload.content;
+          state.totalPages = action.payload.totalPages;
+        } else {
+          state.eventsList = action.payload || [];
+          state.totalPages = 0;
+        }
       });
   },
 });
 
 export const {
+  setPage,
+  setResetPage,
   setSearchTerm,
   setSelectedCategory,
   setMaxPrice,

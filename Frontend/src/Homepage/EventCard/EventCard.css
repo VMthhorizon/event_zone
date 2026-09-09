@@ -107,3 +107,58 @@
 .favourites-heart-icons {
   color: red;
 }
+
+.pagination .page-link {
+  color: #333; /* Colore del testo/icone */
+  background-color: #fff; /* Sfondo normale */
+  border: 1px solid #e0e0e0; /* Bordo leggero */
+  margin: 0 4px; /* Spazio tra i pulsanti */
+  border-radius: 8px !important; /* Angoli arrotondati */
+  font-weight: 600;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Configurazione tasti per la paginazione */
+.pagination .page-link {
+  background-color: var(--bs-secondary) !important;
+  color: var(--bs-primary) !important;
+  border: 1px solid var(--bs-primary) !important;
+  margin: 0 4px;
+  border-radius: 8px !important;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.pagination .page-link svg,
+.pagination .page-link i,
+.pagination .page-link span {
+  color: inherit !important;
+  fill: currentColor !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.pagination .page-link:hover,
+.pagination .page-item.active .page-link {
+  background-color: var(--bs-primary) !important;
+  color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
+  transform: translateY(-2px);
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: var(--bs-secondary) !important;
+  color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+
+  filter: brightness(0.65) contrast(1.2) !important; /* Scurisce visivamente tutto */
+  opacity: 0.8 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.pagination .page-link:focus {
+  box-shadow: none !important;
+}

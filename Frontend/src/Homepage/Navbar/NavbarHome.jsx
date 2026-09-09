@@ -20,6 +20,7 @@ import {
 } from "../../Redux/Slices/eventSlice";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoIosHome } from "react-icons/io";
+import Swal from "sweetalert2";
 
 function NavbarHome() {
   const navigate = useNavigate();
@@ -61,7 +62,11 @@ function NavbarHome() {
   const handleLogout = () => {
     dispatch(clearCart(profile?.id));
     dispatch(logout());
-    alert("Logout effettuato con successo");
+    Swal.fire({
+      title: "Profilo Disconnesso!",
+      text: "Logout effettuato con successo",
+      icon: "success",
+    });
     navigate("/");
   };
 

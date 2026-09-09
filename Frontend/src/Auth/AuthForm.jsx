@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { loginUser, registerUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function AuthForm({ authMode, setAuthMode }) {
   const navigate = useNavigate();
@@ -39,11 +40,21 @@ function AuthForm({ authMode, setAuthMode }) {
       switch (authMode) {
         // REGISTRAZIONE UTENTE
         case "register": {
-          const data = await registerUser(formData); // Richiamo il service axios per la REGISTRAZIONE dell'utente
+          await registerUser(formData); // Richiamo il service axios per la REGISTRAZIONE dell'utente
 
-          alert(`Registrazione avvenuta con successo!`);
+          Swal.fire({
+            title: "Utente Registrato!",
+            text: "Registrazione avvenuta con successo!",
+            icon: "success",
+          });
 
-          console.log(data);
+          setFormData({
+            username: "",
+            nome: "",
+            cognome: "",
+            email: "",
+            password: "",
+          });
 
           setAuthMode("login");
 
@@ -56,7 +67,11 @@ function AuthForm({ authMode, setAuthMode }) {
             password: formData.password,
           });
 
-          alert("Login avvenuto con successo");
+          Swal.fire({
+            title: "Login effettuato!",
+            text: "Login avvenuto con successo",
+            icon: "success",
+          });
 
           localStorage.setItem("token", data.token);
           navigate("/homepage");

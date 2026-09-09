@@ -57,7 +57,9 @@ public class EventController {
             @RequestParam(defaultValue = "eventDate") String sortBy,
             @RequestParam(defaultValue = "ASC") String sortDir
     ) {
-        return eventService.findAllEvents(page, size, sortBy, sortDir);
+        int safeSize = Math.min(size, 50);
+
+        return eventService.findAllEvents(page, safeSize, sortBy, sortDir);
     }
 
     //Endpoint per ottenere l'evento specifico tramite il uso id

@@ -7,6 +7,7 @@ import {
   Col,
   Button,
   Alert,
+  Pagination,
 } from "react-bootstrap";
 import { PiHeartBold, PiHeartFill } from "react-icons/pi";
 import { useState, useEffect } from "react";
@@ -16,9 +17,11 @@ import LoadingCard from "../../LoadingCard/LoadingCard";
 import { badgeColor } from "../../helpers/eventUtils";
 import {
   fetchAllEvents,
+  setPage,
   setSortDirection,
 } from "../../Redux/Slices/eventSlice";
 import { FcSearch } from "react-icons/fc";
+import { LuCalendarArrowDown, LuCalendarArrowUp } from "react-icons/lu";
 
 function EventCard() {
   const navigate = useNavigate();
@@ -51,17 +54,22 @@ function EventCard() {
     maxPrice,
     selectedDate,
     sortDirection,
+    page,
+    size,
+    totalPages,
   } = useSelector((state) => state.events);
 
   // Scarica tutti gli eventi dal backend una sola volta all'avvio
   useEffect(() => {
     dispatch(
       fetchAllEvents({
+        page: page,
+        size: size,
         sortBy: "eventDate",
         sortDir: sortDirection.toUpperCase(),
       }),
     );
-  }, [dispatch, sortDirection]);
+  }, [dispatch, sortDirection, page, size]);
 
   useEffect(() => {
     if (userKey) {
@@ -89,6 +97,14 @@ function EventCard() {
       hour: "2-digit",
       minute: "2-digit",
     }).format(date);
+  };
+
+  // Funzione per il cambio della pagina con scroll per tornare all'inizio della pagina
+  const handlePageChange = (newPage) => {
+    if (newPage >= 0 && newPage < totalPages) {
+      dispatch(setPage(newPage));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   const eventsArray = Array.isArray(eventsList)
@@ -135,15 +151,17 @@ function EventCard() {
             <div className="d-flex align-items-center justify-content-center gap-2 ">
               <Button
                 onClick={() => dispatch(setSortDirection("asc"))}
-                className="btn-gradient"
+                className="btn-gradient d-flex justify-content-between align-items-center"
               >
-                Crescente
+                <h6>Crescente</h6>
+                <LuCalendarArrowUp />
               </Button>
               <Button
                 onClick={() => dispatch(setSortDirection("desc"))}
-                className="btn-gradient"
+                className="btn-gradient d-flex justify-content-between align-items-center"
               >
-                Decrescente
+                <h6>Decrescente</h6>
+                <LuCalendarArrowDown />
               </Button>
             </div>
           </div>
@@ -245,6 +263,41 @@ function EventCard() {
             </Col>
           ))}
       </Row>
+      {!loading && totalPages > 1 && (
+        <div className="d-flex justify-content-center my-5">
+          <Pagination className="mb-0">
+            <Pagination.First
+              disabled={page === 0}
+              onClick={() => handlePageChange(0)}
+            />
+
+            <Pagination.Prev
+              disabled={page === 0}
+              onClick={() => handlePageChange(page - 1)}
+            />
+
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <Pagination.Item
+                key={index}
+                active={index === page}
+                onClick={() => handlePageChange(index)}
+              >
+                {index + 1}
+              </Pagination.Item>
+            ))}
+
+            <Pagination.Next
+              disabled={page === totalPages - 1}
+              onClick={() => handlePageChange(page + 1)}
+            />
+
+            <Pagination.Last
+              disabled={page === totalPages - 1}
+              onClick={() => handlePageChange(totalPages - 1)}
+            />
+          </Pagination>
+        </div>
+      )}
     </Container>
   );
 }

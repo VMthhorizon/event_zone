@@ -153,14 +153,14 @@ function EventCard() {
                 onClick={() => dispatch(setSortDirection("asc"))}
                 className="btn-gradient d-flex justify-content-between align-items-center"
               >
-                <h6>Crescente</h6>
+                <h6>Cresc</h6>
                 <LuCalendarArrowUp />
               </Button>
               <Button
                 onClick={() => dispatch(setSortDirection("desc"))}
                 className="btn-gradient d-flex justify-content-between align-items-center"
               >
-                <h6>Decrescente</h6>
+                <h6>Decresc</h6>
                 <LuCalendarArrowDown />
               </Button>
             </div>

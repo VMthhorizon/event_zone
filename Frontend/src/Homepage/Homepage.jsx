@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchAllEvents } from "../Redux/Slices/eventSlice";
 import "./NavbarFilter/NavbarFilter.css";
+import EventMap from "./EventMap/EventMap";
 
 function Homepage() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function Homepage() {
             <NavbarFilter />
           </Col>
           <Col xs={8} md={9}>
+            <EventMap />
             <EventCard />
           </Col>
         </Row>

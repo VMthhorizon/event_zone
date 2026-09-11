@@ -16,6 +16,7 @@ import EventDetailsPage from "./EventDetails/EventDetailsPage";
 import NavbarHome from "./Homepage/Navbar/NavbarHome";
 import CheckoutPage from "./CheckoutPage/CheckoutPage";
 import ProfiloUser from "./ProfiloUser/ProfiloUser.jsx";
+import ProtectedRoutes from "./ProtectedRoutes.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,13 +34,18 @@ function App() {
         <NavbarHome />
         <main className="flex-grow-1 d-flex flex-column  ">
           <Routes>
+            {/* Rotte pubbliche */}
             <Route path="/" element={<AuthPage />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/homepage" element={<Homepage />} />
-            <Route path="/profilo" element={<ProfiloUser />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/eventDetails/:id" element={<EventDetailsPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
+
+            {/* Rotte private, in modo da poter impedire l'accesso tramite URL */}
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/homepage" element={<Homepage />} />
+              <Route path="/profilo" element={<ProfiloUser />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/eventDetails/:id" element={<EventDetailsPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+            </Route>
           </Routes>
         </main>
 

@@ -6,7 +6,7 @@ function NotFound() {
   return (
     <Container>
       <h1>404 Pagina non trovata</h1>
-      <Button onClick={() => navigate("/")}>HOME</Button>
+      <Button onClick={() => navigate("/")}>Torna al Login</Button>
     </Container>
   );
 }

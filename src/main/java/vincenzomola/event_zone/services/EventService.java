@@ -18,6 +18,7 @@ import vincenzomola.event_zone.payloads.EventListDTO;
 import vincenzomola.event_zone.repositories.EventRepository;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -114,7 +115,7 @@ public class EventService {
 
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
 
-        Page<Event> eventPage = eventRepository.findAll(pageable);
+        Page<Event> eventPage = eventRepository.findByEventDateGreaterThanEqual(LocalDateTime.now(), pageable);
 
         // Stessa soluzione di usare una lambda eventPage.map(event -> convertToDTO(event));
         return eventPage.map(this::convertToDTO);

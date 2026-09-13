@@ -72,7 +72,7 @@ public class PasswordResetTokenService {
         user.setPassword(this.bcrypt.encode(newPassword));
         userRepository.save(user);
 
-        passwordResetTokenRepository.deleteByUser(user);
+        passwordResetTokenRepository.delete(resetToken);
     }
 
 }

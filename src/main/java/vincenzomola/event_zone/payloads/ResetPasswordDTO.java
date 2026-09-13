@@ -19,6 +19,6 @@ public record ResetPasswordDTO(
                 message = "La password deve contenere almeno una lettera, un numero e un carattere speciale " +
                         "(@$!%*?&_-#)"
         )
-        String password
+        String newPass
 ) {
 }

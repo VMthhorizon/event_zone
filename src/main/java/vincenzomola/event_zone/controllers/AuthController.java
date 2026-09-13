@@ -63,7 +63,7 @@ public class AuthController {
     @PostMapping("/reset-password")
     @ResponseStatus(HttpStatus.OK)
     public ResponseMessageDTO resetPassword(@RequestBody @Valid ResetPasswordDTO body) {
-        passwordResetTokenService.resetPassword(body.email(), body.otp(), body.password());
+        passwordResetTokenService.resetPassword(body.email(), body.otp(), body.newPass());
         return new ResponseMessageDTO("Codice OTP corretto e password aggiornata");
     }
 }

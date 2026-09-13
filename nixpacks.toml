@@ -1,5 +1,0 @@
-[providers]
-providers = ['java']
-
-[phases.setup]
-nixPkgs = ['jdk21', 'maven']

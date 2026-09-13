@@ -323,7 +323,7 @@ function AuthForm({ authMode, setAuthMode }) {
             </AnimatePresence>
 
             <div className="d-flex align-items-center justify-content-between">
-              <Button type="submit" className="btn-gradient ">
+              <Button type="submit" className="btn-gradient w-50">
                 <h6>
                   {authMode === "password" && resetStep === 1
                     ? "Ricevi OTP"

@@ -16,7 +16,7 @@ public class CorsConifg {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // Diciamo chi può chiamare il backend
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://event-zone-lyart.vercel.app"));
 
         // Diciamo quali metodi sono permessi
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));

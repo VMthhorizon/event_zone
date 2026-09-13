@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.entities.Wallet;
 import vincenzomola.event_zone.exceptions.ValidationException;
-import vincenzomola.event_zone.payloads.UserLoginRequestDTO;
-import vincenzomola.event_zone.payloads.UserLoginResponseDTO;
-import vincenzomola.event_zone.payloads.UserRegisterDTO;
-import vincenzomola.event_zone.payloads.UserRegisterResponseDTO;
+import vincenzomola.event_zone.payloads.*;
+import vincenzomola.event_zone.services.PasswordResetTokenService;
 import vincenzomola.event_zone.services.UserService;
 import vincenzomola.event_zone.services.WalletService;
 
@@ -24,9 +22,11 @@ import java.util.List;
 public class AuthController {
 
     private final UserService userService;
+    private final PasswordResetTokenService passwordResetTokenService;
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, PasswordResetTokenService passwordResetTokenService) {
         this.userService = userService;
+        this.passwordResetTokenService = passwordResetTokenService;
     }
 
     // Endpoint per la registrazione degli user. Ogni user creato sarà di default un
@@ -49,5 +49,21 @@ public class AuthController {
                                           @AuthenticationPrincipal User currentUser) {
 
         return new UserLoginResponseDTO(this.userService.checkEmailPassUser(body), LocalDateTime.now());
+    }
+
+    // Endpoint per richiedere l'OTP per resettare la password
+    @PostMapping("/forgot-password")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseMessageDTO forgotPassword(@RequestBody @Valid ForgotPasswordDTO body) {
+        passwordResetTokenService.createAndSendOtp(body.email());
+        return new ResponseMessageDTO("Utente trovato e codice OTP inviato con successo");
+    }
+
+    // Enpdoint per controllo OTP e creare una nuova password
+    @PostMapping("/reset-password")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseMessageDTO resetPassword(@RequestBody @Valid ResetPasswordDTO body) {
+        passwordResetTokenService.resetPassword(body.email(), body.otp(), body.password());
+        return new ResponseMessageDTO("Codice OTP corretto e password aggiornata");
     }
 }

@@ -4,6 +4,39 @@ Una piattaforma moderna e intuitiva per la gestione, creazione e prenotazione di
 
 ---
 
+## 📸 Preview dell'Applicazione (Web & Mobile)
+
+| Versione Web | Versione Mobile |
+| :---: | :---: |
+| **Login / Registrazione**<br>![Login Web](./src/assets/screenshots/5.png) | **Login / Registrazione**<br>![Login Mobile](./src/assets/screenshots/11.jpeg) 
+
+| **Homepage -> Mappa Interattiva**<br>![Mappa Web](./src/assets/screenshots/6.png) | **Homepage -> Mappa Interattiva**<br>![Mappa Mobile](./src/assets/screenshots/10.jpeg) 
+
+| **Homepage -> Lista Eventi**<br>![Lista Web](./src/assets/screenshots/7.png) | **Homepage -> Lista Eventi**<br>![Lista Mobile](./src/assets/screenshots/8.jpeg) 
+
+| **Homepage -> Filtri**<br>![Filtri Web](./src/assets/screenshots/8.png) | **Homepage -> Filtri**<br>![Filtri Mobile](./src/assets/screenshots/9.jpeg) 
+
+| **Dettagli Evento**<br>![Dettagli Web](./src/assets/screenshots/1.png) | **Dettagli Evento**<br>![Dettagli Mobile](./src/assets/screenshots/6.jpeg) 
+
+| **Checkout**<br>![Checkout Web](./src/assets/screenshots/2.png) | **Checkout**<br>![Checkout Mobile](./src/assets/screenshots/7.jpeg) 
+
+| **Profilo**<br>![Profilo Web](./src/assets/screenshots/3.png) | **Profilo**<br>![Profilo Mobile](./src/assets/screenshots/13.jpeg) 
+
+---
+
+## 🌐 Live Demo & Deployment
+
+L'applicazione è interamente deployata in cloud ed è accessibile online:
+
+**Frontend:** Hosted su **Vercel** ➔ [https://event-zone-lyart.vercel.app]
+**Backend:** Hosted su **Railway** ➔ [eventzone-production-4331.up.railway.app]
+**Database:** **PostgreSQL** gestito tramite Supabase
+
+### ⚙️ Configurazione Infrastructure & Note Tecniche:
+**CORS & Security:** Configurazione Spring Security estesa per supportare richieste cross-origin sicure con `multipart/form-data` per l'upload media.
+
+---
+
 ## 🚀 Caratteristiche Principali
 
 - 🔍 **Ricerca e Filtraggio in Tempo Reale:** 

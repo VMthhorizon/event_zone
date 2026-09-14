@@ -10,16 +10,28 @@ Una piattaforma moderna e intuitiva per la gestione, creazione e prenotazione di
 | :---: | :---: |
 | **Login / Registrazione**<br>![Login Web](./Frontend/src/assets/screenshots/5.png) | **Login / Registrazione**<br>![Login Mobile](./Frontend/src/assets/screenshots/11.jpeg) 
 
+| Versione Web | Versione Mobile |
+| :---: | :---: |
 | **Homepage -> Mappa Interattiva**<br>![Mappa Web](./Frontend/src/assets/screenshots/6.png) | **Homepage -> Mappa Interattiva**<br>![Mappa Mobile](./Frontend/src/assets/screenshots/10.jpeg) 
 
+| Versione Web | Versione Mobile |
+| :---: | :---: |
 | **Homepage -> Lista Eventi**<br>![Lista Web](./Frontend/src/assets/screenshots/7.png) | **Homepage -> Lista Eventi**<br>![Lista Mobile](./Frontend/src/assets/screenshots/8.jpeg) 
 
+| Versione Web | Versione Mobile |
+| :---: | :---: |
 | **Homepage -> Filtri**<br>![Filtri Web](./Frontend/src/assets/screenshots/8.png) | **Homepage -> Filtri**<br>![Filtri Mobile](./Frontend/src/assets/screenshots/9.jpeg) 
 
+| Versione Web | Versione Mobile |
+| :---: | :---: |
 | **Dettagli Evento**<br>![Dettagli Web](./Frontend/src/assets/screenshots/1.png) | **Dettagli Evento**<br>![Dettagli Mobile](./Frontend/src/assets/screenshots/6.jpeg) 
 
+| Versione Web | Versione Mobile |
+| :---: | :---: |
 | **Checkout**<br>![Checkout Web](./Frontend/src/assets/screenshots/2.png) | **Checkout**<br>![Checkout Mobile](./Frontend/src/assets/screenshots/7.jpeg) 
 
+| Versione Web | Versione Mobile |
+| :---: | :---: |
 | **Profilo**<br>![Profilo Web](./Frontend/src/assets/screenshots/3.png) | **Profilo**<br>![Profilo Mobile](./Frontend/src/assets/screenshots/13.jpeg) 
 
 ---

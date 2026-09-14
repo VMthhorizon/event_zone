@@ -1,6 +1,6 @@
 import "./OrdersList.css";
 import { useEffect } from "react";
-import { Table, Spinner, Alert, Badge, Card } from "react-bootstrap";
+import { Table, Spinner, Alert, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyOrders } from "../Redux/Slices/orderSlice";
 
@@ -47,7 +47,6 @@ function OrdersList() {
                 <th className="text-secondary">ID Ordine</th>
                 <th className="text-secondary">Data</th>
                 <th className="text-secondary">Totale</th>
-                <th className="text-secondary">Stato</th>
               </tr>
             </thead>
             <tbody>
@@ -59,17 +58,6 @@ function OrdersList() {
                   </td>
                   <td className="fw-semibold text-white">
                     €{order?.totalPrice}
-                  </td>
-                  <td>
-                    <Badge
-                      bg={
-                        order?.orderState === "COMPLETED"
-                          ? "success"
-                          : "secondary"
-                      }
-                    >
-                      {order?.status}
-                    </Badge>
                   </td>
                 </tr>
               ))}

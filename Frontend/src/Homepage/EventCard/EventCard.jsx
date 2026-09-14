@@ -206,9 +206,10 @@ function EventCard() {
                 </Card>
               ) : (
                 <Card
-                  onClick={() =>
-                    navigate(`/eventDetails/${singleEvent.eventId}`)
-                  }
+                  onClick={() => {
+                    (navigate(`/eventDetails/${singleEvent.eventId}`),
+                      window.scrollTo({ top: 0, behavior: "instant" }));
+                  }}
                   className="event-card"
                 >
                   <Card.Img

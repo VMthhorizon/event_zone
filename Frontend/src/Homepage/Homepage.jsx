@@ -1,27 +1,45 @@
 import EventCard from "./EventCard/EventCard";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Offcanvas, Row } from "react-bootstrap";
 import NavbarFilter from "./NavbarFilter/NavbarFilter";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { fetchAllEvents } from "../Redux/Slices/eventSlice";
+import "./Homepage.css";
+
 import "./NavbarFilter/NavbarFilter.css";
 import EventMap from "./EventMap/EventMap";
+import { useState } from "react";
+import { IoFilterSharp } from "react-icons/io5";
 
 function Homepage() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllEvents());
-  }, [dispatch]);
+  const [show, setShow] = useState(false);
 
   return (
     <div className="d-flex flex-column h-100">
-      <Container fluid>
-        <Row>
-          <Col className="px-0 navbar-filter" xs={4} md={3}>
+      <Container>
+        <Offcanvas show={show} onHide={() => setShow(false)}>
+          <Offcanvas.Header
+            closeButton
+            className="bg-primary bg-gradient px-2 py-2"
+          >
+            <Offcanvas.Title>
+              <h3 className="d-flex align-items-center gap-2 text-secondary">
+                FILTRI <IoFilterSharp />
+              </h3>
+              <h6 className="text-white-50">
+                Gestisci i filtri per la tua ricerca
+              </h6>
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body closeButton className="bg-dark p-0">
             <NavbarFilter />
-          </Col>
-          <Col xs={8} md={9}>
+          </Offcanvas.Body>
+        </Offcanvas>
+
+        <Row>
+          <Col xs={12}>
+            <Button onClick={() => setShow(true)} className="btn-gradient mt-3">
+              <h5 className="btn-headers">
+                Filtri di Ricerca <IoFilterSharp />
+              </h5>
+            </Button>
             <EventMap />
             <EventCard />
           </Col>

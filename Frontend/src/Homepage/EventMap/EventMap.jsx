@@ -87,7 +87,7 @@ function EventMap() {
   }
 
   return (
-    <Container className="my-4">
+    <Container className="my-3 px-0">
       <h3 className="mb-3">
         Eventi vicini a te (nel raggio di {RADIUS_KM} km)
       </h3>

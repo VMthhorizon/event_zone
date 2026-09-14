@@ -110,7 +110,7 @@ function NavbarHome() {
                     <div className="position-relative w-100 d-flex align-items-center">
                       <Form.Control
                         type="text"
-                        placeholder="Cerca artisti, eventi, luoghi..."
+                        placeholder="Cerca..."
                         aria-label="Search"
                         value={searchTerm || ""}
                         onChange={handleSearchChange}

@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { GrMoney } from "react-icons/gr";
 import { MdDateRange } from "react-icons/md";
 import { TbFilters } from "react-icons/tb";
-import { IoFilterSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setMaxPrice,
@@ -43,19 +42,13 @@ function NavbarFilter() {
   };
 
   return (
-    <Navbar className="navbar-filter align-items-start min-vh-100 vh-100">
+    <Navbar className="navbar-filter align-items-start">
       <Container fluid>
-        <Form className="w-100 flex-column d-flex gap-4" onSubmit={handleApply}>
-          <div className="text-start w-100 mb-4">
-            <h3 className="d-flex align-items-center gap-2 text-secondary">
-              FILTRI <IoFilterSharp />
-            </h3>
-            <h6 className="text-white-50">
-              Gestisci i filtri per la tua ricerca
-            </h6>
-          </div>
-
-          <div className="w-100 flex-column d-flex gap-2">
+        <Form
+          className="w-100 flex-column d-flex gap-4 px-2"
+          onSubmit={handleApply}
+        >
+          <div className="mt-2 w-100 flex-column d-flex gap-2">
             <h6 className="text-white d-flex align-items-center gap-2">
               Budget Massimo <GrMoney />
             </h6>

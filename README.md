@@ -8,19 +8,19 @@ Una piattaforma moderna e intuitiva per la gestione, creazione e prenotazione di
 
 | Versione Web | Versione Mobile |
 | :---: | :---: |
-| **Login / Registrazione**<br>![Login Web](./src/assets/screenshots/5.png) | **Login / Registrazione**<br>![Login Mobile](./src/assets/screenshots/11.jpeg) 
+| **Login / Registrazione**<br>![Login Web](.Frontend/src/assets/screenshots/5.png) | **Login / Registrazione**<br>![Login Mobile](./src/assets/screenshots/11.jpeg) 
 
-| **Homepage -> Mappa Interattiva**<br>![Mappa Web](./src/assets/screenshots/6.png) | **Homepage -> Mappa Interattiva**<br>![Mappa Mobile](./src/assets/screenshots/10.jpeg) 
+| **Homepage -> Mappa Interattiva**<br>![Mappa Web](.Frontend/src/assets/screenshots/6.png) | **Homepage -> Mappa Interattiva**<br>![Mappa Mobile](./src/assets/screenshots/10.jpeg) 
 
-| **Homepage -> Lista Eventi**<br>![Lista Web](./src/assets/screenshots/7.png) | **Homepage -> Lista Eventi**<br>![Lista Mobile](./src/assets/screenshots/8.jpeg) 
+| **Homepage -> Lista Eventi**<br>![Lista Web](.Frontend/src/assets/screenshots/7.png) | **Homepage -> Lista Eventi**<br>![Lista Mobile](./src/assets/screenshots/8.jpeg) 
 
-| **Homepage -> Filtri**<br>![Filtri Web](./src/assets/screenshots/8.png) | **Homepage -> Filtri**<br>![Filtri Mobile](./src/assets/screenshots/9.jpeg) 
+| **Homepage -> Filtri**<br>![Filtri Web](.Frontend/src/assets/screenshots/8.png) | **Homepage -> Filtri**<br>![Filtri Mobile](./src/assets/screenshots/9.jpeg) 
 
-| **Dettagli Evento**<br>![Dettagli Web](./src/assets/screenshots/1.png) | **Dettagli Evento**<br>![Dettagli Mobile](./src/assets/screenshots/6.jpeg) 
+| **Dettagli Evento**<br>![Dettagli Web](.Frontend/src/assets/screenshots/1.png) | **Dettagli Evento**<br>![Dettagli Mobile](./src/assets/screenshots/6.jpeg) 
 
-| **Checkout**<br>![Checkout Web](./src/assets/screenshots/2.png) | **Checkout**<br>![Checkout Mobile](./src/assets/screenshots/7.jpeg) 
+| **Checkout**<br>![Checkout Web](.Frontend/src/assets/screenshots/2.png) | **Checkout**<br>![Checkout Mobile](./src/assets/screenshots/7.jpeg) 
 
-| **Profilo**<br>![Profilo Web](./src/assets/screenshots/3.png) | **Profilo**<br>![Profilo Mobile](./src/assets/screenshots/13.jpeg) 
+| **Profilo**<br>![Profilo Web](.Frontend/src/assets/screenshots/3.png) | **Profilo**<br>![Profilo Mobile](./src/assets/screenshots/13.jpeg) 
 
 ---
 

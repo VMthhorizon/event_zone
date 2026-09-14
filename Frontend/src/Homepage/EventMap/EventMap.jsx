@@ -22,7 +22,7 @@ function EventMap() {
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const RADIUS_KM = 10;
+  const RADIUS_KM = 50;
 
   useEffect(() => {
     if (!navigator.geolocation) {

@@ -1,6 +1,6 @@
 # 🎫 EventZone 
 
-Una piattaforma moderna e intuitiva per la gestione, creazione e prenotazione di biglietti per vari tipi di eventi (concerti, festival, spettacoli teatrali, cinema). Il progetto offre un'esperienza utente fluida grazie al filtraggio dinamico lato client e a una gestione dello stato centralizzata.
+Una piattaforma moderna e intuitiva per la gestione, creazione e prenotazione di biglietti per vari tipi di eventi (concerti, festival, spettacoli teatrali, cinema). Il progetto offre un'esperienza utente fluida grazie al filtraggio dinamico bilanciato tra lato client e serve, e ad una gestione dello stato centralizzata.
 
 ---
 

@@ -64,7 +64,7 @@ public class EventService {
 
     // Upload img pic per l'Event
     public String uploadEventImage(MultipartFile file) {
-        if (file.getSize() >= 10485760) throw new BadRequestException("L'immagine non può superare i 10MB");
+        if (file.getSize() >= 1048576) throw new BadRequestException("L'immagine non può superare 1MB");
         if (!(Objects.equals(file.getContentType(), "image/jpeg") || Objects.equals(file.getContentType(),
                 "image/gif") || Objects.equals(file.getContentType(), "image/png") || Objects.equals(
                 file.getContentType(), "image/webp")))

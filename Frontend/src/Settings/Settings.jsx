@@ -61,24 +61,24 @@ function Settings() {
         <Row className="justify-content-center mx-0">
           <Col xs={12} md={9} lg={7}>
             <div className="table-div">
-              <div className="table-col-div">
+              <div className="table-col-div px-0">
                 <span>NOME</span>
                 <h4 className="mb-0">{profile?.name}</h4>
               </div>
-              <div className="table-col-div">
+              <div className="table-col-div px-0">
                 <span>COGNOME</span>
                 <h4 className="mb-0">{profile?.surname}</h4>
               </div>
-              <div className="table-col-div">
+              <div className="table-col-div px-0">
                 <span>EMAIL</span>
-                <h4 className="mb-0">{profile?.email}</h4>
+                <h4 className="mb-0 text-wrap text-break">{profile?.email}</h4>
               </div>
-              <div className="table-col-div">
+              <div className="table-col-div px-0">
                 <span>RUOLO</span>
                 <h4 className="mb-0">{profile?.role}</h4>
               </div>
               <div className="d-flex justify-content-between align-items-center">
-                <div className="d-flex flex-column p-3">
+                <div className="d-flex flex-column px-0">
                   <span>PASSWORD</span>
                   <h4 className="mb-0">********</h4>
                 </div>

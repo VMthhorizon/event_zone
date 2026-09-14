@@ -44,9 +44,9 @@ function DashboardAdmin() {
   }, []);
 
   return (
-    <Container fluid>
+    <Container className="px-0">
       <Row>
-        <h3 className="my-2 text-center text-secondary">LISTA UTENTI</h3>
+        <h3 className="mt-3 text-center text-secondary">LISTA UTENTI</h3>
         {loading ? (
           <div className="text-center text-white my-4">
             <Spinner animation="border" size="sm" /> Caricamento utenti...
@@ -61,8 +61,7 @@ function DashboardAdmin() {
           >
             <thead>
               <tr className="text-center">
-                <th>NOME</th>
-                <th>COGNOME</th>
+                <th>USERNAME</th>
                 <th className="d-none d-md-table-cell">EMAIL</th>
                 <th>RUOLO ATTUALE</th>
                 <th>CAMBIA RUOLO</th>
@@ -71,8 +70,7 @@ function DashboardAdmin() {
             <tbody>
               {listUsers?.map((singleUser) => (
                 <tr key={singleUser.id} className="text-start">
-                  <td>{singleUser.nome || singleUser.name}</td>
-                  <td>{singleUser.cognome || singleUser.surname}</td>
+                  <td>{singleUser.username}</td>
 
                   <td className="d-none d-md-table-cell">{singleUser.email}</td>
 

@@ -61,7 +61,7 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
       show={show}
       onHide={handleClose}
       centered
-      contentClassName="card-auth card-form"
+      contentClassName="card-auth"
     >
       <Modal.Header closeButton className="border-0 pb-0">
         <Modal.Title className="w-100 text-center fw-bold fs-4">
@@ -69,7 +69,7 @@ function ChangePasswordModal({ show, onHide, onChangePassword }) {
         </Modal.Title>
       </Modal.Header>
 
-      <Modal.Body className="px-4 py-3">
+      <Modal.Body className="px-3 py-3">
         {error && (
           <Alert variant="danger" className="py-2 text-center small">
             {error}

@@ -210,13 +210,26 @@ function NavbarHome() {
             </AnimatePresence>
           </div>
 
-          <Nav>
+          <Nav className="d-flex align-items-center justify-content-between">
+            <NavDropdown
+              align="end"
+              title={<CgProfile className="fs-2" />}
+              id="profile-dropdown"
+            >
+              <NavDropdown.Item onClick={() => navigate("/profilo")}>
+                Profilo Personale
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate("/settings")}>
+                Privacy
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={handleLogout}>Esci</NavDropdown.Item>
+            </NavDropdown>
             <NavDropdown
               align="end"
               id="cart-dropdown"
               title={
                 <div className="position-relative d-inline-block px-1">
-                  <ImCart className="fs-4" />
+                  <ImCart className="fs-3" />
                   {totalItemsCount > 0 && (
                     <Badge
                       bg="danger"
@@ -270,7 +283,7 @@ function NavbarHome() {
                           className="text-muted"
                           style={{ fontSize: "0.80rem" }}
                         >
-                          {quantity}x €{event.price}
+                          {quantity} €{event.price}
                         </div>
                       </div>
 
@@ -301,20 +314,6 @@ function NavbarHome() {
                   </Button>
                 </div>
               )}
-            </NavDropdown>
-
-            <NavDropdown
-              align="end"
-              title={<CgProfile className="fs-4" />}
-              id="profile-dropdown"
-            >
-              <NavDropdown.Item onClick={() => navigate("/profilo")}>
-                Profilo Personale
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => navigate("/settings")}>
-                Privacy
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={handleLogout}>Esci</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </div>

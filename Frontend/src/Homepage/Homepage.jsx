@@ -28,8 +28,8 @@ function Homepage() {
               </h6>
             </Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body closeButton className="bg-dark p-0">
-            <NavbarFilter />
+          <Offcanvas.Body className="p-0">
+            <NavbarFilter showNav={setShow} />
           </Offcanvas.Body>
         </Offcanvas>
 

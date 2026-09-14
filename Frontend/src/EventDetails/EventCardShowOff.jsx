@@ -23,8 +23,8 @@ function EventCardShowOff(props) {
         className="rounded-4 event-card-showoff-img"
         alt={props.foundEvent.title}
       />
-      <Card.ImgOverlay className="flex-column d-sm-flex justify-content-between p-3 ">
-        <div className="d-flex flex-column">
+      <Card.ImgOverlay className="d-flex flex-column justify-content-between p-3 h-100">
+        <div className="d-flex flex-column ">
           <h2 className="card-headers"> {props.foundEvent.title}</h2>
           <h4 className="card-place"> {props.foundEvent.place}</h4>
         </div>

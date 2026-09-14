@@ -14,7 +14,7 @@ import {
 } from "../../Redux/Slices/eventSlice";
 import { BiReset } from "react-icons/bi";
 
-function NavbarFilter() {
+function NavbarFilter({ showNav }) {
   const dispatch = useDispatch();
   const { maxPrice, selectedDate } = useSelector((state) => state.events);
 
@@ -95,6 +95,7 @@ function NavbarFilter() {
           <Button
             type="submit"
             className="btn-gradient align-items-center d-flex gap-1"
+            onClick={() => showNav(false)}
           >
             <h5 className="btn-headers fs-6">Attiva</h5>
             <TbFilters />

@@ -2,7 +2,7 @@
   /* Effetto traslucido  */
   background: rgba(45, 62, 90, 0.8) !important;
 
-  /* Sfocatura vetro (Glassmorphism) */
+  /* Sfocatura vetro */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 

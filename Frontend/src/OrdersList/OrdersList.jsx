@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Table, Spinner, Alert, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyOrders } from "../Redux/Slices/orderSlice";
+import { fetchTickets } from "../services/ticketService";
 
 function OrdersList() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function OrdersList() {
             <tbody>
               {ordersList.map((order) => (
                 <tr key={order?.id}>
+                  {console.log(fetchTickets(order?.id))}
                   <td className="fw-bold text-white">#{order?.id}</td>
                   <td className="fw-bold text-white">
                     {formatDate(order?.creationDate)}

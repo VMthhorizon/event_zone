@@ -13,6 +13,7 @@ import vincenzomola.event_zone.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OrderService {
@@ -86,7 +87,10 @@ public class OrderService {
             // Genera i singoli biglietti
             for (int i = 0; i < quantity; i++) {
                 Ticket ticket = new Ticket(event.getPrice(), event, savedOrder);
-                ticketRepository.save(ticket);
+                Ticket savedTicket = ticketRepository.save(ticket);
+
+                savedOrder.getTickets()
+                        .add(savedTicket);
             }
         }
 
@@ -95,5 +99,9 @@ public class OrderService {
 
     public List<Order> getMyOrders(User user) {
         return orderRepository.findByUserIdOrderByCreationDateDesc(user.getId());
+    }
+
+    public List<Ticket> getTicketsByOrderId(UUID orderId) {
+        return ticketRepository.findByOrderId(orderId);
     }
 }

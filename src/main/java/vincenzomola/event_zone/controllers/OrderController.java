@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import vincenzomola.event_zone.entities.Order;
+import vincenzomola.event_zone.entities.Ticket;
 import vincenzomola.event_zone.entities.User;
 import vincenzomola.event_zone.payloads.OrderDTO;
 import vincenzomola.event_zone.services.OrderService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/order")
@@ -35,5 +37,12 @@ public class OrderController {
     public List<Order> getMyOrders(@AuthenticationPrincipal User user) {
         return orderService.getMyOrders(user);
     }
+
+    @GetMapping("/{orderId}/tickets")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Ticket> getTicketByOrderId(@PathVariable UUID orderId) {
+        return orderService.getTicketsByOrderId(orderId);
+    }
+
 
 }

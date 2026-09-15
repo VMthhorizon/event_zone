@@ -25,7 +25,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @com.fasterxml.jackson.annotation.JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
 
     protected Order() {

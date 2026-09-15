@@ -1,5 +1,6 @@
 package vincenzomola.event_zone.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class Ticket {
     private Event event;
     @ManyToOne
     @JoinColumn(name = "id_order")
+    @JsonBackReference
     private Order order;
 
     protected Ticket() {
@@ -27,6 +29,22 @@ public class Ticket {
         this.eventPrice = eventPrice;
         this.event = event;
         this.order = order;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public double getEventPrice() {
+        return eventPrice;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     @Override

@@ -12,6 +12,10 @@ import java.util.UUID;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, UUID> {
-    @Query("SELECT o FROM Order o WHERE o.user.id = :userId ORDER BY o.creationDate DESC")
+    @Query("SELECT DISTINCT o FROM Order o " +
+            "LEFT JOIN FETCH o.tickets t " +
+            "LEFT JOIN FETCH t.event " +
+            "WHERE o.user.id = :userId " +
+            "ORDER BY o.creationDate DESC")
     List<Order> findByUserIdOrderByCreationDateDesc(@Param("userId") UUID userId);
 }

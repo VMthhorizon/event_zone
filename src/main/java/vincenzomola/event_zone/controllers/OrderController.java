@@ -40,8 +40,8 @@ public class OrderController {
 
     @GetMapping("/{orderId}/tickets")
     @ResponseStatus(HttpStatus.OK)
-    public List<Ticket> getTicketByOrderId(@PathVariable UUID orderId) {
-        return orderService.getTicketsByOrderId(orderId);
+    public List<Ticket> getTicketByOrderId(@PathVariable UUID orderId, @AuthenticationPrincipal User user) {
+        return orderService.getTicketsByOrderId(orderId, user);
     }
 
 

@@ -2,7 +2,7 @@ import api from "./axiosConfig";
 
 export const fetchTickets = async (orderId) => {
   try {
-    const response = await api.get(`/${orderId}/tickets`);
+    const response = await api.get(`order/${orderId}/tickets`);
 
     return response.data;
   } catch (error) {

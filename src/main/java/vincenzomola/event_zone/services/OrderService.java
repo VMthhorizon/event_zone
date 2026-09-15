@@ -6,6 +6,7 @@ import vincenzomola.event_zone.entities.*;
 import vincenzomola.event_zone.enums.OrderState;
 import vincenzomola.event_zone.exceptions.BadRequestException;
 import vincenzomola.event_zone.exceptions.NotFoundException;
+import vincenzomola.event_zone.exceptions.UnauthorizedException;
 import vincenzomola.event_zone.payloads.EventTicketDTO;
 import vincenzomola.event_zone.payloads.OrderDTO;
 import vincenzomola.event_zone.payloads.TicketRequestDTO;
@@ -101,7 +102,16 @@ public class OrderService {
         return orderRepository.findByUserIdOrderByCreationDateDesc(user.getId());
     }
 
-    public List<Ticket> getTicketsByOrderId(UUID orderId) {
+    public List<Ticket> getTicketsByOrderId(UUID orderId, User user) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("Ordine non trovato con ID: " + orderId));
+
+        if (!order.getUser()
+                .getId()
+                .equals(user.getId())) {
+            throw new UnauthorizedException("Non sei autorizzato a visualizzare i biglietti di questo ordine.");
+        }
         return ticketRepository.findByOrderId(orderId);
     }
 }
